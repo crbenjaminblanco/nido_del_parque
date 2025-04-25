@@ -1,0 +1,12 @@
+image: node:18
+
+pages:
+  script:
+    - npm install
+    - npm run build
+    - mv dist public  # GitLab Pages espera la carpeta "public"
+  artifacts:
+    paths:
+      - public
+  only:
+    - main  # o la rama donde trabajes, puede ser "master"
