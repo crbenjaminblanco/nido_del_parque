@@ -1,12 +1,15 @@
-image: node:18
-
-pages:
+pages: # the job must be named pages
+  image: node:latest
+  stage: deploy
   script:
-    - npm install
+    - npm ci
     - npm run build
-    - mv dist public  # GitLab Pages espera la carpeta "public"
+    - mv public public-vue # GitLab Pages hooks on the public folder
+    - mv dist public # rename the dist folder (result of npm run build)
+    # optionally, you can activate gzip support with the following line:
+    - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
   artifacts:
     paths:
-      - public
+      - public # artifact path must be /public for GitLab Pages to pick it up
   only:
-    - main  # o la rama donde trabajes, puede ser "master"
+    - master
