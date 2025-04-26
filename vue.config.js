@@ -8,5 +8,6 @@ module.exports = defineConfig({
             args[0].title = "Nido del parque";
             return args;
         })
-  }
+  },
+  publicPath: '/Test/'
 })
