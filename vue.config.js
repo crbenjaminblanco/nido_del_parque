@@ -9,6 +9,6 @@ module.exports = defineConfig({
             return args;
         })
   },
-  publicPath: '/',
+  publicPath: '/nido_del_parque/',
   outputDir: 'docs'
 })

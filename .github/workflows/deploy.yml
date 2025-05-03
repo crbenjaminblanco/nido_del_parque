@@ -28,4 +28,6 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: docs # The folder the action should deploy. 
+          folder: docs
+          clean: true
+          single-commit: true 
