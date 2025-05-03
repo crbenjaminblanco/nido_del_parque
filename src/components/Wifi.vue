@@ -50,12 +50,7 @@ export default {
   },
   computed: {
     wifiPassword() {
-      // First try to get password from URL query parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const urlPassword = urlParams.get('wifipassword');
-      
-      // If not in URL, use environment variable
-      return urlPassword || process.env.VUE_APP_WIFI_PASSWORD || 'xxxxxx';
+      return process.env.VUE_APP_WIFI_PASSWORD || 'xxxxxx';
     }
   },
   methods: {

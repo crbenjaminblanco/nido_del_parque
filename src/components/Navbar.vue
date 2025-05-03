@@ -5,7 +5,7 @@
       <a 
         class="navbar-brand"
         :class="brandClasses"
-        :href="getWifiPassword() ? `${languagePrefix}/home?wifipassword=${getWifiPassword()}` : `${languagePrefix}/home`"
+        :href="`${languagePrefix}/home`"
       >
         <img
           src="@/assets/logo.png"
@@ -174,7 +174,6 @@ export default {
     changeLanguage(lang) {
       // Store current path parts
       const currentPath = window.location.pathname
-      const currentSearch = window.location.search
       
       // Update locale
       this.$i18n.locale = lang
@@ -193,7 +192,7 @@ export default {
       const pathWithoutLang = currentPath.replace(/^\/(es|en)/, '')
       
       // Construct new URL with new language prefix
-      const newUrl = `/${lang}${pathWithoutLang}${currentSearch}`
+      const newUrl = `/${lang}${pathWithoutLang}`
       window.history.pushState({}, '', newUrl)
 
       // Close the burger menu if it's open
@@ -238,16 +237,9 @@ export default {
       }
     },
 
-    getWifiPassword() {
-      const urlParams = new URLSearchParams(window.location.search)
-      return urlParams.get('wifipassword')
-    },
-
     updateUrlWithSection(newPath) {
-      const wifiPassword = this.getWifiPassword()
       const pathWithLang = `${this.languagePrefix}${newPath}`
-      const newUrl = wifiPassword ? `${pathWithLang}?wifipassword=${wifiPassword}` : pathWithLang
-      window.history.pushState({}, '', newUrl)
+      window.history.pushState({}, '', pathWithLang)
     },
 
     handleScroll() {
@@ -284,10 +276,7 @@ export default {
       
       // Check if it's the home link
       if (href === '/') {
-        const wifiPassword = this.getWifiPassword()
-        const langPrefix = this.languagePrefix
-        const homeUrl = wifiPassword ? `${langPrefix}/home?wifipassword=${wifiPassword}` : `${langPrefix}/home`
-        window.location.href = homeUrl
+        window.location.href = `${this.languagePrefix}/home`
         return
       }
 
