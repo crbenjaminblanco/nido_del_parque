@@ -169,6 +169,7 @@ export default {
   methods: {
     changeLanguage(lang) {
       this.$i18n.locale = lang
+
       // Update navigation items text after language change
       this.navigationItems = this.navigationItems.map(item => ({
         ...item,
@@ -178,7 +179,14 @@ export default {
               item.href === '#recommendations' ? 'navbar.recommendations' :
               'navbar.contact')
       }))
+
+      // Close the burger menu if it's open
+      if (this.collapse && this.isExpanded) {
+        this.collapse.hide()
+        this.isExpanded = false
+      }
     },
+
 
     handleScroll() {
       this.scrolled = window.scrollY > 50
