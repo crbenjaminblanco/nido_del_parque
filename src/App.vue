@@ -1,12 +1,16 @@
 <template>
 <div id="app">
     <navbar />
-    <hero-section/>
-    <photo-gallery/>
-    <wifi-section/>
-    <recommendations-section/>
-    <social-section/>
-    <thank-you/>
+    <router-view v-slot="{ Component }">
+      <component :is="Component">
+        <hero-section/>
+        <photo-gallery/>
+        <wifi-section/>
+        <recommendations-section/>
+        <social-section/>
+        <thank-you/>
+      </component>
+    </router-view>
 </div>
 </template>
 
