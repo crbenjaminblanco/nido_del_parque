@@ -11,7 +11,7 @@
             <h2 class="text-center mb-4">{{ $t('wifi.title') }}</h2>
             
             <div class="credentials-container">
-              <div class="credential-item" @click="copyToClipboard('MyNetworkName')">
+              <div class="credential-item" @click="copyToClipboard('nidodelparque')">
                 <div class="credential-label">{{ $t('wifi.networkLabel') }}</div>
                 <div class="credential-value">
                   <span>nidodelparque</span>
@@ -19,10 +19,10 @@
                 </div>
               </div>
               
-              <div class="credential-item" @click="copyToClipboard('mysecurepassword123')">
+              <div class="credential-item" @click="copyToClipboard(wifiPassword)">
                 <div class="credential-label">{{ $t('wifi.passwordLabel') }}</div>
                 <div class="credential-value">
-                  <span>xxx</span>
+                  <span>{{ wifiPassword }}</span>
                   <i class="fas fa-copy copy-icon"></i>
                 </div>
               </div>
@@ -46,6 +46,13 @@ export default {
   data() {
     return {
       showToast: false
+    }
+  },
+  computed: {
+    wifiPassword() {
+      // Get password from URL query parameter 'wifipassword', or use default value 'xxxxxx'
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('wifipassword') || 'xxxxxx';
     }
   },
   methods: {

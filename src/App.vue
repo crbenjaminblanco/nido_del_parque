@@ -2,8 +2,8 @@
 <div id="app">
     <navbar />
     <hero-section/>
-    <wifi-section/>
     <photo-gallery/>
+    <wifi-section/>
     <recommendations-section/>
     <social-section/>
     <thank-you/>

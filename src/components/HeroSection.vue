@@ -2,7 +2,7 @@
   <section id="hero-section" class="hero-section">
     <div class="overlay"></div>
     
-    <!-- Contenido Principal Centrado -->
+    <!-- Main Content -->
     <div class="main-content">
       <div class="text-center text-white">
         <div class="hero-content">
@@ -16,7 +16,7 @@
       </div>
     </div>
     
-    <!-- Sección de Scroll -->
+    <!-- Scroll Section -->
     <div class="scroll-section">
       <scroll-indicator 
         :text="scrollText"
@@ -61,9 +61,7 @@ export default {
   },
 
   data() {
-    return {
-      // whatsappNumber: '+50684728292'
-    }
+    return {}
   },
 
   methods: {

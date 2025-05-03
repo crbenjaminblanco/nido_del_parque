@@ -5,7 +5,7 @@
       <a 
         class="navbar-brand"
         :class="brandClasses"
-        href="#"
+        :href="getWifiPassword() ? `${languagePrefix}/home?wifipassword=${getWifiPassword()}` : `${languagePrefix}/home`"
       >
         <img
           src="@/assets/logo.png"
@@ -120,7 +120,7 @@ export default {
       isExpanded: false,
       collapse: null,
       navigationItems: [
-        { text: this.$t('navbar.home'), href: '#hero-section', isActive: true },
+        { text: this.$t('navbar.home'), href: '/', isActive: true },
         { text: this.$t('navbar.gallery'), href: '#photo-gallery' },
         { text: this.$t('navbar.wifi'), href: '#wifi-section' },
         { text: this.$t('navbar.recommendations'), href: '#recommendations' },
@@ -163,22 +163,38 @@ export default {
         'icon-white-fade': !this.scrolled,
         'icon-dark': this.scrolled
       }
+    },
+
+    languagePrefix() {
+      return `/${this.currentLanguage}`
     }
   },
 
   methods: {
     changeLanguage(lang) {
+      // Store current path parts
+      const currentPath = window.location.pathname
+      const currentSearch = window.location.search
+      
+      // Update locale
       this.$i18n.locale = lang
-
-      // Update navigation items text after language change
+      
+      // Update navigation items text
       this.navigationItems = this.navigationItems.map(item => ({
         ...item,
-        text: this.$t(item.href === '#hero-section' ? 'navbar.home' :
+        text: this.$t(item.href === '/' ? 'navbar.home' :
               item.href === '#photo-gallery' ? 'navbar.gallery' :
               item.href === '#wifi-section' ? 'navbar.wifi' :
               item.href === '#recommendations' ? 'navbar.recommendations' :
               'navbar.contact')
       }))
+
+      // Get the path without language prefix
+      const pathWithoutLang = currentPath.replace(/^\/(es|en)/, '')
+      
+      // Construct new URL with new language prefix
+      const newUrl = `/${lang}${pathWithoutLang}${currentSearch}`
+      window.history.pushState({}, '', newUrl)
 
       // Close the burger menu if it's open
       if (this.collapse && this.isExpanded) {
@@ -187,6 +203,52 @@ export default {
       }
     },
 
+    scrollToSection(sectionId) {
+      const targetSection = document.querySelector(sectionId)
+      if (targetSection) {
+        targetSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    },
+
+    handleInitialRoute() {
+      const path = window.location.pathname
+      // Extract language from path if present
+      const matches = path.match(/^\/(es|en)(\/.*)$/)
+      if (matches) {
+        const [, lang, actualPath] = matches
+        // Set language if it differs from current
+        if (lang !== this.currentLanguage) {
+          this.$i18n.locale = lang
+        }
+        
+        const routeMap = {
+          '/wifi': '#wifi-section',
+          '/gallery': '#photo-gallery',
+          '/recommendations': '#recommendations',
+          '/contact': '#social-section'
+        }
+
+        const sectionId = routeMap[actualPath]
+        if (sectionId) {
+          setTimeout(() => this.scrollToSection(sectionId), 100)
+        }
+      }
+    },
+
+    getWifiPassword() {
+      const urlParams = new URLSearchParams(window.location.search)
+      return urlParams.get('wifipassword')
+    },
+
+    updateUrlWithSection(newPath) {
+      const wifiPassword = this.getWifiPassword()
+      const pathWithLang = `${this.languagePrefix}${newPath}`
+      const newUrl = wifiPassword ? `${pathWithLang}?wifipassword=${wifiPassword}` : pathWithLang
+      window.history.pushState({}, '', newUrl)
+    },
 
     handleScroll() {
       this.scrolled = window.scrollY > 50
@@ -219,14 +281,29 @@ export default {
     handleLinkClick(event) {
       event.preventDefault()
       const href = event.target.getAttribute('href')
-      const targetSection = document.querySelector(href)
       
-      if (targetSection) {
-        targetSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        })
+      // Check if it's the home link
+      if (href === '/') {
+        const wifiPassword = this.getWifiPassword()
+        const langPrefix = this.languagePrefix
+        const homeUrl = wifiPassword ? `${langPrefix}/home?wifipassword=${wifiPassword}` : `${langPrefix}/home`
+        window.location.href = homeUrl
+        return
       }
+
+      // Update URL based on section
+      const routeMap = {
+        '#wifi-section': '/wifi',
+        '#photo-gallery': '/gallery',
+        '#recommendations': '/recommendations',
+        '#social-section': '/contact'
+      }
+
+      if (routeMap[href]) {
+        this.updateUrlWithSection(routeMap[href])
+      }
+
+      this.scrollToSection(href)
 
       if (window.innerWidth <= 991 && this.collapse) {
         this.collapse.hide()
@@ -256,6 +333,7 @@ export default {
     document.querySelectorAll('.dropdown-toggle').forEach(dropdownToggle => {
       new Dropdown(dropdownToggle)
     })
+    this.handleInitialRoute()
   },
 
   beforeUnmount() {

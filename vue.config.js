@@ -9,5 +9,5 @@ module.exports = defineConfig({
             return args;
         })
   },
-  publicPath: '/Test/'
+  publicPath: '/'
 })

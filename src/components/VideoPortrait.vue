@@ -18,13 +18,14 @@ export default {
 </script>
 
 <style>
+/* Reset shadow variables for container */
 .container {
   --shadow-sm: none;
   --shadow-md: none;
   --shadow-lg: none;
 }
 
-/* Override Instagram's default styles */
+/* Remove default Instagram embed styling */
 :deep(.instagram-media),
 :deep(.instagram-media *) {
   border: none !important;
