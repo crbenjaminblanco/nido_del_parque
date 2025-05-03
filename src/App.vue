@@ -2,21 +2,33 @@
 <div id="app">
     <navbar />
     <hero-section/>
-    <wifi/>
+    <wifi-section/>
+    <photo-gallery/>
+    <recommendations-section/>
+    <social-section/>
+    <thank-you/>
 </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
 import HeroSection from './components/HeroSection.vue';
-import Wifi from './components/Wifi.vue';
+import WifiSection from './components/Wifi.vue';
+import PhotoGallery from './components/PhotoGallery.vue';
+import SocialSection from './components/SocialSection.vue';
+import RecommendationsSection from './components/RecommendationsSection.vue';
+import ThankYou from './components/ThankYou.vue';
 
 export default {
   name: 'App',
   components: {
     Navbar,
     HeroSection,
-    Wifi
+    WifiSection,
+    PhotoGallery,
+    RecommendationsSection,
+    SocialSection,
+    ThankYou
   }
 }
 </script>

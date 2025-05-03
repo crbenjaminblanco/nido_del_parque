@@ -1,94 +1,181 @@
 <template>
-    <div class="hero-section d-flex justify-content-center align-items-center">
-        <div class="text-center text-white content">
-            <div class="col col-md-6 mx-auto">
-                <img src="@/assets/wifi.png" alt="Wi-Fi Icon" class="mb-2 w-50 logo icon-white-fade ">
+  <section id="wifi-section" class="wifi-section py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="wifi-card">
+            <div class="wifi-icon mb-4">
+              <i class="fas fa-wifi"></i>
             </div>
-            <div class="wifi-info">
-                <p class="mt-4 mb-2 font-primary-color"><strong>Wi-Fi:</strong> MyNetworkName</p>
-                <p class="font-primary-color"><strong>Password:</strong> mysecurepassword123</p>
+            
+            <h2 class="text-center mb-4">{{ $t('wifi.title') }}</h2>
+            
+            <div class="credentials-container">
+              <div class="credential-item" @click="copyToClipboard('MyNetworkName')">
+                <div class="credential-label">{{ $t('wifi.networkLabel') }}</div>
+                <div class="credential-value">
+                  <span>nidodelparque</span>
+                  <i class="fas fa-copy copy-icon"></i>
+                </div>
+              </div>
+              
+              <div class="credential-item" @click="copyToClipboard('mysecurepassword123')">
+                <div class="credential-label">{{ $t('wifi.passwordLabel') }}</div>
+                <div class="credential-value">
+                  <span>nidocr97</span>
+                  <i class="fas fa-copy copy-icon"></i>
+                </div>
+              </div>
             </div>
+
+            <div class="toast-container">
+              <div class="toast" :class="{ 'show': showToast }">
+                {{ $t('wifi.copyMessage') }}
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    </template>
-    
-    <script>
-    export default {
-        name: 'wifi-section'
-    }
-    </script>
-    <style scoped>
-    .navbar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 10;
-    }
-    
-    .hero-section {
-      min-height: 33vh;
-      z-index: 1;
-      background: black;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-    
-    .content {
-      z-index: 2;
-    }
-    
-    .title{
-      font-size:  4rem
-    }
-    
-    
-    h1, p {
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    }
-    
-    .btn-whatsapp {
-      display: inline-block;
-      background-color: #64a19d;
-      padding: 1.25rem 2rem;
-      font-size: 80%;
-      text-decoration: none;
-      box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      letter-spacing: 0.15rem;
-      text-transform: uppercase;
-      opacity: 0.955;
-    }
-    
-    .font-secondary-color {
-      color: white;
-    }
-    
-    .btn-whatsapp:hover {
-      background-color: #64a19d;
-      transform: scale(1.05);
-    }
+  </section>
+</template>
 
+<script>
+export default {
+  name: 'WifiSection',
+  data() {
+    return {
+      showToast: false
+    }
+  },
+  methods: {
+    copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      });
+    }
+  }
+}
+</script>
 
-    .icon-white-fade {
-        filter: brightness(0) invert(1);
-        opacity: 0.95; 
-        transition: opacity 0.3s ease;
-        }
-        .icon-white-fade:hover {
-        opacity: 1;
-        }
-
-
-    .font-primary-color {
-        --bs-text-opacity: 1;
-        color: rgba(255, 255, 255, 0.90) !important;
-        }
-img ¨
-{
-background-image: url('@/assets/background.jpg'); 
+<style scoped>
+.wifi-section {
+  background-color: #f8f9fa;
+  min-height: 33vh;
 }
 
-    </style>
+.wifi-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.wifi-icon {
+  text-align: center;
+  font-size: 3rem;
+  color: #007bff;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.credentials-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.credential-item {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.credential-item:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.credential-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.credential-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #212529;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.copy-icon {
+  color: #6c757d;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.credential-item:hover .copy-icon {
+  opacity: 1;
+}
+
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.toast {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .wifi-card {
+    padding: 1.5rem;
+  }
+
+  .wifi-icon {
+    font-size: 2.5rem;
+  }
+
+  .credential-value {
+    font-size: 1rem;
+  }
+
+  .copy-icon {
+    opacity: 0.5;
+  }
+}
+</style>
     

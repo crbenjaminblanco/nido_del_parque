@@ -1,80 +1,171 @@
 <template>
-<div class="hero-section d-flex justify-content-center align-items-center">
-    <div class="text-center text-white content">
-        <h1 class="fw-bold display-1 font-primary-color">Nido del Parque</h1>
-        <p class="lead font-primary-color">¡Bienvenido! Para nosotros es un gusto tu estancia.</p>
-        <!-- Botón de WhatsApp -->
-        <a 
-        href="https://wa.me/+50684728292" 
-        target="_blank" 
-        class="btn btn-whatsapp font-secondary-color mt-2"
-        >
-        <i class="fab fa-whatsapp"></i> Contactar
-        </a>
+  <section id="hero-section" class="hero-section">
+    <div class="overlay"></div>
+    
+    <!-- Contenido Principal Centrado -->
+    <div class="main-content">
+      <div class="text-center text-white">
+        <div class="hero-content">
+          <h1 class="display-1 font-primary-color">{{ title }}</h1>
+          <p class="lead mb-3 font-primary-color">{{ welcomeMessage }}</p>
+          <contact-button 
+            :phone-number="whatsappUrl"
+            :label="contactButtonLabel"
+          />
+        </div>
+      </div>
     </div>
-</div>
+    
+    <!-- Sección de Scroll -->
+    <div class="scroll-section">
+      <scroll-indicator 
+        :text="scrollText"
+        @click="scrollToNextSection"
+      />
+    </div>
+  </section>
 </template>
 
 <script>
+import ContactButton from './ui/ContactButton.vue'
+import ScrollIndicator from './ui/ScrollIndicator.vue'
+import { CONTACT_INFO } from '../config/contact'
+
 export default {
-    name: 'HeroSection'
+  name: 'HeroSection',
+
+  components: {
+    ContactButton,
+    ScrollIndicator
+  },
+
+  computed: {
+    title() {
+      return this.$t('hero.title')
+    },
+    welcomeMessage() {
+      return this.$t('hero.welcome')
+    },
+    contactButtonLabel() {
+      return this.$t('hero.contact')
+    },
+    scrollText() {
+      return this.$t('hero.scroll')
+    },
+    whatsappNumber() {
+      return CONTACT_INFO.WHATSAPP
+    },
+    whatsappUrl() {
+      return `https://wa.me/${this.whatsappNumber}`
+    }
+  },
+
+  data() {
+    return {
+      // whatsappNumber: '+50684728292'
+    }
+  },
+
+  methods: {
+    scrollToNextSection() {
+      const nextSection = this.$el.nextElementSibling
+      if (nextSection) {
+        nextSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    }
+  }
 }
 </script>
+
 <style scoped>
-.navbar {
+.hero-section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-image: url("@/assets/background2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
-.hero-section {
-  min-height: 100vh;
-  z-index: 1;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("@/assets/background.jpg");
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-}
-
-.content {
   z-index: 2;
 }
 
-.title{
-  font-size:  4rem
+.hero-content {
+  max-width: 800px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .font-primary-color {
-  --bs-text-opacity: 1;
-  color: rgba(255, 255, 255, 0.90) !important;
+  color: #ffffff !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-h1, p {
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+h1.display-1 {
+  font-size: 4.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.btn-whatsapp {
-  display: inline-block;
-  background-color: #64a19d;
-  padding: 1.25rem 2rem;
-  font-size: 80%;
-  text-decoration: none;
-  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  letter-spacing: 0.15rem;
-  text-transform: uppercase;
-  opacity: 0.955;
+.lead {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
 }
 
-.font-secondary-color {
-  color: white;
+.scroll-section {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-.btn-whatsapp:hover {
-  background-color: #64a19d;
-  transform: scale(1.05);
+@media (max-width: 768px) {
+  h1.display-1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1.display-1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
 }
 </style>
