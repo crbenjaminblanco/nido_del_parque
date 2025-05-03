@@ -9,7 +9,7 @@ export default {
   },
   hero: {
     title: 'Nido del parque',
-    welcome: 'Welcome! It\'s a pleasure to have you here.',
+    welcome: 'Welcome! Your stay is our pleasure',
     contact: 'Contact us',
     scroll: 'Scroll down to explore'
   },

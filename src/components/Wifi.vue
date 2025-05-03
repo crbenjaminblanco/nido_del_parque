@@ -22,7 +22,7 @@
               <div class="credential-item" @click="copyToClipboard('mysecurepassword123')">
                 <div class="credential-label">{{ $t('wifi.passwordLabel') }}</div>
                 <div class="credential-value">
-                  <span>nidocr97</span>
+                  <span>xxx</span>
                   <i class="fas fa-copy copy-icon"></i>
                 </div>
               </div>

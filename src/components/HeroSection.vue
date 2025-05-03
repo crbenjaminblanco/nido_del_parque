@@ -139,7 +139,7 @@ h1.display-1 {
   position: relative;
   z-index: 2;
   text-align: center;
-  margin-bottom: 5rem;
+  margin-bottom: 5.5rem;
   display: flex;
   justify-content: center;
   width: 100%;
