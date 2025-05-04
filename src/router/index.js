@@ -8,6 +8,16 @@ const getUserLanguage = () => {
   return browserLang.startsWith('es') ? 'es' : 'en'
 }
 
+// Function to check if we should redirect to welcome
+const shouldRedirectToWelcome = () => {
+  const navType = performance.navigation.type;
+  // Redirect on:
+  // - Normal navigation (0)
+  // - Page refresh (1)
+  return navType === performance.navigation.TYPE_NAVIGATE || 
+         navType === performance.navigation.TYPE_RELOAD;
+}
+
 const routes = [
   {
     path: '/',
@@ -33,6 +43,12 @@ const routes = [
       }
 
       if (!validSections.includes(section)) {
+        next(`/${lang}/welcome`)
+        return
+      }
+
+      // Redirect to welcome on normal navigation or refresh
+      if (shouldRedirectToWelcome() && section !== 'welcome') {
         next(`/${lang}/welcome`)
         return
       }
