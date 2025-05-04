@@ -11,19 +11,29 @@ const routes = [
   {
     path: '/',
     redirect: () => {
-      return `/${getUserLanguage()}/home`
+      return `/${getUserLanguage()}/welcome`
     }
   },
   {
-    path: '/:lang/home',
+    path: '/:lang/:section?',
     name: 'home',
     component: HomeView,
     beforeEnter: (to, from, next) => {
       const validLanguages = ['es', 'en']
-      if (!validLanguages.includes(to.params.lang)) {
-        next(`/${getUserLanguage()}/home`)
+      const validSections = ['welcome', 'gallery', 'wifi', 'recommendations', 'contact']
+      const lang = to.params.lang
+      const section = to.params.section || 'welcome'
+
+      if (!validLanguages.includes(lang)) {
+        next(`/${getUserLanguage()}/welcome`)
         return
       }
+
+      if (!validSections.includes(section)) {
+        next(`/${lang}/welcome`)
+        return
+      }
+
       next()
     }
   }
@@ -33,10 +43,10 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    if (to.hash) {
+    if (to.params.section) {
       return new Promise((resolve) => {
         setTimeout(() => {
-          const element = document.querySelector(to.hash);
+          const element = document.getElementById(to.params.section);
           const navbar = document.querySelector('.navbar');
           if (element && navbar) {
             const navbarHeight = navbar.offsetHeight;
@@ -47,8 +57,6 @@ const router = createRouter({
               top: offsetPosition,
               behavior: 'instant'
             });
-          } else {
-            resolve({ el: to.hash, behavior: 'instant' });
           }
         }, 100);
       });

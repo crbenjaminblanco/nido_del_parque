@@ -197,8 +197,9 @@ export default {
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'instant', block: 'start' });
-        // Update URL without triggering scroll
-        window.history.pushState(null, '', `#${sectionId}`);
+        // Update route with current language and section
+        const currentLang = this.$i18n.locale;
+        this.$router.push(`/${currentLang}/${sectionId}`);
       }
       
       // Reset after a short delay
@@ -230,8 +231,9 @@ export default {
             const sectionId = this.navigationItems[i].sectionId;
             if (this.activeSection !== sectionId) {
               this.activeSection = sectionId;
-              // Update URL without triggering scroll
-              window.history.replaceState(null, '', `#${sectionId}`);
+              // Update route with current language and section
+              const currentLang = this.$i18n.locale;
+              this.$router.push(`/${currentLang}/${sectionId}`);
             }
             break;
           }
@@ -273,9 +275,9 @@ export default {
 
     changeLanguage(lang) {
       this.$i18n.locale = lang;
-      const currentHash = window.location.hash;
-      const baseUrl = window.location.pathname.split('/').slice(0, -2).join('/');
-      window.location.href = `${baseUrl}/${lang}/home${currentHash}`;
+      // Update the route to maintain the current section
+      const currentSection = this.activeSection || 'welcome';
+      this.$router.push(`/${lang}/${currentSection}`);
     },
 
     getLinkClasses(isActive) {
