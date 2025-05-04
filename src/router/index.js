@@ -49,7 +49,13 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    if (to.params.section) {
+    // If it's a manual navigation (back/forward), use saved position
+    if (savedPosition) {
+      return savedPosition;
+    }
+
+    // Only scroll if the navigation is triggered programmatically (not by scroll)
+    if (to.params.section && to.query.scroll === 'true') {
       return new Promise((resolve) => {
         setTimeout(() => {
           const element = document.getElementById(to.params.section);
@@ -67,7 +73,9 @@ const router = createRouter({
         }, 100);
       });
     }
-    return savedPosition || { top: 0 };
+    
+    // For scroll-based navigation, don't scroll
+    return false;
   }
 })
 

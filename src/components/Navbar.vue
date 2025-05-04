@@ -190,17 +190,19 @@ export default {
 
   methods: {
     handleNavClick(sectionId) {
+      // Don't do anything if we're already in this section
+      if (this.$route.params.section === sectionId) {
+        return;
+      }
+      
       this.activeSection = sectionId;
       this.isClickNavigation = true;
       
-      // Update route with current language and section
+      // Update route with current language and section, force scroll for button clicks
       const currentLang = this.$i18n.locale;
-      this.$router.push(`/${currentLang}/${sectionId}`).then(() => {
-        // Scroll to section after route update
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'instant', block: 'start' });
-        }
+      this.$router.push({
+        path: `/${currentLang}/${sectionId}`,
+        query: { scroll: 'true' }
       });
       
       // Reset after a short delay
@@ -232,9 +234,16 @@ export default {
             const sectionId = this.navigationItems[i].sectionId;
             if (this.activeSection !== sectionId) {
               this.activeSection = sectionId;
-              // Update route with current language and section
+              // Only update route if the current section is different from the route section
               const currentLang = this.$i18n.locale;
-              this.$router.push(`/${currentLang}/${sectionId}`).catch(() => {});
+              const currentRouteSection = this.$route.params.section || 'welcome';
+              if (currentRouteSection !== sectionId) {
+                // For scroll updates, don't force scroll
+                this.$router.push({
+                  path: `/${currentLang}/${sectionId}`,
+                  query: { scroll: 'false' }
+                }).catch(() => {});
+              }
             }
             break;
           }
@@ -281,13 +290,10 @@ export default {
       // Get current section from route or use welcome as default
       const currentSection = this.$route.params.section || 'welcome';
       
-      // Update the route preserving the current section
-      this.$router.push(`/${lang}/${currentSection}`).then(() => {
-        // Scroll to section after language change
-        const section = document.getElementById(currentSection);
-        if (section) {
-          section.scrollIntoView({ behavior: 'instant', block: 'start' });
-        }
+      // Update the route preserving the current section, force scroll for language change
+      this.$router.push({
+        path: `/${lang}/${currentSection}`,
+        query: { scroll: 'true' }
       }).catch(() => {});
     },
 
