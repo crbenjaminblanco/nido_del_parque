@@ -5,35 +5,17 @@
     
     <div class="container">
       <div class="row">
-        <!-- Places Section -->
-        <div class="col-12 col-md-6 mb-5">
-          <h3 class="section-title section-title--small">{{ $t('recommendations.places.title') }}</h3>
+        <div v-for="(section, sectionKey) in sectionsConfig" :key="sectionKey" class="row mb-5">
+          <h3 class="section-title section-title--small">{{ $t(`recommendations.${sectionKey}.title`) }}</h3>
           <div class="row g-4">
-            <div class="col-md-4" v-for="(place, key) in places" :key="'place-'+key">
+            <div class="col-md-4" v-for="(item, key) in section.items" :key="`${sectionKey}-${key}`">
               <recommendation-card
-                :icon="place.icon"
-                :title="$t(`recommendations.places.items.${key}.name`)"
-                :type="$t(`recommendations.places.items.${key}.type`)"
-                :distance="$t(`recommendations.places.items.${key}.distance`)"
-                :description="$t(`recommendations.places.items.${key}.description`)"
-                :is-restaurant="false"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Restaurants Section -->
-        <div class="col-12 col-md-6 mb-5">
-          <h3 class="section-title section-title--small">{{ $t('recommendations.restaurants.title') }}</h3>
-          <div class="row g-4">
-            <div class="col-md-4" v-for="(restaurant, key) in restaurants" :key="'restaurant-'+key">
-              <recommendation-card
-                :icon="restaurant.icon"
-                :title="$t(`recommendations.restaurants.items.${key}.name`)"
-                :type="$t(`recommendations.restaurants.items.${key}.cuisine`)"
-                :distance="$t(`recommendations.restaurants.items.${key}.distance`)"
-                :description="$t(`recommendations.restaurants.items.${key}.description`)"
-                :is-restaurant="true"
+                :icon="item.icon"
+                :title="$t(`recommendations.${sectionKey}.items.${key}.name`)"
+                :type="$t(`recommendations.${sectionKey}.items.${key}.${sectionKey === 'restaurants' ? 'cuisine' : 'type'}`)"
+                :distance="$t(`recommendations.${sectionKey}.items.${key}.distance`)"
+                :description="$t(`recommendations.${sectionKey}.items.${key}.description`)"
+                :is-restaurant="sectionKey === 'restaurants'"
               />
             </div>
           </div>
@@ -51,30 +33,38 @@ export default {
   components: {
     RecommendationCard
   },
-  data() {
-    return {
-      restaurants: {
-        terraza: {
-          icon: 'fas fa-utensils'
+  props: {
+    sectionsConfig: {
+      type: Object,
+      required: true,
+      default: () => ({
+        places: {
+          items: {
+            park: {
+              icon: 'fas fa-tree'
+            },
+            market: {
+              icon: 'fas fa-shopping-basket'
+            },
+            plaza: {
+              icon: 'fas fa-landmark'
+            }
+          }
         },
-        cafe: {
-          icon: 'fas fa-coffee'
-        },
-        rincon: {
-          icon: 'fas fa-hamburger'
+        restaurants: {
+          items: {
+            terraza: {
+              icon: 'fas fa-utensils'
+            },
+            cafe: {
+              icon: 'fas fa-coffee'
+            },
+            rincon: {
+              icon: 'fas fa-hamburger'
+            }
+          }
         }
-      },
-      places: {
-        park: {
-          icon: 'fas fa-tree'
-        },
-        market: {
-          icon: 'fas fa-shopping-basket'
-        },
-        plaza: {
-          icon: 'fas fa-landmark'
-        }
-      }
+      })
     }
   }
 }
@@ -119,13 +109,43 @@ export default {
   letter-spacing: var(--letter-spacing-normal);
 }
 
+.container {
+  width: 100%;
+  padding-right: var(--spacing-md);
+  padding-left: var(--spacing-md);
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .row {
-  margin-left: 0;
-  margin-right: 0;
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-.5 * var(--bs-gutter-x));
+  margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+.row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);
+  margin-top: var(--bs-gutter-y);
 }
 
 .col-md-4 {
-  padding: var(--spacing-sm);
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .col-md-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -139,6 +159,11 @@ export default {
 
   .recommendations__section-title {
     font-size: var(--text-xl);
+  }
+
+  .container {
+    padding-right: var(--spacing-sm);
+    padding-left: var(--spacing-sm);
   }
 }
 </style> 
