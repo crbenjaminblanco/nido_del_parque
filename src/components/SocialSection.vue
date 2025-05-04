@@ -1,8 +1,8 @@
 <template>
-  <section id="contact" class="social-section py-5">
+  <section id="contact" class="social">
     <div class="container">
-      <h2 class="text-center mb-4">{{ $t('social.title') }}</h2>
-      <p class="text-center text-muted mb-5">{{ $t('social.subtitle') }}</p>
+      <h2 class="social__title text-center mb-4">{{ $t('social.title') }}</h2>
+      <p class="social__subtitle text-center text-muted mb-5">{{ $t('social.subtitle') }}</p>
 
       <div class="row justify-content-center">
         <div class="col-md-5 mb-4 mb-md-0 d-flex justify-content-center">
@@ -10,7 +10,7 @@
         </div>
 
         <div class="col-md-5">
-          <div class="social-links">
+          <div class="social__links">
             <social-button
               :url="airbnbUrl"
               icon-class="fab fa-airbnb"
@@ -74,18 +74,28 @@ export default {
 </script>
 
 <style scoped>
-.social-section {
+.social {
   background-color: var(--bg-secondary);
+  padding: var(--spacing-xl) 0;
 }
 
-.social-links {
+.social__title {
+  margin-bottom: var(--spacing-md);
+}
+
+.social__subtitle {
+  margin-bottom: var(--spacing-xl);
+  color: var(--text-muted);
+}
+
+.social__links {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
 }
 
 @media (max-width: 768px) {
-  .social-card {
+  .social__links {
     padding: var(--spacing-md);
   }
 }

@@ -1,35 +1,35 @@
 <template>
-  <section id="wifi" class="wifi-section py-5">
+  <section id="wifi" class="wifi">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-          <div class="wifi-card">
-            <div class="wifi-icon mb-4">
+          <div class="wifi__card">
+            <div class="wifi__icon">
               <i class="fas fa-wifi"></i>
             </div>
             
-            <h2 class="text-center mb-4">{{ $t('wifi.title') }}</h2>
+            <h2 class="wifi__title text-center">{{ $t('wifi.title') }}</h2>
             
-            <div class="credentials-container">
-              <div class="credential-item" @click="copyToClipboard('nidodelparque')">
-                <div class="credential-label">{{ $t('wifi.networkLabel') }}</div>
-                <div class="credential-value">
+            <div class="wifi__credentials">
+              <div class="wifi__credential" @click="copyToClipboard('nidodelparque')">
+                <div class="wifi__credential-label">{{ $t('wifi.networkLabel') }}</div>
+                <div class="wifi__credential-value">
                   <span>nidodelparque</span>
-                  <i class="fas fa-copy copy-icon"></i>
+                  <i class="fas fa-copy wifi__copy-icon"></i>
                 </div>
               </div>
               
-              <div class="credential-item" @click="copyToClipboard(wifiPassword)">
-                <div class="credential-label">{{ $t('wifi.passwordLabel') }}</div>
-                <div class="credential-value">
+              <div class="wifi__credential" @click="copyToClipboard(wifiPassword)">
+                <div class="wifi__credential-label">{{ $t('wifi.passwordLabel') }}</div>
+                <div class="wifi__credential-value">
                   <span>{{ wifiPassword }}</span>
-                  <i class="fas fa-copy copy-icon"></i>
+                  <i class="fas fa-copy wifi__copy-icon"></i>
                 </div>
               </div>
             </div>
 
-            <div class="toast-container">
-              <div class="toast" :class="{ 'show': showToast }">
+            <div class="wifi__toast-container">
+              <div class="wifi__toast" :class="{ 'wifi__toast--visible': showToast }">
                 {{ $t('wifi.copyMessage') }}
               </div>
             </div>
@@ -68,12 +68,13 @@ export default {
 </script>
 
 <style scoped>
-.wifi-section {
+.wifi {
   background-color: #f8f9fa;
   min-height: 33vh;
+  padding: var(--spacing-xl) 0;
 }
 
-.wifi-card {
+.wifi__card {
   background: white;
   border-radius: 20px;
   padding: 2.5rem;
@@ -82,11 +83,16 @@ export default {
   overflow: hidden;
 }
 
-.wifi-icon {
+.wifi__icon {
   text-align: center;
   font-size: 3rem;
   color: #007bff;
+  margin-bottom: 1.5rem;
   animation: pulse 2s infinite;
+}
+
+.wifi__title {
+  margin-bottom: 1.5rem;
 }
 
 @keyframes pulse {
@@ -95,13 +101,13 @@ export default {
   100% { transform: scale(1); opacity: 1; }
 }
 
-.credentials-container {
+.wifi__credentials {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.credential-item {
+.wifi__credential {
   background: #f8f9fa;
   border-radius: 12px;
   padding: 1rem;
@@ -110,19 +116,19 @@ export default {
   position: relative;
 }
 
-.credential-item:hover {
+.wifi__credential:hover {
   background: #e9ecef;
   transform: translateY(-2px);
 }
 
-.credential-label {
+.wifi__credential-label {
   font-size: 0.9rem;
   color: #6c757d;
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
 
-.credential-value {
+.wifi__credential-value {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -132,18 +138,18 @@ export default {
   font-family: monospace;
 }
 
-.copy-icon {
+.wifi__copy-icon {
   color: #6c757d;
   font-size: 1rem;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.credential-item:hover .copy-icon {
+.wifi__credential:hover .wifi__copy-icon {
   opacity: 1;
 }
 
-.toast-container {
+.wifi__toast-container {
   position: fixed;
   bottom: 20px;
   left: 50%;
@@ -151,7 +157,7 @@ export default {
   z-index: 1000;
 }
 
-.toast {
+.wifi__toast {
   background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 0.75rem 1.5rem;
@@ -162,24 +168,24 @@ export default {
   pointer-events: none;
 }
 
-.toast.show {
+.wifi__toast--visible {
   opacity: 1;
 }
 
 @media (max-width: 768px) {
-  .wifi-card {
+  .wifi__card {
     padding: 1.5rem;
   }
 
-  .wifi-icon {
+  .wifi__icon {
     font-size: 2.5rem;
   }
 
-  .credential-value {
+  .wifi__credential-value {
     font-size: 1rem;
   }
 
-  .copy-icon {
+  .wifi__copy-icon {
     opacity: 0.5;
   }
 }

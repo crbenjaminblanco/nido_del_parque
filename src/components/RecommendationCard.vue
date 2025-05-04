@@ -1,11 +1,11 @@
 <template>
   <base-card>
-    <div class="card-content">
-      <div class="card-icon"><i :class="icon"></i></div>
-      <h4>{{ title }}</h4>
-      <p :class="typeClass">{{ type }}</p>
-      <p class="distance"><i class="fas fa-walking me-2"></i>{{ distance }}</p>
-      <p class="description">{{ description }}</p>
+    <div class="rec-card">
+      <div class="rec-card__icon"><i :class="icon"></i></div>
+      <h4 class="rec-card__title">{{ title }}</h4>
+      <p :class="['rec-card__type', { 'rec-card__type--cuisine': isRestaurant }]">{{ type }}</p>
+      <p class="rec-card__distance"><i class="fas fa-walking me-2"></i>{{ distance }}</p>
+      <p class="rec-card__description">{{ description }}</p>
     </div>
   </base-card>
 </template>
@@ -43,47 +43,46 @@ export default {
       type: Boolean,
       default: false
     }
-  },
-  computed: {
-    typeClass() {
-      return this.isRestaurant ? 'cuisine' : 'type'
-    }
   }
 }
 </script>
 
 <style scoped>
-.card-content {
+.rec-card {
   text-align: center;
   padding: 1.5rem;
 }
 
-.card-icon {
+.rec-card__icon {
   font-size: 2rem;
   color: #2c3e50;
   margin-bottom: 1rem;
   text-align: center;
 }
 
-.card-content h4 {
+.rec-card__title {
   margin: 0 0 0.5rem;
   color: #2c3e50;
   font-size: 1.25rem;
 }
 
-.cuisine, .type {
+.rec-card__type {
   color: #666;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
 
-.distance {
+.rec-card__type--cuisine {
+  /* Add any specific styles for cuisine type if needed */
+}
+
+.rec-card__distance {
   color: #2c3e50;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
 
-.description {
+.rec-card__description {
   color: #666;
   font-size: 0.9rem;
   margin: 0.5rem 0 0;
@@ -91,15 +90,15 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .card-content {
+  .rec-card {
     padding: 1rem;
   }
   
-  .card-icon {
+  .rec-card__icon {
     font-size: 1.75rem;
   }
   
-  .card-content h4 {
+  .rec-card__title {
     font-size: 1.1rem;
   }
 }

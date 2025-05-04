@@ -1,10 +1,10 @@
 <template>
-  <section class="thank-you-section py-5">
+  <section class="thank">
     <div class="container text-center">
-      <div class="thank-you-content">
-        <i class="fas fa-heart heart-icon mb-4"></i>
-        <h2 class="mb-3">{{ $t('thankYou.title') }}</h2>
-        <p class="text-muted">{{ $t('thankYou.message') }}</p>
+      <div class="thank__content">
+        <i class="fas fa-heart thank__icon"></i>
+        <h2 class="thank__title">{{ $t('thankYou.title') }}</h2>
+        <p class="thank__message text-muted">{{ $t('thankYou.message') }}</p>
       </div>
     </div>
   </section>
@@ -17,20 +17,33 @@ export default {
 </script>
 
 <style scoped>
-.thank-you-section {
+.thank {
   background-color: #ffffff;
   padding: 4rem 0;
 }
 
-.thank-you-content {
+.thank__content {
   max-width: 600px;
   margin: 0 auto;
 }
 
-.heart-icon {
+.thank__icon {
   color: #ff5a5f;
   font-size: 3rem;
+  margin-bottom: 1.5rem;
   animation: pulse 1.5s infinite;
+}
+
+.thank__title {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.thank__message {
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 
 @keyframes pulse {
@@ -39,31 +52,20 @@ export default {
   100% { transform: scale(1); }
 }
 
-h2 {
-  color: #2c3e50;
-  font-size: 2.5rem;
-  font-weight: 600;
-}
-
-p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-}
-
 @media (max-width: 768px) {
-  .thank-you-section {
+  .thank {
     padding: 3rem 0;
   }
 
-  h2 {
+  .thank__title {
     font-size: 2rem;
   }
 
-  p {
+  .thank__message {
     font-size: 1.1rem;
   }
 
-  .heart-icon {
+  .thank__icon {
     font-size: 2.5rem;
   }
 }

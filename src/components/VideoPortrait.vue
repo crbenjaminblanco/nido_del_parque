@@ -1,6 +1,7 @@
 <template>
-  <div class="instagram-embed">
+  <div class="video">
     <iframe
+      class="video__frame"
       src="https://www.instagram.com/nidodelparquezarcero/embed"
       width="400"
       height="460"
@@ -34,14 +35,14 @@ export default {
 </style>
 
 <style scoped>
-.instagram-embed {
+.video {
   display: flex;
   justify-content: center;
   width: 100%;
   box-shadow: none;
 }
 
-iframe {
+.video__frame {
   border: none;
   margin: 0;
   padding: 0;
@@ -51,21 +52,21 @@ iframe {
 }
 
 @media (max-width: 540px) {
-  iframe {
+  .video__frame {
     width: 350px;
     height: 420px;
   }
 }
 
 @media (max-width: 400px) {
-  iframe {
+  .video__frame {
     width: 300px;
     height: 380px;
   }
 }
 
 @media (max-width: 320px) {
-  iframe {
+  .video__frame {
     width: 280px;
     height: 350px;
   }

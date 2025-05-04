@@ -1,10 +1,10 @@
 <template>
   <button 
-    class="scroll-indicator"
+    class="scroll"
     @click="$emit('click')"
   >
-    <p class="scroll-text">{{ text }}</p>
-    <i class="fas fa-chevron-down bounce"></i>
+    <p class="scroll__text">{{ text }}</p>
+    <i class="scroll__icon fas fa-chevron-down scroll__icon--bounce"></i>
   </button>
 </template>
 
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.scroll-indicator {
+.scroll {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,11 +36,11 @@ export default {
   transition: opacity 0.3s ease;
 }
 
-.scroll-indicator:hover {
+.scroll:hover {
   opacity: 0.7;
 }
 
-.scroll-text {
+.scroll__text {
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
@@ -48,9 +48,13 @@ export default {
   opacity: 0.8;
 }
 
-.fa-chevron-down {
+.scroll__icon {
   font-size: 1.2rem;
   opacity: 0.8;
+}
+
+.scroll__icon--bounce {
+  animation: bounce 2s infinite;
 }
 
 @keyframes bounce {
@@ -65,18 +69,14 @@ export default {
   }
 }
 
-.bounce {
-  animation: bounce 2s infinite;
-}
-
 @media (max-width: 768px) {
-  .scroll-text {
+  .scroll__text {
     font-size: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
-  .scroll-text {
+  .scroll__text {
     font-size: 0.7rem;
   }
 }

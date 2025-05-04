@@ -1,13 +1,13 @@
 <template>
-  <section id="welcome" class="welcome-section">
-    <div class="overlay"></div>
+  <section id="welcome" class="welcome">
+    <div class="welcome__overlay"></div>
     
     <!-- Main Content -->
-    <div class="main-content">
-      <div class="text-center text-white">
-        <div class="welcome-content">
-          <h1 class="display-1 font-primary-color">{{ title }}</h1>
-          <p class="lead mb-3 font-primary-color">{{ welcomeMessage }}</p>
+    <div class="welcome__main">
+      <div class="welcome__container">
+        <div class="welcome__content">
+          <h1 class="welcome__title">{{ title }}</h1>
+          <p class="welcome__message">{{ welcomeMessage }}</p>
           <contact-button 
             :phone-number="whatsappNumber"
             :label="contactButtonLabel"
@@ -17,7 +17,7 @@
     </div>
     
     <!-- Scroll Section -->
-    <div class="scroll-section">
+    <div class="welcome__scroll">
       <scroll-indicator 
         :text="scrollText"
         @click="scrollToNextSection"
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-.welcome-section {
+.welcome {
   min-height: 100vh;
   width: 100%;
   position: relative;
@@ -92,7 +92,7 @@ export default {
   padding-top: 80px; /* Account for navbar */
 }
 
-.overlay {
+.welcome__overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -101,7 +101,7 @@ export default {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.main-content {
+.welcome__main {
   flex: 1;
   display: flex;
   align-items: center;
@@ -111,7 +111,12 @@ export default {
   min-height: calc(100vh - 80px); /* Account for navbar */
 }
 
-.welcome-content {
+.welcome__container {
+  text-align: center;
+  color: white;
+}
+
+.welcome__content {
   max-width: 800px;
   padding: 2rem;
   display: flex;
@@ -120,22 +125,21 @@ export default {
   gap: 0.75rem;
 }
 
-.font-primary-color {
-  color: #ffffff !important;
+.welcome__title {
+  font-size: 4.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-h1.display-1 {
-  font-size: 4.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.lead {
+.welcome__message {
   font-size: 1.2rem;
   margin-bottom: 0.75rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.scroll-section {
+.welcome__scroll {
   position: relative;
   z-index: 2;
   text-align: center;
@@ -146,24 +150,24 @@ h1.display-1 {
 }
 
 @media (max-width: 768px) {
-  h1.display-1 {
+  .welcome__title {
     font-size: 3.5rem;
     margin-bottom: 0.4rem;
   }
 
-  .lead {
+  .welcome__message {
     font-size: 1.1rem;
     margin-bottom: 0.6rem;
   }
 }
 
 @media (max-width: 480px) {
-  h1.display-1 {
+  .welcome__title {
     font-size: 2.5rem;
     margin-bottom: 0.3rem;
   }
 
-  .lead {
+  .welcome__message {
     font-size: 1rem;
     margin-bottom: 0.5rem;
   }

@@ -1,12 +1,12 @@
 <template>
-  <a :href="url" target="_blank" class="social-link">
-    <div class="social-card">
-      <i :class="iconClass"></i>
-      <div class="social-content">
-        <h3>{{ title }}</h3>
-        <p>{{ description }}</p>
+  <a :href="url" target="_blank" class="social-btn">
+    <div class="social-btn__card">
+      <i :class="[iconClass, 'social-btn__icon']"></i>
+      <div class="social-btn__content">
+        <h3 class="social-btn__title">{{ title }}</h3>
+        <p class="social-btn__description">{{ description }}</p>
       </div>
-      <i class="fas fa-chevron-right arrow"></i>
+      <i class="fas fa-chevron-right social-btn__arrow"></i>
     </div>
   </a>
 </template>
@@ -36,12 +36,12 @@ export default {
 </script>
 
 <style scoped>
-.social-link {
+.social-btn {
   text-decoration: none;
   color: inherit;
 }
 
-.social-card {
+.social-btn__card {
   background-color: var(--bg-primary);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-md);
@@ -52,48 +52,48 @@ export default {
   box-shadow: var(--shadow-sm);
 }
 
-.social-card:hover {
+.social-btn__card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
-.social-card i {
+.social-btn__icon {
   font-size: 1.5rem;
   color: var(--accent-color);
 }
 
-.social-content {
+.social-btn__content {
   flex: 1;
 }
 
-.social-content h3 {
+.social-btn__title {
   color: var(--text-primary);
   font-size: 1.1rem;
   margin-bottom: var(--spacing-xs);
   font-weight: var(--font-weight-medium);
 }
 
-.social-content p {
+.social-btn__description {
   color: var(--text-secondary);
   font-size: 0.9rem;
   margin: 0;
 }
 
-.arrow {
+.social-btn__arrow {
   color: var(--text-muted);
   font-size: 1rem;
 }
 
 @media (max-width: 768px) {
-  .social-card {
+  .social-btn__card {
     padding: var(--spacing-md);
   }
   
-  .social-content h3 {
+  .social-btn__title {
     font-size: 1rem;
   }
   
-  .social-content p {
+  .social-btn__description {
     font-size: 0.85rem;
   }
 }

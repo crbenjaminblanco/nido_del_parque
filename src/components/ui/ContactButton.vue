@@ -2,10 +2,10 @@
   <a 
     :href="whatsappUrl" 
     target="_blank" 
-    class="btn-contact"
+    class="contact-btn"
   >
-    <i class="fab fa-whatsapp"></i>
-    {{ label }}
+    <i class="contact-btn__icon fab fa-whatsapp"></i>
+    <span class="contact-btn__text">{{ label }}</span>
   </a>
 </template>
 
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-.btn-contact {
+.contact-btn {
   display: inline-flex;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.15);
@@ -49,36 +49,40 @@ export default {
   margin-top: 0.5rem;
 }
 
-.btn-contact i {
-  font-size: 1.3rem;
-  margin-right: 0.75rem;
-}
-
-.btn-contact:hover {
+.contact-btn:hover {
   background-color: rgba(255, 255, 255, 0.25);
   color: white;
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+.contact-btn__icon {
+  font-size: 1.3rem;
+  margin-right: 0.75rem;
+}
+
+.contact-btn__text {
+  line-height: 1;
+}
+
 @media (max-width: 768px) {
-  .btn-contact {
+  .contact-btn {
     padding: 0.875rem 2rem;
     font-size: 1rem;
   }
   
-  .btn-contact i {
+  .contact-btn__icon {
     font-size: 1.2rem;
     margin-right: 0.6rem;
   }
 }
 
 @media (max-width: 480px) {
-  .btn-contact {
+  .contact-btn {
     padding: 0.75rem 1.75rem;
     font-size: 0.95rem;
   }
   
-  .btn-contact i {
+  .contact-btn__icon {
     font-size: 1.1rem;
     margin-right: 0.5rem;
   }

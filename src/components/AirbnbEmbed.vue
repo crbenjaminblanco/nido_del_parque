@@ -1,6 +1,7 @@
 <template>
-  <div class="airbnb-container">
+  <div class="airbnb">
     <iframe
+      class="airbnb__frame"
       :src="`https://www.airbnb.com/embeddable/home?id=1310574339008768562`"
       width="450"
       height="460"
@@ -19,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-.airbnb-container {
+.airbnb {
   position: relative;
   width: 100%;
   border-radius: var(--border-radius-md);
@@ -28,7 +29,7 @@ export default {
   justify-content: flex-end;
 }
 
-iframe {
+.airbnb__frame {
   border: none;
   margin: 0;
   padding: 0;
@@ -37,21 +38,21 @@ iframe {
 }
 
 @media (max-width: 540px) {
-  iframe {
+  .airbnb__frame {
     width: 350px;
     height: 420px;
   }
 }
 
 @media (max-width: 400px) {
-  iframe {
+  .airbnb__frame {
     width: 300px;
     height: 380px;
   }
 }
 
 @media (max-width: 320px) {
-  iframe {
+  .airbnb__frame {
     width: 280px;
     height: 350px;
   }

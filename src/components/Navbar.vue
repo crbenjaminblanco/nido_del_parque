@@ -5,8 +5,8 @@
       <a 
         class="navbar-brand"
         :class="brandClasses"
-        href="#welcome"
-        @click="handleNavClick('welcome')"
+        :href="`#welcome`"
+        @click.prevent="handleNavClick('welcome')"
       >
         <img
           src="@/assets/logo.png"
