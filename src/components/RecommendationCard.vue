@@ -50,56 +50,70 @@ export default {
 <style scoped>
 .rec-card {
   text-align: center;
-  padding: 1.5rem;
+  padding: var(--spacing-lg);
 }
 
 .rec-card__icon {
-  font-size: 2rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
+  font-size: var(--text-3xl);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
   text-align: center;
 }
 
 .rec-card__title {
-  margin: 0 0 0.5rem;
-  color: #2c3e50;
-  font-size: 1.25rem;
+  font-family: var(--font-secondary);
+  margin: 0 0 var(--spacing-xs);
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
 .rec-card__type {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-primary);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin-bottom: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 .rec-card__type--cuisine {
-  /* Add any specific styles for cuisine type if needed */
+  color: var(--text-accent);
 }
 
 .rec-card__distance {
-  color: #2c3e50;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-primary);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  margin-bottom: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 .rec-card__description {
-  color: #666;
-  font-size: 0.9rem;
-  margin: 0.5rem 0 0;
-  line-height: 1.4;
+  font-family: var(--font-primary);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin: var(--spacing-xs) 0 0;
+  line-height: var(--line-height-relaxed);
 }
 
 @media (max-width: 768px) {
   .rec-card {
-    padding: 1rem;
+    padding: var(--spacing-md);
   }
   
   .rec-card__icon {
-    font-size: 1.75rem;
+    font-size: var(--text-2xl);
   }
   
   .rec-card__title {
-    font-size: 1.1rem;
+    font-size: var(--text-lg);
+  }
+
+  .rec-card__type,
+  .rec-card__distance,
+  .rec-card__description {
+    font-size: var(--text-xs);
   }
 }
 </style> 

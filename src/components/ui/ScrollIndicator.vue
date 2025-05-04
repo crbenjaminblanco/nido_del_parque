@@ -28,12 +28,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+  color: var(--text-light);
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-speed) var(--transition-timing);
 }
 
 .scroll:hover {
@@ -41,15 +41,17 @@ export default {
 }
 
 .scroll__text {
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-primary);
+  font-size: var(--text-xs);
+  margin-bottom: var(--spacing-xs);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: var(--letter-spacing-wider);
   opacity: 0.8;
+  font-weight: var(--font-weight-medium);
 }
 
 .scroll__icon {
-  font-size: 1.2rem;
+  font-size: var(--text-lg);
   opacity: 0.8;
 }
 
@@ -71,13 +73,13 @@ export default {
 
 @media (max-width: 768px) {
   .scroll__text {
-    font-size: 0.75rem;
+    font-size: calc(var(--text-xs) * 0.95);
   }
 }
 
 @media (max-width: 480px) {
   .scroll__text {
-    font-size: 0.7rem;
+    font-size: calc(var(--text-xs) * 0.9);
   }
 }
 </style> 

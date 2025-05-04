@@ -213,15 +213,15 @@ export default {
 .gallery__card-title {
   color: var(--text-primary);
   font-weight: var(--font-weight-medium);
-  margin: 0.5rem 0;
-  font-size: 1.25rem;
+  margin: var(--spacing-xs) 0;
+  font-size: var(--text-lg);
 }
 
 .gallery__card-text {
   color: var(--text-secondary);
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: var(--text-sm);
+  line-height: var(--line-height-relaxed);
   height: 3rem;
   overflow: hidden;
   display: -webkit-box;
@@ -237,29 +237,30 @@ export default {
 }
 
 .gallery__caption-title {
-  color: var(--bg-primary);
+  color: var(--text-light);
   margin-bottom: var(--spacing-xs);
 }
 
 .gallery__caption-text {
   color: var(--text-light);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   margin-bottom: 0;
 }
 
 /* Row adjustments */
 .row {
-  margin: 0 -1rem;
-  width: calc(100% + 2rem);
+  margin: 0 calc(var(--spacing-sm) * -1);
+  width: calc(100% + calc(var(--spacing-sm) * 2));
 }
 
 .col-md-4 {
-  padding: 0 1rem;
-  margin-bottom: 2rem;
+  padding: 0 var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
 }
 
 .gallery__card:hover {
   transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Carousel styles */

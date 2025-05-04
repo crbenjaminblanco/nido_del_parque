@@ -69,30 +69,35 @@ export default {
 
 <style scoped>
 .wifi {
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary);
   min-height: 33vh;
   padding: var(--spacing-xl) 0;
 }
 
 .wifi__card {
-  background: white;
-  border-radius: 20px;
-  padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  padding: calc(var(--spacing-xl) * 1.25);
+  box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
 }
 
 .wifi__icon {
   text-align: center;
-  font-size: 3rem;
-  color: #007bff;
-  margin-bottom: 1.5rem;
+  font-size: var(--text-4xl);
+  color: var(--brand-accent);
+  margin-bottom: var(--spacing-lg);
   animation: pulse 2s infinite;
 }
 
 .wifi__title {
-  margin-bottom: 1.5rem;
+  font-family: var(--font-secondary);
+  color: var(--text-primary);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 @keyframes pulse {
@@ -104,45 +109,46 @@ export default {
 .wifi__credentials {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
 }
 
 .wifi__credential {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed) var(--transition-timing);
   position: relative;
 }
 
 .wifi__credential:hover {
-  background: #e9ecef;
+  background: var(--bg-hover);
   transform: translateY(-2px);
 }
 
 .wifi__credential-label {
-  font-size: 0.9rem;
-  color: #6c757d;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 .wifi__credential-value {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.1rem;
-  color: #212529;
-  font-weight: 600;
-  font-family: monospace;
+  font-family: var(--font-accent);
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 .wifi__copy-icon {
-  color: #6c757d;
-  font-size: 1rem;
+  color: var(--text-muted);
+  font-size: var(--text-base);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-speed) var(--transition-timing);
 }
 
 .wifi__credential:hover .wifi__copy-icon {
@@ -151,20 +157,20 @@ export default {
 
 .wifi__toast-container {
   position: fixed;
-  bottom: 20px;
+  bottom: var(--spacing-lg);
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
 }
 
 .wifi__toast {
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
+  background: var(--bg-overlay);
+  color: var(--text-light);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-full);
+  font-size: var(--text-sm);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-speed) var(--transition-timing);
   pointer-events: none;
 }
 
@@ -174,15 +180,15 @@ export default {
 
 @media (max-width: 768px) {
   .wifi__card {
-    padding: 1.5rem;
+    padding: var(--spacing-lg);
   }
 
   .wifi__icon {
-    font-size: 2.5rem;
+    font-size: var(--text-2xl);
   }
 
   .wifi__credential-value {
-    font-size: 1rem;
+    font-size: var(--text-base);
   }
 
   .wifi__copy-icon {

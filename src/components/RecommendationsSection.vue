@@ -86,26 +86,34 @@ export default {
 
 <style scoped>
 .recommendations {
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary);
   padding: var(--spacing-xl) 0;
 }
 
 .recommendations__title {
-  color: #2c3e50;
-  font-weight: 600;
+  font-family: var(--font-secondary);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-3xl);
   margin-bottom: var(--spacing-md);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .recommendations__subtitle {
-  color: #6c757d;
+  font-family: var(--font-primary);
+  color: var(--text-muted);
+  font-size: var(--text-lg);
   margin-bottom: var(--spacing-xl);
+  line-height: var(--line-height-relaxed);
 }
 
 .recommendations__section-title {
-  font-size: 1.5rem;
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  font-family: var(--font-secondary);
+  font-size: var(--text-2xl);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
 .row {
@@ -114,6 +122,20 @@ export default {
 }
 
 .col-md-4 {
-  padding: 0.75rem;
+  padding: var(--spacing-sm);
+}
+
+@media (max-width: 768px) {
+  .recommendations__title {
+    font-size: var(--text-2xl);
+  }
+
+  .recommendations__subtitle {
+    font-size: var(--text-base);
+  }
+
+  .recommendations__section-title {
+    font-size: var(--text-xl);
+  }
 }
 </style> 

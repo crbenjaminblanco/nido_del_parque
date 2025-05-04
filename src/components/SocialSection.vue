@@ -82,12 +82,23 @@ export default {
 }
 
 .social__title {
+  font-family: var(--font-secondary);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
   margin-bottom: var(--spacing-md);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .social__subtitle {
-  margin-bottom: var(--spacing-xl);
+  font-family: var(--font-primary);
+  font-size: var(--text-lg);
   color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+  line-height: var(--line-height-relaxed);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .social__links {
@@ -99,6 +110,15 @@ export default {
 @media (max-width: 768px) {
   .social__links {
     padding: var(--spacing-md);
+  }
+
+  .social__title {
+    font-size: var(--text-2xl);
+  }
+
+  .social__subtitle {
+    font-size: var(--text-base);
+    padding: 0 var(--spacing-md);
   }
 }
 </style> 

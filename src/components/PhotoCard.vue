@@ -35,18 +35,23 @@ export default {
 
 <style scoped>
 .card-body {
-  padding: 1.25rem;
+  padding: var(--spacing-lg);
 }
 
 .card-title {
+  font-family: var(--font-secondary);
   color: var(--text-primary);
-  font-weight: var(--font-weight-medium);
-  margin-bottom: 0.5rem;
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
 .card-text {
+  font-family: var(--font-primary);
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: var(--text-sm);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
 }
 </style> 

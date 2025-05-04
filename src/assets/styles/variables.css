@@ -1,23 +1,28 @@
 :root {
-  /* Colors */
-  --primary-color: #2c3e50;
-  --secondary-color: #34495e;
-  --accent-color: #3498db;
+  /* Brand Colors */
+  --brand-primary: #2c3e50;
+  --brand-secondary: #34495e;
+  --brand-accent: #3498db;
+  --brand-highlight: #e74c3c;
   
   /* Text Colors */
-  --text-primary: #2c3e50;
+  --text-primary: var(--brand-primary);
   --text-secondary: #666666;
   --text-light: rgba(255, 255, 255, 0.95);
   --text-muted: #6c757d;
+  --text-accent: var(--brand-accent);
+  --text-highlight: var(--brand-highlight);
   
   /* Background Colors */
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --bg-overlay: rgba(0, 0, 0, 0.5);
   --bg-hover: rgba(0, 0, 0, 0.05);
+  --bg-accent: rgba(52, 152, 219, 0.1);
   
   /* Border Colors */
   --border-color: rgba(0, 0, 0, 0.1);
+  --border-accent: var(--brand-accent);
   
   /* Shadow */
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -40,9 +45,35 @@
   --transition-speed: 0.3s;
   --transition-timing: ease;
   
+  /* Font Families */
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Playfair Display', serif;
+  --font-accent: 'Montserrat', sans-serif;
+  
   /* Font Weights */
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+  
+  /* Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
 } 

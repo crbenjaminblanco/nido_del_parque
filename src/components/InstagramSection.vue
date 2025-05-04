@@ -77,6 +77,8 @@ export default {
   justify-content: center;
   align-items: flex-start;
   min-height: 400px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .instagram__placeholder {
@@ -89,18 +91,26 @@ export default {
 }
 
 .instagram__embed {
-  margin: 0 auto !important;
-  width: 100% !important;
-  max-width: 540px !important;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
 }
 
 :deep(.instagram-media) {
-  background: #FFF !important;
-  border: 0 !important;
-  border-radius: 3px !important;
-  box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15) !important;
-  margin: 1px !important;
-  padding: 0 !important;
-  width: 99.375% !important;
+  background: var(--bg-primary);
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  margin: var(--spacing-xs);
+  padding: 0;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 768px) {
+  .instagram {
+    padding: var(--spacing-md);
+    max-width: 100%;
+  }
 }
 </style> 

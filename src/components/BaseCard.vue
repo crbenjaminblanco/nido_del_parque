@@ -12,21 +12,22 @@ export default {
 
 <style scoped>
 .base-card {
-  background: white;
-  border-radius: 12px;
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-speed) var(--transition-timing);
   height: 100%;
 }
 
 .base-card:hover {
   transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
 @media (max-width: 768px) {
   .base-card {
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
   }
 }
 </style> 

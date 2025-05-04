@@ -18,8 +18,8 @@ export default {
 
 <style scoped>
 .thank {
-  background-color: #ffffff;
-  padding: 4rem 0;
+  background-color: var(--bg-primary);
+  padding: calc(var(--spacing-xl) * 2) 0;
 }
 
 .thank__content {
@@ -28,22 +28,26 @@ export default {
 }
 
 .thank__icon {
-  color: #ff5a5f;
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
+  color: var(--brand-highlight);
+  font-size: var(--text-4xl);
+  margin-bottom: var(--spacing-lg);
   animation: pulse 1.5s infinite;
 }
 
 .thank__title {
-  color: #2c3e50;
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-family: var(--font-secondary);
+  color: var(--text-primary);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .thank__message {
-  font-size: 1.2rem;
-  line-height: 1.6;
+  font-family: var(--font-primary);
+  font-size: var(--text-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-muted);
 }
 
 @keyframes pulse {
@@ -54,19 +58,19 @@ export default {
 
 @media (max-width: 768px) {
   .thank {
-    padding: 3rem 0;
+    padding: calc(var(--spacing-xl) * 1.5) 0;
   }
 
   .thank__title {
-    font-size: 2rem;
+    font-size: var(--text-2xl);
   }
 
   .thank__message {
-    font-size: 1.1rem;
+    font-size: var(--text-base);
   }
 
   .thank__icon {
-    font-size: 2.5rem;
+    font-size: var(--text-3xl);
   }
 }
 </style> 

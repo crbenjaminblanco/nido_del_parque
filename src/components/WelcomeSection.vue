@@ -98,7 +98,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--bg-overlay);
 }
 
 .welcome__main {
@@ -113,63 +113,73 @@ export default {
 
 .welcome__container {
   text-align: center;
-  color: white;
+  color: var(--text-light);
 }
 
 .welcome__content {
   max-width: 800px;
-  padding: 2rem;
+  padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--spacing-sm);
 }
 
 .welcome__title {
-  font-size: 4.5rem;
-  margin-bottom: 0.5rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-secondary);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-light);
+  text-shadow: var(--shadow-md);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .welcome__message {
-  font-size: 1.2rem;
-  margin-bottom: 0.75rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-light);
+  text-shadow: var(--shadow-sm);
+  line-height: var(--line-height-relaxed);
 }
 
 .welcome__scroll {
   position: relative;
   z-index: 2;
   text-align: center;
-  margin-bottom: 5.5rem;
+  margin-bottom: calc(var(--spacing-xl) * 2.75);
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
 @media (max-width: 768px) {
+  .welcome__content {
+    padding: var(--spacing-lg);
+  }
+
   .welcome__title {
-    font-size: 3.5rem;
-    margin-bottom: 0.4rem;
+    font-size: var(--text-3xl);
   }
 
   .welcome__message {
-    font-size: 1.1rem;
-    margin-bottom: 0.6rem;
+    font-size: var(--text-lg);
   }
 }
 
 @media (max-width: 480px) {
+  .welcome__content {
+    padding: var(--spacing-md);
+  }
+
   .welcome__title {
-    font-size: 2.5rem;
-    margin-bottom: 0.3rem;
+    font-size: var(--text-2xl);
   }
 
   .welcome__message {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: var(--text-base);
   }
 }
 </style>

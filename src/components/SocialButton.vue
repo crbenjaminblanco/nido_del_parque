@@ -58,8 +58,8 @@ export default {
 }
 
 .social-btn__icon {
-  font-size: 1.5rem;
-  color: var(--accent-color);
+  font-size: var(--text-2xl);
+  color: var(--brand-accent);
 }
 
 .social-btn__content {
@@ -67,21 +67,25 @@ export default {
 }
 
 .social-btn__title {
+  font-family: var(--font-secondary);
   color: var(--text-primary);
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   margin-bottom: var(--spacing-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
 .social-btn__description {
+  font-family: var(--font-primary);
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   margin: 0;
+  line-height: var(--line-height-relaxed);
 }
 
 .social-btn__arrow {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--text-base);
 }
 
 @media (max-width: 768px) {
@@ -90,11 +94,11 @@ export default {
   }
   
   .social-btn__title {
-    font-size: 1rem;
+    font-size: var(--text-base);
   }
   
   .social-btn__description {
-    font-size: 0.85rem;
+    font-size: var(--text-xs);
   }
 }
 </style> 
