@@ -40,6 +40,15 @@ const routes = [
       // Sync i18n locale with route language parameter
       i18n.global.locale = lang
 
+      // Add scroll=true when page is refreshed or accessed directly
+      if (!from.name) {
+        next({
+          path: to.path,
+          query: { scroll: 'true' }
+        })
+        return
+      }
+
       next()
     }
   }
