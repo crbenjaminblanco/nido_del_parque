@@ -4,6 +4,8 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: '/nido_del_parque/',
   outputDir: 'docs',
+  filenameHashing: true,
+  productionSourceMap: false,
   chainWebpack: config => {
     config
       .plugin('html')
