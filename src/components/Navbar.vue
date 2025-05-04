@@ -5,7 +5,7 @@
       <a 
         class="navbar-brand"
         :class="brandClasses"
-        :href="`${languagePrefix}/home`"
+        :href="`#${languagePrefix}/home`"
       >
         <img
           src="@/assets/logo.png"
@@ -120,11 +120,11 @@ export default {
       isExpanded: false,
       collapse: null,
       navigationItems: [
-        { text: this.$t('navbar.home'), href: '/', isActive: true },
-        { text: this.$t('navbar.gallery'), href: '#photo-gallery' },
-        { text: this.$t('navbar.wifi'), href: '#wifi-section' },
-        { text: this.$t('navbar.recommendations'), href: '#recommendations' },
-        { text: this.$t('navbar.contact'), href: '#social-section' }
+        { text: this.$t('navbar.home'), href: '#/es/home', isActive: true },
+        { text: this.$t('navbar.gallery'), href: '#/es/gallery' },
+        { text: this.$t('navbar.wifi'), href: '#/es/wifi' },
+        { text: this.$t('navbar.recommendations'), href: '#/es/recommendations' },
+        { text: this.$t('navbar.contact'), href: '#/es/contact' }
       ]
     }
   },
@@ -172,8 +172,9 @@ export default {
 
   methods: {
     changeLanguage(lang) {
-      // Store current path parts
-      const currentPath = window.location.pathname
+      // Get the current route path from the hash
+      const currentHash = window.location.hash
+      const currentPath = currentHash.replace('#', '') || '/es/home'
       
       // Update locale
       this.$i18n.locale = lang
@@ -181,19 +182,17 @@ export default {
       // Update navigation items text
       this.navigationItems = this.navigationItems.map(item => ({
         ...item,
-        text: this.$t(item.href === '/' ? 'navbar.home' :
-              item.href === '#photo-gallery' ? 'navbar.gallery' :
-              item.href === '#wifi-section' ? 'navbar.wifi' :
-              item.href === '#recommendations' ? 'navbar.recommendations' :
-              'navbar.contact')
+        text: this.$t(item.href === '#/es/home' ? 'navbar.home' :
+              item.href === '#/es/gallery' ? 'navbar.gallery' :
+              item.href === '#/es/wifi' ? 'navbar.wifi' :
+              item.href === '#/es/recommendations' ? 'navbar.recommendations' :
+              'navbar.contact'),
+        href: item.href.replace(/(#\/)(es|en)\//, `$1${lang}/`)
       }))
 
-      // Get the path without language prefix
-      const pathWithoutLang = currentPath.replace(/^\/(es|en)/, '')
-      
-      // Construct new URL with new language prefix
-      const newUrl = `/${lang}${pathWithoutLang}`
-      window.history.pushState({}, '', newUrl)
+      // Update the URL with new language
+      const newPath = currentPath.replace(/(\/)(es|en)(\/)/, `$1${lang}$3`)
+      window.location.hash = newPath
 
       // Close the burger menu if it's open
       if (this.collapse && this.isExpanded) {
