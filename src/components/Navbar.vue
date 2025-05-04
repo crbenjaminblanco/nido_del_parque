@@ -238,10 +238,9 @@ export default {
               const currentLang = this.$i18n.locale;
               const currentRouteSection = this.$route.params.section || 'welcome';
               if (currentRouteSection !== sectionId) {
-                // For scroll updates, don't force scroll
+                // For scroll updates, just update the route without forcing scroll
                 this.$router.push({
-                  path: `/${currentLang}/${sectionId}`,
-                  query: { scroll: 'false' }
+                  path: `/${currentLang}/${sectionId}`
                 }).catch(() => {});
               }
             }

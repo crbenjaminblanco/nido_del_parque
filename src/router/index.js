@@ -39,12 +39,6 @@ const routes = [
 
       // Sync i18n locale with route language parameter
       i18n.global.locale = lang
-
-      // Add scroll=true only on direct access and if not already present
-      if (!from.name && !to.query.scroll) {
-        to.query.scroll = 'true'
-      }
-
       next()
     }
   }
@@ -59,7 +53,7 @@ const router = createRouter({
       return savedPosition;
     }
 
-    // Always scroll on direct access or refresh
+    // Scroll when it's a direct URL access or button click
     if (!from.name || to.query.scroll === 'true') {
       return new Promise((resolve) => {
         setTimeout(() => {
