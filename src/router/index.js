@@ -18,37 +18,26 @@ const getUserLanguage = () => {
 const routes = [
   {
     path: '/',
-    redirect: () => {
+    redirect: to => {
       const userLang = getUserLanguage()
-      return `/${userLang}/home#welcome`
+      return `/${userLang}/home${to.hash || '#welcome'}`
     }
   },
   {
     path: '/:lang',
     redirect: to => {
-      return `/${to.params.lang}/home#welcome`
+      return `/${to.params.lang}/home${to.hash || '#welcome'}`
     }
   },
   {
     path: '/:lang/home',
     name: 'home',
-    component: HomeView,
-    beforeEnter: (to, from, next) => {
-      const validLanguages = ['es', 'en']
-      if (!validLanguages.includes(to.params.lang)) {
-        const userLang = getUserLanguage()
-        next(`/${userLang}/home${to.hash || '#welcome'}`)
-        return
-      }
-      next()
-    }
+    component: HomeView
   },
   {
-    path: '/:lang/:pathMatch(.*)*',
+    path: '/:pathMatch(.*)*',
     redirect: to => {
-      const validLanguages = ['es', 'en']
-      const lang = validLanguages.includes(to.params.lang) ? to.params.lang : getUserLanguage()
-      return `/${lang}/home${to.hash || '#welcome'}`
+      return `/${getUserLanguage()}/home${to.hash || '#welcome'}`
     }
   }
 ]
@@ -86,20 +75,18 @@ router.beforeEach((to, from, next) => {
   const validLanguages = ['es', 'en']
   const lang = to.params.lang
 
-  if (!validLanguages.includes(lang)) {
-    const userLang = getUserLanguage()
-    next(`/${userLang}/home${to.hash || '#welcome'}`)
+  if (lang && !validLanguages.includes(lang)) {
+    next(`/${getUserLanguage()}/home${to.hash || '#welcome'}`)
     return
   }
-
   next()
 })
 
 // Handle navigation errors
-router.onError((error) => {
+router.onError((error, to) => {
   console.error('Router error:', error)
   const userLang = getUserLanguage()
-  router.push(`/${userLang}/home#welcome`)
+  router.push(`/${userLang}/home${to?.hash || '#welcome'}`)
 })
 
 export default router 
