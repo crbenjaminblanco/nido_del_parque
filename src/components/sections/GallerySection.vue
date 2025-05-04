@@ -5,7 +5,7 @@
     <div class="container">
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
-        <div id="photoCarousel" class="carousel" data-bs-ride="carousel" data-bs-interval="5000">
+        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
           <div class="carousel-inner">
             <div v-for="(item, index) in galleryItems" 
                  :key="index" 
@@ -13,7 +13,7 @@
               <img :src="require(`@/assets/images/${item.image}.jpg`)"
                    :alt="$t(`gallery.items.${item.translationKey}.title`)"
                    class="carousel-item__image"
-                   loading="auto">
+                   loading="eager">
               <div class="carousel-item__content">
                 <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
                 <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
@@ -211,14 +211,62 @@ export default {
 }
 
 .carousel-item {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+  will-change: transform, opacity;
 }
 
 .carousel-item.active {
-  display: block;
+  position: relative;
   opacity: 1;
+  z-index: 2;
+  transform: translateX(0);
+}
+
+.carousel-item-next:not(.carousel-item-start) {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.carousel-item-prev:not(.carousel-item-end) {
+  transform: translateX(-100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.carousel-item-next,
+.carousel-item-prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.carousel-item-next.carousel-item-start,
+.active.carousel-item-end {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.carousel-item-prev.carousel-item-end,
+.active.carousel-item-start {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.carousel-item.active.carousel-item-start {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.carousel-item.active.carousel-item-end {
+  transform: translateX(100%);
+  opacity: 0;
 }
 
 .carousel-item__image {
@@ -226,6 +274,7 @@ export default {
   height: 300px;
   object-fit: cover;
   object-position: center;
+  will-change: transform;
 }
 
 .carousel-item__content {
@@ -234,7 +283,8 @@ export default {
   height: var(--description-height);
   display: flex;
   flex-direction: column;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.6s ease-in-out;
+  will-change: opacity;
 }
 
 .carousel-item__title {
@@ -257,6 +307,13 @@ export default {
 .carousel-control-prev,
 .carousel-control-next {
   margin-bottom: var(--description-height);
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 0.8;
 }
 
 /* Carousel Indicators */
