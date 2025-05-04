@@ -200,14 +200,38 @@ export default {
   background-image: url("@/assets/images/exterior.jpg");
 }
 
-.col {
-  padding: 0.5rem;
-  margin: 0;
+.card-body {
+  padding: 1rem;
 }
 
-.row {
+.card-title {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.card-text {
+  color: var(--text-secondary);
   margin: 0;
-  width: 100%;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  height: 3rem;  /* Fixed height for 2 lines */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Row adjustments */
+.row {
+  margin: 0 -1rem;
+  width: calc(100% + 2rem);
+}
+
+.col-md-4 {
+  padding: 0 1rem;
+  margin-bottom: 2rem;
 }
 
 .gallery-card:hover {
@@ -217,21 +241,6 @@ export default {
 h2 {
   color: var(--text-primary);
   font-weight: var(--font-weight-semibold);
-}
-
-.card-title {
-  color: var(--text-primary);
-  font-weight: var(--font-weight-medium);
-  margin: 1rem 0 0.5rem;
-}
-
-.card-text {
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.card-body {
-  padding: 1rem;
 }
 
 /* Carousel styles */

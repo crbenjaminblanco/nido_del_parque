@@ -105,9 +105,9 @@ export default {
   border-radius: var(--border-radius-md);
   overflow: hidden;
   display: flex;
-  justify-content: center; 
-  align-items: center;  
-  height: auto;     
+  justify-content: center;
+  align-items: flex-start;
+  height: auto;
 }
 
 .loading-placeholder {
@@ -116,5 +116,9 @@ export default {
   text-align: center;
   color: var(--text-muted);
   border-radius: var(--border-radius-md);
+}
+
+:deep(.instagram-media) {
+  margin: 0 auto !important;
 }
 </style> 
