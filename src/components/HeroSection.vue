@@ -9,7 +9,7 @@
           <h1 class="display-1 font-primary-color">{{ title }}</h1>
           <p class="lead mb-3 font-primary-color">{{ welcomeMessage }}</p>
           <contact-button 
-            :phone-number="whatsappUrl"
+            :phone-number="whatsappNumber"
             :label="contactButtonLabel"
           />
         </div>
