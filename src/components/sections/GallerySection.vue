@@ -77,59 +77,12 @@
 
       <!-- Grid Layout (visible on md screens and up) -->
       <div class="row row-cols-1 row-cols-md-3 g-4 d-none d-md-flex">
-        <div class="col-md-4">
-          <div class="gallery__card">
-            <div class="gallery__image gallery__image--living-room"></div>
-            <div class="gallery__body">
-              <h5 class="gallery__card-title">{{ $t('gallery.items.livingRoom.title') }}</h5>
-              <p class="gallery__card-text">{{ $t('gallery.items.livingRoom.description') }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="gallery__card">
-            <div class="gallery__image gallery__image--bedroom"></div>
-            <div class="gallery__body">
-              <h5 class="gallery__card-title">{{ $t('gallery.items.bedroom.title') }}</h5>
-              <p class="gallery__card-text">{{ $t('gallery.items.bedroom.description') }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="gallery__card">
-            <div class="gallery__image gallery__image--kitchen"></div>
-            <div class="gallery__body">
-              <h5 class="gallery__card-title">{{ $t('gallery.items.kitchen.title') }}</h5>
-              <p class="gallery__card-text">{{ $t('gallery.items.kitchen.description') }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="gallery__card">
-            <div class="gallery__image gallery__image--bathroom"></div>
-            <div class="gallery__body">
-              <h5 class="gallery__card-title">{{ $t('gallery.items.bathroom.title') }}</h5>
-              <p class="gallery__card-text">{{ $t('gallery.items.bathroom.description') }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="gallery__card">
-            <div class="gallery__image gallery__image--parking"></div>
-            <div class="gallery__body">
-              <h5 class="gallery__card-title">{{ $t('gallery.items.parking.title') }}</h5>
-              <p class="gallery__card-text">{{ $t('gallery.items.parking.description') }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="gallery__card">
-            <div class="gallery__image gallery__image--exterior"></div>
-            <div class="gallery__body">
-              <h5 class="gallery__card-title">{{ $t('gallery.items.exterior.title') }}</h5>
-              <p class="gallery__card-text">{{ $t('gallery.items.exterior.description') }}</p>
-            </div>
-          </div>
+        <div class="col-md-4" v-for="(item, key) in galleryItems" :key="key">
+          <photo-card
+            :image-src="require(`@/assets/images/${item.image}.jpg`)"
+            :title="$t(`gallery.items.${item.translationKey}.title`)"
+            :description="$t(`gallery.items.${item.translationKey}.description`)"
+          />
         </div>
       </div>
     </div>
@@ -138,9 +91,25 @@
 
 <script>
 import * as bootstrap from 'bootstrap'
+import PhotoCard from '../ui/cards/PhotoCard.vue'
 
 export default {
-  name: 'PhotoGallery',
+  name: 'GallerySection',
+  components: {
+    PhotoCard
+  },
+  data() {
+    return {
+      galleryItems: [
+        { image: 'living-room', translationKey: 'livingRoom' },
+        { image: 'bedroom', translationKey: 'bedroom' },
+        { image: 'kitchen', translationKey: 'kitchen' },
+        { image: 'bathroom', translationKey: 'bathroom' },
+        { image: 'parking', translationKey: 'parking' },
+        { image: 'exterior', translationKey: 'exterior' }
+      ]
+    }
+  },
   mounted() {
     // Initialize Bootstrap carousel
     const carousel = document.getElementById('photoCarousel');
@@ -160,19 +129,13 @@ export default {
 }
 
 .gallery__title {
-  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-3xl);
   font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xl);
   text-align: center;
-  margin-bottom: 3rem;
-}
-
-.gallery__card {
-  transition: transform var(--transition-speed) var(--transition-timing);
-  border: none;
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--border-radius-md);
-  overflow: hidden;
-  margin-bottom: 2rem;
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .gallery__image {
@@ -206,29 +169,6 @@ export default {
   background-image: url("@/assets/images/exterior.jpg");
 }
 
-.gallery__body {
-  padding: 1rem;
-}
-
-.gallery__card-title {
-  color: var(--text-primary);
-  font-weight: var(--font-weight-medium);
-  margin: var(--spacing-xs) 0;
-  font-size: var(--text-lg);
-}
-
-.gallery__card-text {
-  color: var(--text-secondary);
-  margin: 0;
-  font-size: var(--text-sm);
-  line-height: var(--line-height-relaxed);
-  height: 3rem;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
 .gallery__caption {
   background: var(--bg-overlay);
   border-radius: var(--border-radius-md);
@@ -258,11 +198,6 @@ export default {
   margin-bottom: var(--spacing-lg);
 }
 
-.gallery__card:hover {
-  transform: translateY(-0.3125rem);
-  box-shadow: var(--shadow-md);
-}
-
 /* Carousel styles */
 .gallery__carousel {
   margin-bottom: 2rem;
@@ -275,5 +210,18 @@ export default {
 .carousel-control-prev,
 .carousel-control-next {
   width: 10%;
+}
+
+.carousel-caption__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
+}
+
+.carousel-caption__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--line-height-relaxed);
 }
 </style> 

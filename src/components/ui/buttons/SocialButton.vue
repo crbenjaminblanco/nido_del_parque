@@ -67,7 +67,7 @@ export default {
 }
 
 .social-btn__title {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   color: var(--text-primary);
   font-size: var(--text-lg);
   margin-bottom: var(--spacing-xs);

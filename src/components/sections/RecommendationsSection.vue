@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import RecommendationCard from './RecommendationCard.vue'
+import RecommendationCard from '@/components/ui/cards/RecommendationCard.vue'
 
 export default {
   name: 'RecommendationsSection',
@@ -91,24 +91,29 @@ export default {
 }
 
 .recommendations__title {
-  font-family: var(--font-secondary);
-  color: var(--text-primary);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-primary);
   font-size: var(--text-3xl);
-  margin-bottom: var(--spacing-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
   letter-spacing: var(--letter-spacing-wide);
 }
 
 .recommendations__subtitle {
   font-family: var(--font-primary);
-  color: var(--text-muted);
   font-size: var(--text-lg);
+  color: var(--text-muted);
   margin-bottom: var(--spacing-xl);
+  text-align: center;
   line-height: var(--line-height-relaxed);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .recommendations__section-title {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   font-size: var(--text-2xl);
   color: var(--text-primary);
   margin-bottom: var(--spacing-lg);

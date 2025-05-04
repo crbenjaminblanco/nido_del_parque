@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import BaseCard from './BaseCard.vue'
+import BaseCard from '@/components/ui/cards/BaseCard.vue'
 
 export default {
   name: 'RecommendationCard',
@@ -61,7 +61,7 @@ export default {
 }
 
 .rec-card__title {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   margin: 0 0 var(--spacing-xs);
   color: var(--text-primary);
   font-size: var(--text-xl);

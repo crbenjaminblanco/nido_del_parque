@@ -1,10 +1,10 @@
 <template>
-  <section class="thank">
+  <section class="footer">
     <div class="container text-center">
-      <div class="thank__content">
-        <i class="fas fa-heart thank__icon"></i>
-        <h2 class="thank__title">{{ $t('thankYou.title') }}</h2>
-        <p class="thank__message text-muted">{{ $t('thankYou.message') }}</p>
+      <div class="footer__content">
+        <i class="fas fa-heart footer__icon"></i>
+        <h2 class="footer__title">{{ $t('thankYou.title') }}</h2>
+        <p class="footer__message text-muted">{{ $t('thankYou.message') }}</p>
       </div>
     </div>
   </section>
@@ -12,38 +12,38 @@
 
 <script>
 export default {
-  name: 'ThankYou'
+  name: 'FooterSection'
 }
 </script>
 
 <style scoped>
-.thank {
+.footer {
   background-color: var(--bg-primary);
   padding: calc(var(--spacing-xl) * 2) 0;
 }
 
-.thank__content {
+.footer__content {
   max-width: 600px;
   margin: 0 auto;
 }
 
-.thank__icon {
+.footer__icon {
   color: var(--brand-highlight);
   font-size: var(--text-4xl);
   margin-bottom: var(--spacing-lg);
   animation: pulse 1.5s infinite;
 }
 
-.thank__title {
-  font-family: var(--font-secondary);
-  color: var(--text-primary);
-  font-size: var(--text-3xl);
+.footer__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-2xl);
   font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
   letter-spacing: var(--letter-spacing-wide);
 }
 
-.thank__message {
+.footer__message {
   font-family: var(--font-primary);
   font-size: var(--text-lg);
   line-height: var(--line-height-relaxed);
@@ -57,19 +57,19 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .thank {
+  .footer {
     padding: calc(var(--spacing-xl) * 1.5) 0;
   }
 
-  .thank__title {
+  .footer__title {
     font-size: var(--text-2xl);
   }
 
-  .thank__message {
+  .footer__message {
     font-size: var(--text-base);
   }
 
-  .thank__icon {
+  .footer__icon {
     font-size: var(--text-3xl);
   }
 }

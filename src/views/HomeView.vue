@@ -2,22 +2,22 @@
   <div class="home">
     <welcome-section/>
     <div class="sections-container">
-      <photo-gallery id="gallery"/>
+      <gallery-section id="gallery"/>
       <wifi-section id="wifi"/>
       <recommendations-section id="recommendations"/>
       <social-section id="contact"/>
-      <thank-you/>
+      <footer-section/>
     </div>
   </div>
 </template>
 
 <script setup>
-import WelcomeSection from '@/components/WelcomeSection.vue';
-import WifiSection from '@/components/Wifi.vue';
-import PhotoGallery from '@/components/PhotoGallery.vue';
-import SocialSection from '@/components/SocialSection.vue';
-import RecommendationsSection from '@/components/RecommendationsSection.vue';
-import ThankYou from '@/components/ThankYou.vue';
+import WelcomeSection from '@/components/sections/WelcomeSection.vue';
+import WifiSection from '@/components/sections/WifiSection.vue';
+import GallerySection from '@/components/sections/GallerySection.vue';
+import SocialSection from '@/components/sections/SocialSection.vue';
+import RecommendationsSection from '@/components/sections/RecommendationsSection.vue';
+import FooterSection from '@/components/sections/FooterSection.vue';
 </script>
 
 <style scoped>
@@ -46,4 +46,18 @@ import ThankYou from '@/components/ThankYou.vue';
 .sections-container > *:first-child {
   padding-top: 0;
 }
-</style> 
+</style>
+
+<script>
+export default {
+  name: 'HomeView',
+  components: {
+    WelcomeSection,
+    GallerySection,
+    WifiSection,
+    RecommendationsSection,
+    SocialSection,
+    FooterSection
+  }
+}
+</script> 

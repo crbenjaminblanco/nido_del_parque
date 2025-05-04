@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import SocialButton from './SocialButton.vue'
-import InstagramSection from './InstagramSection.vue'
-import { CONTACT_INFO } from '../config/contact'
+import SocialButton from '@/components/ui/buttons/SocialButton.vue'
+import InstagramSection from '@/components/sections/InstagramSection.vue'
+import { CONTACT_INFO } from '@/config/contact'
 
 export default {
   name: 'SocialSection',
@@ -82,7 +82,7 @@ export default {
 }
 
 .social__title {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   font-size: var(--text-3xl);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);

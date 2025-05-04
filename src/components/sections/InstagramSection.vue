@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { CONTACT_INFO } from '../config/contact'
+import { CONTACT_INFO } from '@/config/contact'
 
 export default {
   name: 'InstagramSection',
@@ -105,6 +105,23 @@ export default {
   padding: 0;
   width: 100% !important;
   max-width: 100% !important;
+}
+
+.instagram__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.instagram__subtitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-lg);
+  line-height: var(--line-height-relaxed);
 }
 
 @media (max-width: 48rem) {

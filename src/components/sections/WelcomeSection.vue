@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import ContactButton from './ui/ContactButton.vue'
-import ScrollIndicator from './ui/ScrollIndicator.vue'
-import { CONTACT_INFO } from '../config/contact'
+import ContactButton from '@/components/ui/buttons/ContactButton.vue'
+import ScrollIndicator from '@/components/ui/indicators/ScrollIndicator.vue'
+import { CONTACT_INFO } from '@/config/contact'
 
 export default {
   name: 'WelcomeSection',
@@ -80,7 +80,7 @@ export default {
 
 <style scoped>
 .welcome {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   position: relative;
   background-image: url("@/assets/background2.jpg");
@@ -89,7 +89,7 @@ export default {
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  padding-top: 5rem; /* 80px -> 5rem */
+  padding-top: 5rem;
 }
 
 .welcome__overlay {
@@ -98,7 +98,12 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--bg-overlay);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 1;
 }
 
 .welcome__main {
@@ -108,78 +113,132 @@ export default {
   justify-content: center;
   position: relative;
   z-index: 2;
-  min-height: calc(100vh - 5rem); /* 80px -> 5rem */
 }
 
 .welcome__container {
   text-align: center;
   color: var(--text-light);
+  animation: fadeInUp 1.2s ease-out;
+  width: 100%;
 }
 
 .welcome__content {
-  max-width: 50rem; /* 800px -> 50rem */
+  max-width: 50rem;
+  margin: 0 auto;
   padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .welcome__title {
-  font-family: var(--font-secondary);
-  font-size: var(--text-4xl);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-xs);
+  font-family: var(--font-primary);
+  font-size: calc(var(--text-4xl) * 1.5);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-light);
-  text-shadow: var(--shadow-md);
-  letter-spacing: var(--letter-spacing-wide);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: var(--letter-spacing-normal);
+  line-height: 1.1;
+  position: relative;
+  margin-bottom: 0;
+  animation: titleReveal 1.5s ease-out forwards;
 }
 
 .welcome__message {
   font-family: var(--font-primary);
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-medium);
-  margin-bottom: var(--spacing-sm);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-normal);
   color: var(--text-light);
-  text-shadow: var(--shadow-sm);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   line-height: var(--line-height-relaxed);
+  max-width: 40rem;
+  margin: 0 auto;
+  margin-bottom: var(--spacing-sm);
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.5s forwards;
 }
 
 .welcome__scroll {
   position: relative;
   z-index: 2;
   text-align: center;
-  margin-bottom: calc(var(--spacing-xl) * 2.75);
+  margin-bottom: 5.5rem;
   display: flex;
   justify-content: center;
   width: 100%;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 1s forwards;
 }
 
-@media (max-width: 48rem) { /* 768px -> 48rem */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineExpand {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 48rem) {
   .welcome__content {
     padding: var(--spacing-lg);
   }
 
   .welcome__title {
-    font-size: var(--text-3xl);
+    font-size: calc(var(--text-3xl) * 1.3);
   }
 
   .welcome__message {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
+    max-width: 100%;
   }
 }
 
-@media (max-width: 30rem) { /* 480px -> 30rem */
+@media (max-width: 30rem) {
   .welcome__content {
     padding: var(--spacing-md);
   }
 
   .welcome__title {
-    font-size: var(--text-2xl);
+    font-size: calc(var(--text-2xl) * 1.3);
   }
 
   .welcome__message {
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
   }
 }
 </style>

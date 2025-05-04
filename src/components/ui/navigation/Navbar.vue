@@ -56,14 +56,14 @@
           >
             <a 
               :href="`#${item.sectionId}`"
-              class="nav-link nav__link"
+              class="nav__link"
               :class="{ 
                 'nav__link--light': !scrolled,
                 'nav__link--dark': scrolled,
-                'nav__link--active': activeSection === item.sectionId && !isClickNavigation,
-                'nav__link--active-click': activeSection === item.sectionId && isClickNavigation
+                'nav__link--active': activeSection === item.sectionId
               }"
               @click.prevent="handleNavClick(item.sectionId)"
+              :aria-current="activeSection === item.sectionId ? 'page' : null"
             >
               {{ item.text }}
             </a>
@@ -135,8 +135,7 @@ export default {
     return {
       scrolled: false,
       isExpanded: false,
-      activeSection: 'welcome',
-      isClickNavigation: false
+      activeSection: 'welcome'
     }
   },
 
@@ -213,9 +212,8 @@ export default {
       // Close menu first
       this.closeMenu();
       
-      // Update active section immediately
-      this.activeSection = sectionId;
-      this.isClickNavigation = true;
+      // Clear active section before redirecting
+      this.activeSection = '';
       
       // Update route with current language and section
       const currentLang = this.$i18n.locale;
@@ -223,50 +221,16 @@ export default {
         path: `/${currentLang}/${sectionId}`,
         query: { instant: 'true' }
       }).finally(() => {
-        // Ensure menu stays closed after navigation
+        // Set the new active section after navigation
         this.$nextTick(() => {
+          this.activeSection = sectionId;
           this.isExpanded = false;
-          // Reset click navigation flag after a short delay
-          setTimeout(() => {
-            this.isClickNavigation = false;
-          }, 100);
         });
       });
     },
 
     handleScroll() {
       this.scrolled = window.scrollY > 50;
-      if (!this.isClickNavigation) {
-        this.updateActiveSection();
-      }
-    },
-
-    updateActiveSection() {
-      if (this.isClickNavigation) return;
-
-      const sections = this.navigationItems.map(item => document.getElementById(item.sectionId));
-      const navbarHeight = this.$el.offsetHeight;
-      const scrollPosition = window.scrollY + navbarHeight + 50;
-
-      // Find the current section
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section) {
-          const sectionTop = section.offsetTop;
-          if (scrollPosition >= sectionTop) {
-            const sectionId = this.navigationItems[i].sectionId;
-            if (this.activeSection !== sectionId) {
-              this.activeSection = sectionId;
-              // Update route without forcing scroll
-              const currentLang = this.$i18n.locale;
-              this.$router.push({
-                path: `/${currentLang}/${sectionId}`
-              }).catch(() => {});
-            }
-            break;
-          }
-        }
-      }
     },
 
     closeMenu() {
@@ -367,11 +331,18 @@ export default {
   box-shadow: var(--shadow-sm);
 }
 
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* Toggler Button */
 .navbar-toggler {
   border: none;
   padding: var(--spacing-xs);
   transition: color var(--transition-speed) var(--transition-timing);
+  margin-left: auto;
 }
 
 .navbar-toggler:focus {
@@ -381,19 +352,21 @@ export default {
 .navbar-toggler-icon {
   background-image: none;
   position: relative;
+  width: 24px;
+  height: 24px;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-toggler-icon::before {
   content: '';
   position: absolute;
-  width: 1.875rem;
-  height: 0.125rem;
+  width: 24px;
+  height: 2px;
   background-color: currentColor;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 -0.5rem 0 currentColor, 0 0.5rem 0 currentColor;
+  box-shadow: 0 -8px 0 currentColor, 0 8px 0 currentColor;
   transition: all 0.3s ease;
 }
 
@@ -415,13 +388,15 @@ export default {
 
 /* Brand and Logo */
 .navbar-brand {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   font-weight: var(--font-weight-semibold);
   font-size: var(--text-xl);
   letter-spacing: var(--letter-spacing-wide);
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  transition: all var(--transition-speed) var(--transition-timing);
+  margin-right: var(--spacing-xl);
 }
 
 .brand--light {
@@ -429,7 +404,9 @@ export default {
 }
 
 .brand--light:hover {
-  color: var(--text-light-hover);
+  color: var(--text-light);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .brand--dark {
@@ -437,7 +414,9 @@ export default {
 }
 
 .brand--dark:hover {
-  color: var(--brand-secondary);
+  color: var(--brand-primary);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .brand__logo {
@@ -455,15 +434,37 @@ export default {
 }
 
 /* Navigation Links */
+.navbar-collapse {
+  flex-grow: 0;
+}
+
 .navbar-nav {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  list-style: none;
 }
 
 .nav__link {
   font-family: var(--font-primary);
   font-size: var(--text-base);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-normal);
   transition: all var(--transition-speed) var(--transition-timing);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Override default active state */
+.nav__link.active {
+  color: inherit;
+  font-weight: inherit;
 }
 
 .nav__link--light {
@@ -471,7 +472,8 @@ export default {
 }
 
 .nav__link--light:hover {
-  color: var(--text-light-hover);
+  color: var(--text-light);
+  opacity: 0.9;
 }
 
 .nav__link--dark {
@@ -479,30 +481,12 @@ export default {
 }
 
 .nav__link--dark:hover {
-  color: var(--brand-secondary);
+  color: var(--brand-primary);
+  opacity: 0.9;
 }
 
-.nav__link--active,
-.nav__link--active-click {
-  font-weight: var(--font-weight-semibold);
-  position: relative;
-}
-
-.nav__link--active::after,
-.nav__link--active-click::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0.125rem;
-  background-color: currentColor;
-  opacity: 0.5;
-  transition: opacity var(--transition-speed) var(--transition-timing);
-}
-
-.nav__link--active-click::after {
-  opacity: 0.8;
+.nav__link--active {
+  border-bottom: 2px solid currentColor;
 }
 
 /* Language Selector */
@@ -557,6 +541,10 @@ export default {
 /* Mobile Styles */
 @media (max-width: 61.9375rem) {
   .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: var(--spacing-md);
+    right: var(--spacing-md);
     background: var(--bg-primary);
     margin-top: var(--spacing-md);
     padding: var(--spacing-md);
@@ -565,64 +553,45 @@ export default {
   }
 
   .navbar-nav {
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
   }
 
   .nav-item {
     width: 100%;
   }
 
-  .nav__link--active::after,
-  .nav__link--active-click::after {
-    display: none;
-  }
-  
-  .nav__link--active,
-  .nav__link--active-click {
-    background-color: var(--bg-hover);
-  }
-
   .nav__link {
-    color: var(--brand-primary);
+    display: block;
     padding: var(--spacing-sm) var(--spacing-md);
     text-align: left;
-    width: 100%;
+  }
+
+  .nav__link--active {
+    background-color: var(--bg-hover);
+    border-bottom: none;
+    border-left: 3px solid currentColor;
   }
 
   .nav__link:hover {
-    color: var(--brand-secondary);
     background-color: var(--bg-hover);
   }
 
   .lang-selector {
-    padding: var(--spacing-sm) var(--spacing-md);
-    margin: 0;
-    color: var(--brand-primary);
-  }
-
-  .lang-selector__icon {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-
-  .dropdown-menu {
     width: 100%;
-    padding: 0;
-    margin: 0;
-    border: none;
-    box-shadow: none;
-    background-color: var(--bg-hover);
+    justify-content: flex-start;
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 }
 
 @media (min-width: 62rem) {
   .navbar-nav {
-    align-items: center;
-    justify-content: flex-end;
+    gap: var(--spacing-lg);
   }
 
-  .nav-item:not(:last-child) {
-    margin-right: var(--spacing-md);
+  .nav__link {
+    padding: var(--spacing-xs) var(--spacing-xxs);
   }
 }
 </style>

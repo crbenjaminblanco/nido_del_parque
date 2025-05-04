@@ -92,12 +92,40 @@ export default {
 }
 
 .wifi__title {
-  font-family: var(--font-secondary);
-  color: var(--text-primary);
+  font-family: var(--font-primary);
   font-size: var(--text-3xl);
   font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
   letter-spacing: var(--letter-spacing-wide);
+}
+
+.wifi__subtitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+}
+
+.wifi__qr-title {
+  font-family: var(--font-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.wifi__qr-subtitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
 }
 
 @keyframes pulse {
