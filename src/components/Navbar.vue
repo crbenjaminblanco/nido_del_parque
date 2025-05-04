@@ -322,6 +322,22 @@ export default {
       // Get initial section from route or default to welcome
       const currentSection = this.$route.params.section || 'welcome';
       this.activeSection = currentSection;
+      
+      // Scroll to section if accessed directly via URL
+      if (currentSection !== 'welcome') {
+        const targetSection = document.getElementById(currentSection);
+        if (targetSection) {
+          const navbarHeight = this.$el.offsetHeight;
+          const elementPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navbarHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'instant'
+          });
+        }
+      }
+      
       this.handleScroll();
     });
   },
