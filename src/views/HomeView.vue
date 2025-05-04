@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <hero-section/>
+    <welcome-section/>
     <photo-gallery v-show="currentRoute === 'gallery' || currentRoute === 'home'"/>
     <wifi-section v-show="currentRoute === 'wifi' || currentRoute === 'home'"/>
     <recommendations-section v-show="currentRoute === 'recommendations' || currentRoute === 'home'"/>
@@ -12,7 +12,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import HeroSection from '@/components/HeroSection.vue';
+import WelcomeSection from '@/components/WelcomeSection.vue';
 import WifiSection from '@/components/Wifi.vue';
 import PhotoGallery from '@/components/PhotoGallery.vue';
 import SocialSection from '@/components/SocialSection.vue';

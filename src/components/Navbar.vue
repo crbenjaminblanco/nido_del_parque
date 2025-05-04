@@ -5,7 +5,8 @@
       <a 
         class="navbar-brand"
         :class="brandClasses"
-        :href="`#${languagePrefix}/home`"
+        href="#home"
+        @click.prevent="handleLinkClick"
       >
         <img
           src="@/assets/logo.png"
@@ -120,11 +121,11 @@ export default {
       isExpanded: false,
       collapse: null,
       navigationItems: [
-        { text: this.$t('navbar.home'), href: '#/es/home', isActive: true },
-        { text: this.$t('navbar.gallery'), href: '#/es/gallery' },
-        { text: this.$t('navbar.wifi'), href: '#/es/wifi' },
-        { text: this.$t('navbar.recommendations'), href: '#/es/recommendations' },
-        { text: this.$t('navbar.contact'), href: '#/es/contact' }
+        { text: this.$t('navbar.home'), href: '#welcome-section', isActive: true },
+        { text: this.$t('navbar.gallery'), href: '#photo-gallery' },
+        { text: this.$t('navbar.wifi'), href: '#wifi-section' },
+        { text: this.$t('navbar.recommendations'), href: '#recommendations' },
+        { text: this.$t('navbar.contact'), href: '#social-section' }
       ]
     }
   },
@@ -172,27 +173,18 @@ export default {
 
   methods: {
     changeLanguage(lang) {
-      // Get the current route path from the hash
-      const currentHash = window.location.hash
-      const currentPath = currentHash.replace('#', '') || '/es/home'
-      
       // Update locale
       this.$i18n.locale = lang
       
       // Update navigation items text
       this.navigationItems = this.navigationItems.map(item => ({
         ...item,
-        text: this.$t(item.href === '#/es/home' ? 'navbar.home' :
-              item.href === '#/es/gallery' ? 'navbar.gallery' :
-              item.href === '#/es/wifi' ? 'navbar.wifi' :
-              item.href === '#/es/recommendations' ? 'navbar.recommendations' :
-              'navbar.contact'),
-        href: item.href.replace(/(#\/)(es|en)\//, `$1${lang}/`)
+        text: this.$t(item.href === '#home' ? 'navbar.home' :
+              item.href === '#photo-gallery' ? 'navbar.gallery' :
+              item.href === '#wifi-section' ? 'navbar.wifi' :
+              item.href === '#recommendations' ? 'navbar.recommendations' :
+              'navbar.contact')
       }))
-
-      // Update the URL with new language
-      const newPath = currentPath.replace(/(\/)(es|en)(\/)/, `$1${lang}$3`)
-      window.location.hash = newPath
 
       // Close the burger menu if it's open
       if (this.collapse && this.isExpanded) {
@@ -272,27 +264,16 @@ export default {
     handleLinkClick(event) {
       event.preventDefault()
       const href = event.target.getAttribute('href')
+      const targetSection = document.querySelector(href)
       
-      // Check if it's the home link
-      if (href === '/') {
-        window.location.href = `${this.languagePrefix}/home`
-        return
+      if (targetSection) {
+        targetSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        })
       }
 
-      // Update URL based on section
-      const routeMap = {
-        '#wifi-section': '/wifi',
-        '#photo-gallery': '/gallery',
-        '#recommendations': '/recommendations',
-        '#social-section': '/contact'
-      }
-
-      if (routeMap[href]) {
-        this.updateUrlWithSection(routeMap[href])
-      }
-
-      this.scrollToSection(href)
-
+      // Cerrar el menú móvil si está abierto
       if (window.innerWidth <= 991 && this.collapse) {
         this.collapse.hide()
         this.isExpanded = false

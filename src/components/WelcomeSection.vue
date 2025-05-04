@@ -1,11 +1,11 @@
 <template>
-  <section id="hero-section" class="hero-section">
+  <section id="welcome-section" class="welcome-section">
     <div class="overlay"></div>
     
     <!-- Main Content -->
     <div class="main-content">
       <div class="text-center text-white">
-        <div class="hero-content">
+        <div class="welcome-content">
           <h1 class="display-1 font-primary-color">{{ title }}</h1>
           <p class="lead mb-3 font-primary-color">{{ welcomeMessage }}</p>
           <contact-button 
@@ -32,7 +32,7 @@ import ScrollIndicator from './ui/ScrollIndicator.vue'
 import { CONTACT_INFO } from '../config/contact'
 
 export default {
-  name: 'HeroSection',
+  name: 'WelcomeSection',
 
   components: {
     ContactButton,
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-.hero-section {
+.welcome-section {
   height: 100vh;
   width: 100%;
   position: relative;
@@ -109,7 +109,7 @@ export default {
   z-index: 2;
 }
 
-.hero-content {
+.welcome-content {
   max-width: 800px;
   padding: 2rem;
   display: flex;
