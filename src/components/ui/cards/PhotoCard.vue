@@ -43,13 +43,35 @@ export default {
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: transform var(--transition-speed) var(--transition-timing);
+  transition: all var(--transition-speed) var(--transition-timing);
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.photo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, 
+    rgba(230, 126, 34, 0.1), 
+    rgba(22, 160, 133, 0.1)
+  );
+  opacity: 0;
+  transition: opacity var(--transition-speed) var(--transition-timing);
+  z-index: 1;
 }
 
 .photo-card:hover {
   transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.photo-card:hover::before {
+  opacity: 1;
 }
 
 .photo-card__image {
@@ -57,6 +79,11 @@ export default {
   background-size: cover;
   background-position: center;
   position: relative;
+  transition: transform var(--transition-speed) var(--transition-timing);
+}
+
+.photo-card:hover .photo-card__image {
+  transform: scale(1.05);
 }
 
 .photo-card__overlay {
@@ -64,9 +91,13 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  background: linear-gradient(to top, 
+    rgba(44, 62, 80, 0.9), 
+    rgba(44, 62, 80, 0.7)
+  );
   padding: var(--spacing-lg);
   color: var(--text-light);
+  z-index: 2;
 }
 
 .photo-card__content {
@@ -75,14 +106,21 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 2;
 }
 
 .photo-card__title {
   font-family: var(--font-primary);
   font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: var(--spacing-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  display: inline-block;
 }
 
 .photo-card__description {
@@ -97,5 +135,15 @@ export default {
 .photo-card__overlay .photo-card__title,
 .photo-card__overlay .photo-card__description {
   color: var(--text-light);
+}
+
+.photo-card__overlay .photo-card__title {
+  background: none;
+  -webkit-text-fill-color: var(--text-light);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.photo-card__overlay .photo-card__title::after {
+  display: none;
 }
 </style> 

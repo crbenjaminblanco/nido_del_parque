@@ -80,8 +80,10 @@
                   'lang-selector--dark': scrolled 
                 }"
                 type="button" 
+                id="languageDropdown"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                @click="toggleLanguageDropdown"
               >
                 <div class="d-flex align-items-center">
                   <img 
@@ -91,7 +93,7 @@
                   />
                 </div>
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                 <li>
                   <button 
                     class="dropdown-item lang-selector__item" 
@@ -130,6 +132,8 @@
 </template>
 
 <script>
+import { Dropdown } from 'bootstrap'
+
 export default {
   name: 'MainNavbar',
   
@@ -137,7 +141,9 @@ export default {
     return {
       scrolled: false,
       isExpanded: false,
-      activeSection: 'welcome'
+      activeSection: 'welcome',
+      isLanguageDropdownOpen: false,
+      languageDropdown: null
     }
   },
 
@@ -286,11 +292,21 @@ export default {
       }
     },
 
+    toggleLanguageDropdown() {
+      if (!this.languageDropdown) {
+        const dropdownElement = document.getElementById('languageDropdown');
+        if (dropdownElement) {
+          this.languageDropdown = new Dropdown(dropdownElement);
+        }
+      }
+      this.isLanguageDropdownOpen = !this.isLanguageDropdownOpen;
+    },
+
     changeLanguage(lang) {
       // Close language dropdown
-      const dropdown = document.querySelector('.dropdown-toggle');
-      if (dropdown) {
-        dropdown.click();
+      this.isLanguageDropdownOpen = false;
+      if (this.languageDropdown) {
+        this.languageDropdown.hide();
       }
 
       // Close mobile menu if open
@@ -326,6 +342,15 @@ export default {
     this.$nextTick(() => {
       const currentSection = this.$route.params.section || 'welcome';
       this.activeSection = currentSection;
+      
+      // Initialize language dropdown
+      const dropdownElement = document.getElementById('languageDropdown');
+      if (dropdownElement) {
+        this.languageDropdown = new Dropdown(dropdownElement, {
+          offset: [0, 8],
+          boundary: 'viewport'
+        });
+      }
       
       // Only scroll to section if not changing language
       if (currentSection !== 'welcome' && !this.$route.query.noScroll) {
@@ -529,8 +554,20 @@ export default {
   align-items: center;
   padding: var(--spacing-xs);
   border: none;
-  width: 100%;
-  justify-content: flex-start;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+  text-decoration: none;
+}
+
+.lang-selector:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.lang-selector:hover {
+  text-decoration: none;
 }
 
 .lang-selector--light {
@@ -597,22 +634,43 @@ export default {
     display: block;
     padding: var(--spacing-sm) var(--spacing-md);
     text-align: left;
+    color: var(--brand-primary) !important;
   }
 
   .nav__link:hover {
     background-color: var(--bg-hover);
+    color: var(--brand-primary) !important;
   }
 
   .nav__link--active {
     background-color: var(--bg-hover);
     border-bottom: none;
-    border-left: 3px solid currentColor;
+    border-left: 3px solid var(--brand-primary);
+    color: var(--brand-primary) !important;
   }
 
   .lang-selector {
     width: 100%;
     justify-content: flex-start;
     padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--brand-primary) !important;
+  }
+
+  .lang-selector:hover {
+    background-color: var(--bg-hover);
+    color: var(--brand-primary) !important;
+  }
+
+  .lang-selector__item {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .lang-selector__item:hover {
+    background-color: var(--bg-hover);
+  }
+
+  .lang-selector__item--active {
+    background-color: var(--bg-hover);
   }
 }
 
@@ -624,6 +682,17 @@ export default {
   .nav__link {
     padding: var(--spacing-xs) var(--spacing-xxs);
   }
+}
+
+.dropdown-menu {
+  background: var(--bg-primary);
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xs);
+  min-width: 120px;
+  z-index: 1001;
+  margin-top: 0.5rem;
 }
 </style>
 

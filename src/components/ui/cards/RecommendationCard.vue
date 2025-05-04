@@ -52,18 +52,55 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-md);
-  transition: transform var(--transition-speed) var(--transition-timing);
+  transition: all var(--transition-speed) var(--transition-timing);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.recommendation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--brand-accent), var(--brand-turquoise));
+  opacity: 0;
+  transition: opacity var(--transition-speed) var(--transition-timing);
 }
 
 .recommendation-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-turquoise);
+  border-color: var(--brand-turquoise);
+}
+
+.recommendation-card:hover::before {
+  opacity: 1;
 }
 
 .recommendation-card__icon {
   font-size: var(--text-2xl);
-  color: var(--brand-accent);
   margin-bottom: var(--spacing-md);
+  transition: all var(--transition-speed) var(--transition-timing);
+  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform-origin: center;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.recommendation-card:hover .recommendation-card__icon {
+  transform: scale(1.1) rotate(10deg);
+  filter: brightness(1.1) drop-shadow(0 0 4px rgba(230, 126, 34, 0.2));
 }
 
 .recommendation-card__content {
@@ -77,7 +114,8 @@ export default {
   font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .recommendation-card__type {
@@ -90,8 +128,11 @@ export default {
 .recommendation-card__distance {
   font-family: var(--font-primary);
   font-size: var(--text-sm);
-  color: var(--brand-accent);
+  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 .recommendation-card__description {

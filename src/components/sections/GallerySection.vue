@@ -289,18 +289,23 @@ export default {
 
 .carousel-item__title {
   font-family: var(--font-primary);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: var(--spacing-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  display: inline-block;
 }
 
 .carousel-item__description {
   font-family: var(--font-primary);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   line-height: var(--line-height-relaxed);
+  color: var(--text-dark);
   margin: 0;
-  color: var(--text-primary);
 }
 
 /* Carousel Controls */

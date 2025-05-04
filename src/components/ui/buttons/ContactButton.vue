@@ -37,33 +37,64 @@ export default {
 .contact-btn {
   display: inline-flex;
   align-items: center;
-  background-color: var(--bg-overlay);
-  color: var(--text-light);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   padding: var(--spacing-md) calc(var(--spacing-xl) * 1.25);
   font-family: var(--font-primary);
   font-size: var(--text-lg);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
   border-radius: var(--border-radius-lg);
-  backdrop-filter: blur(5px);
   transition: all var(--transition-speed) var(--transition-timing);
-  border: 1px solid var(--text-light);
+  border: 2px solid var(--border-color);
   margin-top: var(--spacing-xs);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-secondary);
+  opacity: 0;
+  transition: opacity var(--transition-speed) var(--transition-timing);
 }
 
 .contact-btn:hover {
-  background-color: var(--text-light);
-  color: var(--text-primary);
-  border-color: var(--text-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--text-primary);
+}
+
+.contact-btn:hover::before {
+  opacity: 1;
 }
 
 .contact-btn__icon {
   font-size: var(--text-xl);
   margin-right: var(--spacing-sm);
+  transition: all var(--transition-speed) var(--transition-timing);
+  position: relative;
+  z-index: 1;
+  color: var(--text-primary);
+}
+
+.contact-btn:hover .contact-btn__icon {
+  transform: scale(1.1) rotate(5deg);
+  color: var(--text-primary);
 }
 
 .contact-btn__text {
   line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-wide);
+  position: relative;
+  z-index: 1;
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {

@@ -74,6 +74,8 @@ export default {
 .wifi {
   padding: var(--spacing-xl) 0;
   background-color: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
 }
 
 .wifi__card {
@@ -85,18 +87,23 @@ export default {
   overflow: hidden;
   max-width: 40rem;
   margin: 0 auto;
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-speed) var(--transition-timing),
+              box-shadow var(--transition-speed) var(--transition-timing);
 }
 
-@media (min-width: 768px) {
-  .wifi__card {
-    max-width: 40rem;
-  }
+.wifi__card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-turquoise);
+  border-color: var(--brand-turquoise);
 }
 
 .wifi__icon {
   text-align: center;
   font-size: var(--text-3xl);
-  color: var(--brand-accent);
+  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: var(--spacing-md);
   animation: pulse 2s infinite;
 }
@@ -153,15 +160,36 @@ export default {
 .wifi__credential {
   background: var(--bg-secondary);
   border-radius: var(--border-radius-md);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md);
   cursor: pointer;
   transition: all var(--transition-speed) var(--transition-timing);
   position: relative;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.wifi__credential::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, 
+    rgba(230, 126, 34, 0.1), 
+    rgba(22, 160, 133, 0.1)
+  );
+  opacity: 0;
+  transition: opacity var(--transition-speed) var(--transition-timing);
 }
 
 .wifi__credential:hover {
-  background: var(--bg-hover);
   transform: translateY(-2px);
+  border-color: var(--brand-accent);
+}
+
+.wifi__credential:hover::before {
+  opacity: 1;
 }
 
 .wifi__credential-label {
@@ -170,6 +198,7 @@ export default {
   color: var(--text-muted);
   margin-bottom: var(--spacing-xs);
   font-weight: var(--font-weight-medium);
+  position: relative;
 }
 
 .wifi__credential-value {
@@ -180,17 +209,21 @@ export default {
   font-size: var(--text-base);
   color: var(--text-primary);
   font-weight: var(--font-weight-semibold);
+  position: relative;
 }
 
 .wifi__copy-icon {
-  color: var(--text-muted);
+  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: var(--text-base);
   opacity: 0;
-  transition: opacity var(--transition-speed) var(--transition-timing);
+  transition: all var(--transition-speed) var(--transition-timing);
 }
 
 .wifi__credential:hover .wifi__copy-icon {
   opacity: 1;
+  transform: scale(1.1);
 }
 
 .wifi__toast-container {
@@ -202,7 +235,7 @@ export default {
 }
 
 .wifi__toast {
-  background: var(--bg-overlay);
+  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
   color: var(--text-light);
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius-full);
@@ -210,6 +243,7 @@ export default {
   opacity: 0;
   transition: opacity var(--transition-speed) var(--transition-timing);
   pointer-events: none;
+  box-shadow: var(--shadow-turquoise);
 }
 
 .wifi__toast--visible {
