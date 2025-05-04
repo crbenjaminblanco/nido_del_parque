@@ -5,12 +5,15 @@
     <div class="container">
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
-        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div id="photoCarousel" class="carousel" data-bs-ride="carousel" data-bs-interval="5000">
           <div class="carousel-inner">
             <div v-for="(item, index) in galleryItems" 
                  :key="index" 
                  :class="['carousel-item', { active: index === 0 }]">
-              <div class="carousel-item__image" :style="{ backgroundImage: `url(${require(`@/assets/images/${item.image}.jpg`)})` }"></div>
+              <img :src="require(`@/assets/images/${item.image}.jpg`)"
+                   :alt="$t(`gallery.items.${item.translationKey}.title`)"
+                   class="carousel-item__image"
+                   loading="auto">
               <div class="carousel-item__content">
                 <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
                 <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
@@ -82,7 +85,10 @@ export default {
           interval: 5000,
           touch: true,
           wrap: true,
-          keyboard: true
+          keyboard: true,
+          pause: 'hover',
+          ride: 'carousel',
+          slide: false
         });
       }
     });
@@ -172,6 +178,23 @@ export default {
   margin-bottom: var(--spacing-lg);
 }
 
+/* Preload container */
+.preload-container {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.preload-container div {
+  width: 1px;
+  height: 1px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* Carousel styles */
 .carousel {
   margin-bottom: 2rem;
@@ -183,20 +206,26 @@ export default {
 
 .carousel-inner {
   position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 .carousel-item {
-  background: var(--bg-primary);
-  display: flex;
-  flex-direction: column;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.carousel-item.active {
+  display: block;
+  opacity: 1;
 }
 
 .carousel-item__image {
+  width: 100%;
   height: 300px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
+  object-fit: cover;
+  object-position: center;
 }
 
 .carousel-item__content {
@@ -205,6 +234,7 @@ export default {
   height: var(--description-height);
   display: flex;
   flex-direction: column;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .carousel-item__title {
@@ -240,7 +270,6 @@ export default {
   gap: var(--spacing-xs);
   margin: 0;
   padding: 0;
-  z-index: 5;
 }
 
 .carousel-indicators button {
@@ -251,7 +280,6 @@ export default {
   opacity: 0.5;
   border: none;
   padding: 0;
-  transition: opacity 0.3s ease;
 }
 
 .carousel-indicators button.active {
