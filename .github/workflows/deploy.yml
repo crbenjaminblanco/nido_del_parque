@@ -38,6 +38,9 @@ jobs:
       - name: Create CNAME Record
         run: echo "nidodelparque.com" > docs/CNAME
 
+      - name: Disable Jekyll
+        run: touch docs/.nojekyll
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
