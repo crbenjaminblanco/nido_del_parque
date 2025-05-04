@@ -26,12 +26,6 @@ const routes = [
       }
       next()
     }
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: () => {
-      return `/${getUserLanguage()}/home`
-    }
   }
 ]
 
