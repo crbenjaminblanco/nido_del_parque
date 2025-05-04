@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import i18n from '../i18n/i18n'
 
 // Function to get user's preferred language
 const getUserLanguage = () => {
@@ -35,6 +36,9 @@ const routes = [
         next(`/${lang}/welcome`)
         return
       }
+
+      // Sync i18n locale with route language parameter
+      i18n.global.locale = lang
 
       next()
     }

@@ -193,14 +193,15 @@ export default {
       this.activeSection = sectionId;
       this.isClickNavigation = true;
       
-      // Scroll instantly to section
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'instant', block: 'start' });
-        // Update route with current language and section
-        const currentLang = this.$i18n.locale;
-        this.$router.push(`/${currentLang}/${sectionId}`);
-      }
+      // Update route with current language and section
+      const currentLang = this.$i18n.locale;
+      this.$router.push(`/${currentLang}/${sectionId}`).then(() => {
+        // Scroll to section after route update
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      });
       
       // Reset after a short delay
       setTimeout(() => {
@@ -233,7 +234,7 @@ export default {
               this.activeSection = sectionId;
               // Update route with current language and section
               const currentLang = this.$i18n.locale;
-              this.$router.push(`/${currentLang}/${sectionId}`);
+              this.$router.push(`/${currentLang}/${sectionId}`).catch(() => {});
             }
             break;
           }
@@ -281,8 +282,12 @@ export default {
       const currentSection = this.$route.params.section || 'welcome';
       
       // Update the route preserving the current section
-      this.$router.push({
-        path: `/${lang}/${currentSection}`
+      this.$router.push(`/${lang}/${currentSection}`).then(() => {
+        // Scroll to section after language change
+        const section = document.getElementById(currentSection);
+        if (section) {
+          section.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
       }).catch(() => {});
     },
 
