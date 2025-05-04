@@ -33,6 +33,7 @@ jobs:
       - name: Build
         env:
           VUE_APP_WIFI_PASSWORD: ${{ secrets.VUE_APP_WIFI_PASSWORD }}
+          CUSTOM_DOMAIN: 'true'
         run: npm run build
 
       - name: Create CNAME Record
