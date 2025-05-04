@@ -4,29 +4,28 @@ import HomeView from '../views/HomeView.vue'
 // Function to get user's preferred language
 const getUserLanguage = () => {
   // Get browser language (e.g., 'es-ES', 'en-US')
-  const browserLang = navigator.language.toLowerCase()
+  const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase()
   
   // Check if it starts with 'es'
-  if (browserLang.startsWith('es')) {
-    return 'es'
-  }
-  
-  // Default to 'en' for all other languages
-  return 'en'
+  return browserLang.startsWith('es') ? 'es' : 'en'
 }
 
 const routes = [
   {
     path: '/',
-    redirect: to => {
+    redirect: () => {
       const userLang = getUserLanguage()
-      return `/${userLang}/home${to.hash || '#welcome'}`
+      return `/${userLang}/home${location.hash || '#welcome'}`
     }
   },
   {
     path: '/:lang',
     redirect: to => {
-      return `/${to.params.lang}/home${to.hash || '#welcome'}`
+      const lang = to.params.lang
+      // Si el idioma es válido, lo usamos, si no, usamos el del navegador
+      const validLanguages = ['es', 'en']
+      const targetLang = validLanguages.includes(lang) ? lang : getUserLanguage()
+      return `/${targetLang}/home${to.hash || '#welcome'}`
     }
   },
   {
@@ -37,7 +36,11 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     redirect: to => {
-      return `/${getUserLanguage()}/home${to.hash || '#welcome'}`
+      // Intentamos extraer el idioma de la URL actual
+      const urlLang = window.location.pathname.split('/')[1]
+      const validLanguages = ['es', 'en']
+      const targetLang = validLanguages.includes(urlLang) ? urlLang : getUserLanguage()
+      return `/${targetLang}/home${to.hash || '#welcome'}`
     }
   }
 ]
@@ -75,8 +78,12 @@ router.beforeEach((to, from, next) => {
   const validLanguages = ['es', 'en']
   const lang = to.params.lang
 
-  if (lang && !validLanguages.includes(lang)) {
-    next(`/${getUserLanguage()}/home${to.hash || '#welcome'}`)
+  // Solo validamos el idioma si estamos en una ruta que debería tenerlo
+  if (to.path !== '/' && lang && !validLanguages.includes(lang)) {
+    // Intentamos mantener el idioma actual si existe
+    const currentLang = from.params.lang
+    const targetLang = validLanguages.includes(currentLang) ? currentLang : getUserLanguage()
+    next(`/${targetLang}/home${to.hash || '#welcome'}`)
     return
   }
   next()
@@ -85,8 +92,12 @@ router.beforeEach((to, from, next) => {
 // Handle navigation errors
 router.onError((error, to) => {
   console.error('Router error:', error)
-  const userLang = getUserLanguage()
-  router.push(`/${userLang}/home${to?.hash || '#welcome'}`)
+  // Intentamos mantener el idioma actual
+  const currentPath = window.location.pathname
+  const currentLang = currentPath.split('/')[1]
+  const validLanguages = ['es', 'en']
+  const targetLang = validLanguages.includes(currentLang) ? currentLang : getUserLanguage()
+  router.push(`/${targetLang}/home${to?.hash || '#welcome'}`)
 })
 
 export default router 
