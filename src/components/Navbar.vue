@@ -274,10 +274,16 @@ export default {
     },
 
     changeLanguage(lang) {
+      // Update i18n locale
       this.$i18n.locale = lang;
-      // Update the route to maintain the current section
-      const currentSection = this.activeSection || 'welcome';
-      this.$router.push(`/${lang}/${currentSection}`);
+      
+      // Get current section from route or use welcome as default
+      const currentSection = this.$route.params.section || 'welcome';
+      
+      // Update the route preserving the current section
+      this.$router.push({
+        path: `/${lang}/${currentSection}`
+      }).catch(() => {});
     },
 
     getLinkClasses(isActive) {
