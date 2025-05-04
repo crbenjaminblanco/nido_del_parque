@@ -15,26 +15,18 @@ const getUserLanguage = () => {
   return 'en'
 }
 
-// Valid section hashes
-const validSections = ['#welcome', '#gallery', '#wifi', '#recommendations', '#contact']
-
-// Function to validate and get hash
-const getValidHash = (hash) => {
-  return validSections.includes(hash) ? hash : '#welcome'
-}
-
 const routes = [
   {
     path: '/',
-    redirect: to => {
+    redirect: () => {
       const userLang = getUserLanguage()
-      return `/${userLang}/home${getValidHash(to.hash)}`
+      return `/${userLang}/home#welcome`
     }
   },
   {
     path: '/:lang',
     redirect: to => {
-      return `/${to.params.lang}/home${getValidHash(to.hash)}`
+      return `/${to.params.lang}/home#welcome`
     }
   },
   {
@@ -45,11 +37,7 @@ const routes = [
       const validLanguages = ['es', 'en']
       if (!validLanguages.includes(to.params.lang)) {
         const userLang = getUserLanguage()
-        next(`/${userLang}/home${getValidHash(to.hash)}`)
-        return
-      }
-      if (!validSections.includes(to.hash)) {
-        next({ path: to.path, hash: '#welcome', replace: true })
+        next(`/${userLang}/home${to.hash || '#welcome'}`)
         return
       }
       next()
@@ -60,7 +48,7 @@ const routes = [
     redirect: to => {
       const validLanguages = ['es', 'en']
       const lang = validLanguages.includes(to.params.lang) ? to.params.lang : getUserLanguage()
-      return `/${lang}/home${getValidHash(to.hash)}`
+      return `/${lang}/home${to.hash || '#welcome'}`
     }
   }
 ]
@@ -69,7 +57,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    if (to.hash && validSections.includes(to.hash)) {
+    if (to.hash) {
       return new Promise((resolve) => {
         setTimeout(() => {
           const element = document.querySelector(to.hash);
@@ -100,7 +88,7 @@ router.beforeEach((to, from, next) => {
 
   if (!validLanguages.includes(lang)) {
     const userLang = getUserLanguage()
-    next(`/${userLang}/home${getValidHash(to.hash)}`)
+    next(`/${userLang}/home${to.hash || '#welcome'}`)
     return
   }
 
@@ -111,8 +99,7 @@ router.beforeEach((to, from, next) => {
 router.onError((error) => {
   console.error('Router error:', error)
   const userLang = getUserLanguage()
-  const currentHash = router.currentRoute.value.hash
-  router.push(`/${userLang}/home${getValidHash(currentHash)}`)
+  router.push(`/${userLang}/home#welcome`)
 })
 
 export default router 
