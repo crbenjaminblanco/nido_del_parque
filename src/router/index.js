@@ -42,7 +42,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/nido_del_parque/'),
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (to.params.section) {
