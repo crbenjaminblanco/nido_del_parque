@@ -4,10 +4,6 @@
       <!-- Logo -->
       <a 
         class="navbar-brand"
-        :class="{ 
-          'brand--light': !scrolled,
-          'brand--dark': scrolled
-        }"
         :href="`#welcome`"
         @click.prevent="handleNavClick('welcome')"
       >
@@ -22,7 +18,13 @@
             'brand__logo--dark': scrolled 
           }"
         />
-        {{ $t('navbar.title') }}
+        <span 
+          class="brand__title"
+          :class="{
+            'brand__title--light': !scrolled,
+            'brand__title--dark': scrolled
+          }"
+        >{{ $t('navbar.title') }}</span>
       </a>
 
       <!-- Toggler -->
@@ -262,18 +264,32 @@ export default {
       // Close menu first
       this.closeMenu();
       
-      this.$i18n.locale = lang;
-      const currentSection = this.$route.params.section || 'welcome';
-      
-      this.$router.push({
-        path: `/${lang}/${currentSection}`,
-        query: { instant: 'true' }
-      }).finally(() => {
-        // Ensure menu stays closed after language change
-        this.$nextTick(() => {
-          this.isExpanded = false;
+      // Close language dropdown
+      const dropdown = document.querySelector('.dropdown-toggle');
+      if (dropdown) {
+        dropdown.click();
+      }
+
+      // Close mobile menu if open
+      if (this.isExpanded) {
+        this.toggleMenu();
+      }
+
+      // Only update route if language changed
+      if (this.$i18n.locale !== lang) {
+        this.$i18n.locale = lang;
+        const currentSection = this.$route.params.section || 'welcome';
+        
+        this.$router.push({
+          path: `/${lang}/${currentSection}`,
+          query: { instant: 'true' }
+        }).finally(() => {
+          // Ensure menu stays closed after language change
+          this.$nextTick(() => {
+            this.isExpanded = false;
+          });
         });
-      });
+      }
     },
 
     getLinkClasses(isActive) {
@@ -397,30 +413,27 @@ export default {
   gap: var(--spacing-sm);
   transition: all var(--transition-speed) var(--transition-timing);
   margin-right: var(--spacing-xl);
+  text-decoration: none;
 }
 
-.brand--light {
+.brand__title {
+  transition: color var(--transition-speed) var(--transition-timing);
+}
+
+.brand__title--light {
   color: var(--text-light);
 }
 
-.brand--light:hover {
-  color: var(--text-light);
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.brand--dark {
+.brand__title--dark {
   color: var(--brand-primary);
 }
 
-.brand--dark:hover {
-  color: var(--brand-primary);
-  opacity: 0.9;
-  transform: translateY(-1px);
+.navbar-brand:hover .brand__title--light {
+  opacity: 0.8;
 }
 
-.brand__logo {
-  transition: filter var(--transition-speed) var(--transition-timing);
+.navbar-brand:hover .brand__title--dark {
+  opacity: 0.8;
 }
 
 .brand__logo--light {
@@ -473,7 +486,7 @@ export default {
 
 .nav__link--light:hover {
   color: var(--text-light);
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .nav__link--dark {
@@ -482,7 +495,7 @@ export default {
 
 .nav__link--dark:hover {
   color: var(--brand-primary);
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .nav__link--active {
