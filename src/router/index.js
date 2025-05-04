@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: to => {
+    redirect: () => {
       return `/${getUserLanguage()}/home`
     }
   }
