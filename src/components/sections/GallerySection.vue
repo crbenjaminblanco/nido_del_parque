@@ -70,8 +70,20 @@ export default {
     if (carousel) {
       new bootstrap.Carousel(carousel, {
         interval: 5000,
-        touch: true
+        touch: true,
+        pause: 'hover',
+        wrap: true,
+        keyboard: true
       });
+
+      // Add touch event listeners for better iOS support
+      carousel.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+
+      carousel.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, { passive: false });
     }
   }
 }
