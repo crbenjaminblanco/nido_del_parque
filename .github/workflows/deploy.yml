@@ -35,9 +35,6 @@ jobs:
           VUE_APP_WIFI_PASSWORD: ${{ secrets.VUE_APP_WIFI_PASSWORD }}
         run: npm run build
 
-      - name: Copy 404.html
-        run: cp public/404.html docs/404.html
-
       - name: Create CNAME Record
         run: echo "nidodelparque.com" > docs/CNAME
 
