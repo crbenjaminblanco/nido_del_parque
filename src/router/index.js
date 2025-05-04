@@ -12,7 +12,7 @@ const routes = [
     path: '/',
     redirect: () => {
       const lang = getUserLanguage();
-      return `/#/${lang}/welcome`;
+      return `/${lang}/welcome`;
     }
   },
   {
