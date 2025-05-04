@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 // Function to get user's preferred language
@@ -30,7 +30,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
@@ -56,5 +56,16 @@ const router = createRouter({
     return savedPosition || { top: 0 };
   }
 })
+
+// Handle GitHub Pages 404 redirect
+const currentUrl = window.location.href;
+if (currentUrl.includes('/en/') || currentUrl.includes('/es/')) {
+  const segments = currentUrl.split('/');
+  const langIndex = segments.findIndex(s => s === 'en' || s === 'es');
+  if (langIndex !== -1) {
+    const lang = segments[langIndex];
+    router.push(`/${lang}/home${window.location.hash || ''}`);
+  }
+}
 
 export default router 
