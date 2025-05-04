@@ -36,6 +36,12 @@ const routes = [
     name: 'home',
     component: HomeView,
     beforeEnter: (to, from, next) => {
+      const validLanguages = ['es', 'en']
+      if (!validLanguages.includes(to.params.lang)) {
+        const userLang = getUserLanguage()
+        next(`/${userLang}/home${to.hash || '#welcome'}`)
+        return
+      }
       if (!to.hash) {
         next({ path: to.path, hash: '#welcome', replace: true })
       } else {
@@ -44,11 +50,10 @@ const routes = [
     }
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: '/:lang/:pathMatch(.*)*',
     redirect: to => {
-      const url = to.fullPath
-      const match = url.match(/\/(es|en)\//)
-      const lang = match ? match[1] : getUserLanguage()
+      const validLanguages = ['es', 'en']
+      const lang = validLanguages.includes(to.params.lang) ? to.params.lang : getUserLanguage()
       const hash = window.location.hash || '#welcome'
       return `/${lang}/home${hash}`
     }
