@@ -33,6 +33,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Create CNAME Record
+        run: echo "nidodelparque.com" > docs/CNAME
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
