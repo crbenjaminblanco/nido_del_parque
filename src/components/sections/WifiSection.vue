@@ -83,13 +83,21 @@ export default {
   box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .wifi__card {
+    max-width: 40rem;
+  }
 }
 
 .wifi__icon {
   text-align: center;
-  font-size: var(--text-4xl);
+  font-size: var(--text-3xl);
   color: var(--brand-accent);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   animation: pulse 2s infinite;
 }
 
@@ -139,13 +147,13 @@ export default {
 .wifi__credentials {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
 }
 
 .wifi__credential {
   background: var(--bg-secondary);
   border-radius: var(--border-radius-md);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   cursor: pointer;
   transition: all var(--transition-speed) var(--transition-timing);
   position: relative;
@@ -169,7 +177,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   font-family: var(--font-accent);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--text-primary);
   font-weight: var(--font-weight-semibold);
 }
