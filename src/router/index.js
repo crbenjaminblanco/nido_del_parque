@@ -11,7 +11,8 @@ const routes = [
   {
     path: '/',
     redirect: () => {
-      return `/${getUserLanguage()}/welcome`
+      const lang = getUserLanguage();
+      return `/#/${lang}/welcome`;
     }
   },
   {
