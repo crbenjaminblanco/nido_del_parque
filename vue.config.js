@@ -2,7 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: '/nido_del_parque/',
+  publicPath: '/',
   outputDir: 'docs',
   filenameHashing: true,
   productionSourceMap: false,
@@ -23,7 +23,9 @@ module.exports = defineConfig({
           __VUE_PROD_DEVTOOLS__: false,
           __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
           'process.env': {
-            BASE_URL: '/nido_del_parque/'
+            BASE_URL: JSON.stringify('/'),
+            HTTPS: JSON.stringify(true),
+            VUE_APP_WIFI_PASSWORD: JSON.stringify(process.env.VUE_APP_WIFI_PASSWORD || '')
           }
         })
         return args

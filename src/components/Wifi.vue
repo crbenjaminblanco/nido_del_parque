@@ -50,7 +50,8 @@ export default {
   },
   computed: {
     wifiPassword() {
-      return process.env.VUE_APP_WIFI_PASSWORD || 'xxxxxx';
+      const password = process.env.VUE_APP_WIFI_PASSWORD;
+      return password && password !== '' ? password : 'xxxxxx';
     }
   },
   methods: {
