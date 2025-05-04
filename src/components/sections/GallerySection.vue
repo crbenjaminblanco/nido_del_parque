@@ -17,7 +17,6 @@
               </div>
             </div>
           </div>
-          <!-- Carousel Controls -->
           <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -26,7 +25,6 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
-          <!-- Carousel Indicators -->
           <div class="carousel-indicators">
             <button v-for="(item, index) in galleryItems" 
                     :key="index"
@@ -83,7 +81,8 @@ export default {
       new bootstrap.Carousel(carousel, {
         interval: 5000,
         touch: true,
-        wrap: true
+        wrap: true,
+        keyboard: true
       });
     }
   }
@@ -225,7 +224,7 @@ export default {
 /* Carousel Controls */
 .carousel-control-prev,
 .carousel-control-next {
-  top: calc((300px - 120px - 32px) * -1); /* 300px altura imagen, 120px altura descripción, 32px altura flecha */
+  top: calc((300px - 120px - 32px) * -1);
 }
 
 /* Carousel Indicators */
