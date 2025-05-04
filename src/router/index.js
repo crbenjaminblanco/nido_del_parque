@@ -8,16 +8,6 @@ const getUserLanguage = () => {
   return browserLang.startsWith('es') ? 'es' : 'en'
 }
 
-// Function to check if we should redirect to welcome
-const shouldRedirectToWelcome = () => {
-  const navType = performance.navigation.type;
-  // Redirect on:
-  // - Normal navigation (0)
-  // - Page refresh (1)
-  return navType === performance.navigation.TYPE_NAVIGATE || 
-         navType === performance.navigation.TYPE_RELOAD;
-}
-
 const routes = [
   {
     path: '/',
@@ -35,26 +25,30 @@ const routes = [
       const validSections = ['welcome', 'gallery', 'wifi', 'recommendations', 'contact']
       const lang = to.params.lang
       const section = to.params.section || 'welcome'
+      const isDirectAccess = !from.name || window.performance.navigation.type === 1
 
+      // If invalid language, redirect to default
       if (!validLanguages.includes(lang)) {
         const defaultLang = getUserLanguage()
         next(`/${defaultLang}/welcome`)
         return
       }
 
+      // Set i18n locale
+      i18n.global.locale = lang
+
+      // If invalid section, redirect to welcome
       if (!validSections.includes(section)) {
         next(`/${lang}/welcome`)
         return
       }
 
-      // Redirect to welcome on normal navigation or refresh
-      if (shouldRedirectToWelcome() && section !== 'welcome') {
+      // Redirect to welcome on direct access or page refresh
+      if (isDirectAccess && section !== 'welcome') {
         next(`/${lang}/welcome`)
         return
       }
 
-      // Sync i18n locale with route language parameter
-      i18n.global.locale = lang
       next()
     }
   }
@@ -69,8 +63,8 @@ const router = createRouter({
       return savedPosition;
     }
 
-    // Scroll when it's a direct URL access or button click
-    if (!from.name || to.query.scroll === 'true') {
+    // Scroll when it's a direct URL access or instant scroll is requested
+    if (!from.name || to.query.instant === 'true') {
       return new Promise((resolve) => {
         setTimeout(() => {
           const element = document.getElementById(to.params.section || 'welcome');

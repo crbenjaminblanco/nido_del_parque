@@ -198,11 +198,11 @@ export default {
       this.activeSection = sectionId;
       this.isClickNavigation = true;
       
-      // Update route with current language and section, force scroll for button clicks
+      // Update route with current language and section, force instant scroll for button clicks
       const currentLang = this.$i18n.locale;
       this.$router.push({
         path: `/${currentLang}/${sectionId}`,
-        query: { scroll: 'true' }
+        query: { instant: 'true' }
       });
       
       // Reset after a short delay
@@ -289,10 +289,10 @@ export default {
       // Get current section from route or use welcome as default
       const currentSection = this.$route.params.section || 'welcome';
       
-      // Update the route preserving the current section, force scroll for language change
+      // Update the route preserving the current section, force instant scroll for language change
       this.$router.push({
         path: `/${lang}/${currentSection}`,
-        query: { scroll: 'true' }
+        query: { instant: 'true' }
       }).catch(() => {});
     },
 
