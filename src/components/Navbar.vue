@@ -197,6 +197,8 @@ export default {
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'instant', block: 'start' });
+        // Update URL without triggering scroll
+        window.history.pushState(null, '', `#${sectionId}`);
       }
       
       // Reset after a short delay
@@ -226,7 +228,11 @@ export default {
           const sectionTop = section.offsetTop;
           if (scrollPosition >= sectionTop) {
             const sectionId = this.navigationItems[i].sectionId;
-            this.activeSection = sectionId;
+            if (this.activeSection !== sectionId) {
+              this.activeSection = sectionId;
+              // Update URL without triggering scroll
+              window.history.replaceState(null, '', `#${sectionId}`);
+            }
             break;
           }
         }
