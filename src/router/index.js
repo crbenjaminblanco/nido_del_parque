@@ -19,16 +19,14 @@ const routes = [
   {
     path: '/',
     redirect: () => {
-      const hash = window.location.hash || '#welcome'
       const userLang = getUserLanguage()
-      return `/${userLang}/home${hash}`
+      return `/${userLang}/home${window.location.hash || '#welcome'}`
     }
   },
   {
     path: '/:lang',
     redirect: to => {
-      const hash = window.location.hash || '#welcome'
-      return `/${to.params.lang}/home${hash}`
+      return `/${to.params.lang}/home${window.location.hash || '#welcome'}`
     }
   },
   {
@@ -39,14 +37,10 @@ const routes = [
       const validLanguages = ['es', 'en']
       if (!validLanguages.includes(to.params.lang)) {
         const userLang = getUserLanguage()
-        next(`/${userLang}/home${to.hash || '#welcome'}`)
+        next(`/${userLang}/home${to.hash || window.location.hash || '#welcome'}`)
         return
       }
-      if (!to.hash) {
-        next({ path: to.path, hash: '#welcome', replace: true })
-      } else {
-        next()
-      }
+      next()
     }
   },
   {
@@ -54,8 +48,7 @@ const routes = [
     redirect: to => {
       const validLanguages = ['es', 'en']
       const lang = validLanguages.includes(to.params.lang) ? to.params.lang : getUserLanguage()
-      const hash = window.location.hash || '#welcome'
-      return `/${lang}/home${hash}`
+      return `/${lang}/home${window.location.hash || '#welcome'}`
     }
   }
 ]
@@ -94,9 +87,8 @@ router.beforeEach((to, from, next) => {
   const lang = to.params.lang
 
   if (!validLanguages.includes(lang)) {
-    const hash = window.location.hash
     const userLang = getUserLanguage()
-    next(`/${userLang}/home${hash}`)
+    next(`/${userLang}/home${window.location.hash || '#welcome'}`)
     return
   }
 
@@ -106,9 +98,8 @@ router.beforeEach((to, from, next) => {
 // Handle navigation errors
 router.onError((error) => {
   console.error('Router error:', error)
-  const hash = window.location.hash
   const userLang = getUserLanguage()
-  router.push(`/${userLang}/home${hash}`)
+  router.push(`/${userLang}/home${window.location.hash || '#welcome'}`)
 })
 
 export default router 
