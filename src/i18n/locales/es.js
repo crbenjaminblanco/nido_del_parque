@@ -94,8 +94,8 @@ export default {
     }
   },
   gallery: {
-    title: 'Nuestra Galería',
-    subtitle: 'Explora cada rincón de Nido del Parque a través de nuestra galería de imágenes',
+    title: 'Galería',
+    subtitle: 'Explora cada rincón a través de nuestra galería de imágenes',
     items: {
       livingRoom: {
         title: 'Sala de Estar',

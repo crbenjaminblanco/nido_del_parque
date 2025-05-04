@@ -6,61 +6,14 @@
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
         <div id="photoCarousel" class="gallery__carousel carousel slide" data-bs-ride="carousel">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="0" class="active" aria-current="true" :aria-label="$t('gallery.items.livingRoom.title')"></button>
-            <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="1" :aria-label="$t('gallery.items.bedroom.title')"></button>
-            <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="2" :aria-label="$t('gallery.items.kitchen.title')"></button>
-            <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="3" :aria-label="$t('gallery.items.bathroom.title')"></button>
-            <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="4" :aria-label="$t('gallery.items.parking.title')"></button>
-            <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="5" :aria-label="$t('gallery.items.exterior.title')"></button>
-          </div>
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="gallery__image gallery__image--living-room">
-                <div class="gallery__caption carousel-caption">
-                  <h5 class="gallery__caption-title">{{ $t('gallery.items.livingRoom.title') }}</h5>
-                  <p class="gallery__caption-text">{{ $t('gallery.items.livingRoom.description') }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="gallery__image gallery__image--bedroom">
-                <div class="gallery__caption carousel-caption">
-                  <h5 class="gallery__caption-title">{{ $t('gallery.items.bedroom.title') }}</h5>
-                  <p class="gallery__caption-text">{{ $t('gallery.items.bedroom.description') }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="gallery__image gallery__image--kitchen">
-                <div class="gallery__caption carousel-caption">
-                  <h5 class="gallery__caption-title">{{ $t('gallery.items.kitchen.title') }}</h5>
-                  <p class="gallery__caption-text">{{ $t('gallery.items.kitchen.description') }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="gallery__image gallery__image--bathroom">
-                <div class="gallery__caption carousel-caption">
-                  <h5 class="gallery__caption-title">{{ $t('gallery.items.bathroom.title') }}</h5>
-                  <p class="gallery__caption-text">{{ $t('gallery.items.bathroom.description') }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="gallery__image gallery__image--parking">
-                <div class="gallery__caption carousel-caption">
-                  <h5 class="gallery__caption-title">{{ $t('gallery.items.parking.title') }}</h5>
-                  <p class="gallery__caption-text">{{ $t('gallery.items.parking.description') }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="gallery__image gallery__image--exterior">
-                <div class="gallery__caption carousel-caption">
-                  <h5 class="gallery__caption-title">{{ $t('gallery.items.exterior.title') }}</h5>
-                  <p class="gallery__caption-text">{{ $t('gallery.items.exterior.description') }}</p>
-                </div>
+            <div v-for="(item, index) in galleryItems" 
+                 :key="index" 
+                 :class="['carousel-item', { active: index === 0 }]">
+              <div class="carousel-item__image" :style="{ backgroundImage: `url(${require(`@/assets/images/${item.image}.jpg`)})` }"></div>
+              <div class="carousel-item__content">
+                <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
+                <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
               </div>
             </div>
           </div>
@@ -82,6 +35,7 @@
             :image-src="require(`@/assets/images/${item.image}.jpg`)"
             :title="$t(`gallery.items.${item.translationKey}.title`)"
             :description="$t(`gallery.items.${item.translationKey}.description`)"
+            :is-carousel="false"
           />
         </div>
       </div>
@@ -142,7 +96,7 @@ export default {
 }
 
 .gallery__image {
-  height: 18.75rem;
+  height: 300px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -173,21 +127,25 @@ export default {
 }
 
 .gallery__caption {
-  background: var(--bg-overlay);
-  border-radius: var(--border-radius-md);
+  background: var(--bg-primary);
   padding: var(--spacing-md);
-  bottom: var(--spacing-md);
+  text-align: left;
 }
 
 .gallery__caption-title {
-  color: var(--text-light);
+  font-family: var(--font-primary);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
   margin-bottom: var(--spacing-xs);
 }
 
 .gallery__caption-text {
-  color: var(--text-light);
+  font-family: var(--font-primary);
   font-size: var(--text-sm);
-  margin-bottom: 0;
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
 }
 
 /* Row adjustments */
@@ -204,27 +162,110 @@ export default {
 /* Carousel styles */
 .gallery__carousel {
   margin-bottom: 2rem;
+  position: relative;
 }
 
-.carousel-indicators {
-  bottom: -0.625rem;
+.carousel-inner {
+  position: relative;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-  width: 10%;
+.carousel-item {
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.carousel-caption__title {
+.carousel-item__image {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.carousel-item__content {
+  padding: var(--spacing-md);
+  background: var(--bg-hover);
+  height: 7.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-item__title {
   font-family: var(--font-primary);
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
   margin-bottom: var(--spacing-xs);
 }
 
-.carousel-caption__text {
+.carousel-item__description {
   font-family: var(--font-primary);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   line-height: var(--line-height-relaxed);
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: var(--spacing-sm);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-indicators button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-muted);
+  opacity: 0.5;
+  border: none;
+  padding: 0;
+}
+
+.carousel-indicators button.active {
+  background-color: var(--brand-accent);
+  opacity: 1;
+}
+
+.gallery__carousel .carousel-control-prev,
+.gallery__carousel .carousel-control-next {
+  position: absolute !important;
+  top: 150px !important;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  margin: 0 var(--spacing-md);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery__carousel .carousel-control-prev {
+  left: var(--spacing-md);
+}
+
+.gallery__carousel .carousel-control-next {
+  right: var(--spacing-md);
+}
+
+.gallery__carousel .carousel-control-prev-icon,
+.gallery__carousel .carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 </style> 

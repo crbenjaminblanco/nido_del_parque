@@ -1,10 +1,14 @@
 <template>
   <div class="photo-card">
     <div class="photo-card__image" :style="{ backgroundImage: `url(${imageSrc})` }">
-      <div class="photo-card__overlay">
+      <div class="photo-card__overlay" v-if="isCarousel">
         <h4 class="photo-card__title">{{ title }}</h4>
         <p class="photo-card__description">{{ description }}</p>
       </div>
+    </div>
+    <div class="photo-card__content" v-if="!isCarousel">
+      <h4 class="photo-card__title">{{ title }}</h4>
+      <p class="photo-card__description">{{ description }}</p>
     </div>
   </div>
 </template>
@@ -24,6 +28,10 @@ export default {
     description: {
       type: String,
       required: true
+    },
+    isCarousel: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -36,6 +44,8 @@ export default {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: transform var(--transition-speed) var(--transition-timing);
+  display: flex;
+  flex-direction: column;
 }
 
 .photo-card:hover {
@@ -43,8 +53,7 @@ export default {
 }
 
 .photo-card__image {
-  height: 100%;
-  min-height: 300px;
+  height: 300px;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -60,10 +69,19 @@ export default {
   color: var(--text-light);
 }
 
+.photo-card__content {
+  padding: var(--spacing-md);
+  background: var(--bg-primary);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .photo-card__title {
   font-family: var(--font-primary);
   font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
   margin-bottom: var(--spacing-xs);
 }
 
@@ -72,6 +90,12 @@ export default {
   font-size: var(--text-sm);
   line-height: var(--line-height-relaxed);
   margin: 0;
-  opacity: 0.9;
+  color: var(--text-muted);
+}
+
+/* Estilos específicos para el overlay en el carrusel */
+.photo-card__overlay .photo-card__title,
+.photo-card__overlay .photo-card__description {
+  color: var(--text-light);
 }
 </style> 

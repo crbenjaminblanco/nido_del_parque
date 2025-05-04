@@ -94,8 +94,8 @@ export default {
     }
   },
   gallery: {
-    title: 'Our Gallery',
-    subtitle: 'Explore every corner of Nido del Parque through our image gallery',
+    title: 'Gallery',
+    subtitle: 'Explore every corner through our image gallery',
     items: {
       livingRoom: {
         title: 'Living Room',
