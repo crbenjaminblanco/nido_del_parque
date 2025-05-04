@@ -16,45 +16,51 @@
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img :src="require('../assets/images/living-room.jpg')" class="d-block w-100" :alt="$t('gallery.items.livingRoom.title')" style="height: 300px; object-fit: cover;">
-              <div class="carousel-caption d-block">
-                <h5>{{ $t('gallery.items.livingRoom.title') }}</h5>
-                <p>{{ $t('gallery.items.livingRoom.description') }}</p>
+              <div class="gallery-image living-room">
+                <div class="carousel-caption d-block">
+                  <h5>{{ $t('gallery.items.livingRoom.title') }}</h5>
+                  <p>{{ $t('gallery.items.livingRoom.description') }}</p>
+                </div>
               </div>
             </div>
             <div class="carousel-item">
-              <img :src="require('../assets/images/bedroom.jpg')" class="d-block w-100" :alt="$t('gallery.items.bedroom.title')" style="height: 300px; object-fit: cover;">
-              <div class="carousel-caption d-block">
-                <h5>{{ $t('gallery.items.bedroom.title') }}</h5>
-                <p>{{ $t('gallery.items.bedroom.description') }}</p>
+              <div class="gallery-image bedroom">
+                <div class="carousel-caption d-block">
+                  <h5>{{ $t('gallery.items.bedroom.title') }}</h5>
+                  <p>{{ $t('gallery.items.bedroom.description') }}</p>
+                </div>
               </div>
             </div>
             <div class="carousel-item">
-              <img :src="require('../assets/images/kitchen.jpg')" class="d-block w-100" :alt="$t('gallery.items.kitchen.title')" style="height: 300px; object-fit: cover;">
-              <div class="carousel-caption d-block">
-                <h5>{{ $t('gallery.items.kitchen.title') }}</h5>
-                <p>{{ $t('gallery.items.kitchen.description') }}</p>
+              <div class="gallery-image kitchen">
+                <div class="carousel-caption d-block">
+                  <h5>{{ $t('gallery.items.kitchen.title') }}</h5>
+                  <p>{{ $t('gallery.items.kitchen.description') }}</p>
+                </div>
               </div>
             </div>
             <div class="carousel-item">
-              <img :src="require('../assets/images/bathroom.jpg')" class="d-block w-100" :alt="$t('gallery.items.bathroom.title')" style="height: 300px; object-fit: cover;">
-              <div class="carousel-caption d-block">
-                <h5>{{ $t('gallery.items.bathroom.title') }}</h5>
-                <p>{{ $t('gallery.items.bathroom.description') }}</p>
+              <div class="gallery-image bathroom">
+                <div class="carousel-caption d-block">
+                  <h5>{{ $t('gallery.items.bathroom.title') }}</h5>
+                  <p>{{ $t('gallery.items.bathroom.description') }}</p>
+                </div>
               </div>
             </div>
             <div class="carousel-item">
-              <img :src="require('../assets/images/parking.jpg')" class="d-block w-100" :alt="$t('gallery.items.parking.title')" style="height: 300px; object-fit: cover;">
-              <div class="carousel-caption d-block">
-                <h5>{{ $t('gallery.items.parking.title') }}</h5>
-                <p>{{ $t('gallery.items.parking.description') }}</p>
+              <div class="gallery-image parking">
+                <div class="carousel-caption d-block">
+                  <h5>{{ $t('gallery.items.parking.title') }}</h5>
+                  <p>{{ $t('gallery.items.parking.description') }}</p>
+                </div>
               </div>
             </div>
             <div class="carousel-item">
-              <img :src="require('../assets/images/exterior.jpg')" class="d-block w-100" :alt="$t('gallery.items.exterior.title')" style="height: 300px; object-fit: cover;">
-              <div class="carousel-caption d-block">
-                <h5>{{ $t('gallery.items.exterior.title') }}</h5>
-                <p>{{ $t('gallery.items.exterior.description') }}</p>
+              <div class="gallery-image exterior">
+                <div class="carousel-caption d-block">
+                  <h5>{{ $t('gallery.items.exterior.title') }}</h5>
+                  <p>{{ $t('gallery.items.exterior.description') }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -72,51 +78,63 @@
       <!-- Grid Layout (visible on md screens and up) -->
       <div class="row d-none d-md-flex">
         <div class="col-md-4">
-          <photo-card
-            :image-src="require('../assets/images/living-room.jpg')"
-            :title="$t('gallery.items.livingRoom.title')"
-            :description="$t('gallery.items.livingRoom.description')"
-          />
+          <div class="gallery-card">
+            <div class="gallery-image living-room"></div>
+            <div class="card-body">
+              <h5 class="card-title">{{ $t('gallery.items.livingRoom.title') }}</h5>
+              <p class="card-text">{{ $t('gallery.items.livingRoom.description') }}</p>
+            </div>
+          </div>
         </div>
 
         <div class="col-md-4">
-          <photo-card
-            :image-src="require('../assets/images/bedroom.jpg')"
-            :title="$t('gallery.items.bedroom.title')"
-            :description="$t('gallery.items.bedroom.description')"
-          />
+          <div class="gallery-card">
+            <div class="gallery-image bedroom"></div>
+            <div class="card-body">
+              <h5 class="card-title">{{ $t('gallery.items.bedroom.title') }}</h5>
+              <p class="card-text">{{ $t('gallery.items.bedroom.description') }}</p>
+            </div>
+          </div>
         </div>
 
         <div class="col-md-4">
-          <photo-card
-            :image-src="require('../assets/images/kitchen.jpg')"
-            :title="$t('gallery.items.kitchen.title')"
-            :description="$t('gallery.items.kitchen.description')"
-          />
+          <div class="gallery-card">
+            <div class="gallery-image kitchen"></div>
+            <div class="card-body">
+              <h5 class="card-title">{{ $t('gallery.items.kitchen.title') }}</h5>
+              <p class="card-text">{{ $t('gallery.items.kitchen.description') }}</p>
+            </div>
+          </div>
         </div>
 
         <div class="col-md-4">
-          <photo-card
-            :image-src="require('../assets/images/bathroom.jpg')"
-            :title="$t('gallery.items.bathroom.title')"
-            :description="$t('gallery.items.bathroom.description')"
-          />
+          <div class="gallery-card">
+            <div class="gallery-image bathroom"></div>
+            <div class="card-body">
+              <h5 class="card-title">{{ $t('gallery.items.bathroom.title') }}</h5>
+              <p class="card-text">{{ $t('gallery.items.bathroom.description') }}</p>
+            </div>
+          </div>
         </div>
 
         <div class="col-md-4">
-          <photo-card
-            :image-src="require('../assets/images/parking.jpg')"
-            :title="$t('gallery.items.parking.title')"
-            :description="$t('gallery.items.parking.description')"
-          />
+          <div class="gallery-card">
+            <div class="gallery-image parking"></div>
+            <div class="card-body">
+              <h5 class="card-title">{{ $t('gallery.items.parking.title') }}</h5>
+              <p class="card-text">{{ $t('gallery.items.parking.description') }}</p>
+            </div>
+          </div>
         </div>
 
         <div class="col-md-4">
-          <photo-card
-            :image-src="require('../assets/images/exterior.jpg')"
-            :title="$t('gallery.items.exterior.title')"
-            :description="$t('gallery.items.exterior.description')"
-          />
+          <div class="gallery-card">
+            <div class="gallery-image exterior"></div>
+            <div class="card-body">
+              <h5 class="card-title">{{ $t('gallery.items.exterior.title') }}</h5>
+              <p class="card-text">{{ $t('gallery.items.exterior.description') }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -125,13 +143,9 @@
 
 <script>
 import * as bootstrap from 'bootstrap'
-import PhotoCard from './PhotoCard.vue'
 
 export default {
   name: 'PhotoGallery',
-  components: {
-    PhotoCard
-  },
   mounted() {
     // Initialize Bootstrap carousel
     const carousel = document.getElementById('photoCarousel');
@@ -146,10 +160,44 @@ export default {
 </script>
 
 <style scoped>
-.card {
+.gallery-card {
   transition: transform var(--transition-speed) var(--transition-timing);
   border: none;
   box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.gallery-image {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.living-room {
+  background-image: url("@/assets/images/living-room.jpg");
+}
+
+.bedroom {
+  background-image: url("@/assets/images/bedroom.jpg");
+}
+
+.kitchen {
+  background-image: url("@/assets/images/kitchen.jpg");
+}
+
+.bathroom {
+  background-image: url("@/assets/images/bathroom.jpg");
+}
+
+.parking {
+  background-image: url("@/assets/images/parking.jpg");
+}
+
+.exterior {
+  background-image: url("@/assets/images/exterior.jpg");
 }
 
 .col {
@@ -162,12 +210,8 @@ export default {
   width: 100%;
 }
 
-.card:hover {
+.gallery-card:hover {
   transform: translateY(-5px);
-}
-
-.card-img-top {
-  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
 }
 
 h2 {
@@ -178,10 +222,16 @@ h2 {
 .card-title {
   color: var(--text-primary);
   font-weight: var(--font-weight-medium);
+  margin: 1rem 0 0.5rem;
 }
 
 .card-text {
   color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.card-body {
+  padding: 1rem;
 }
 
 /* Carousel styles */
