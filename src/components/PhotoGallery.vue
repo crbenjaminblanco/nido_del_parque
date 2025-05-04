@@ -1,5 +1,5 @@
 <template>
-  <section id="photo-gallery" class="py-5">
+  <section id="gallery" class="py-5">
     <div class="container">
       <h2 class="text-center mb-5">{{ $t('gallery.title') }}</h2>
       

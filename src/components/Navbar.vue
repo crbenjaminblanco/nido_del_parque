@@ -5,7 +5,8 @@
       <a 
         class="navbar-brand"
         :class="brandClasses"
-        href="#welcome-section"
+        href="#welcome"
+        @click="handleNavClick('welcome')"
       >
         <img
           src="@/assets/logo.png"
@@ -45,10 +46,15 @@
             class="nav-item"
           >
             <a 
-              :href="'#' + item.sectionId"
+              :href="`#${item.sectionId}`"
               class="nav-link"
-              :class="getLinkClasses(item.isActive)"
-              @click="closeMenu"
+              :class="{ 
+                'font-primary-color': !scrolled,
+                'font-dark-color': scrolled,
+                'active': activeSection === item.sectionId && !isClickNavigation,
+                'active-click': activeSection === item.sectionId && isClickNavigation
+              }"
+              @click.prevent="handleNavClick(item.sectionId)"
             >
               {{ item.text }}
             </a>
@@ -120,7 +126,8 @@ export default {
       scrolled: false,
       isExpanded: false,
       collapse: null,
-      activeSection: 'welcome-section'
+      activeSection: 'welcome',
+      isClickNavigation: false
     }
   },
 
@@ -129,28 +136,23 @@ export default {
       return [
         { 
           text: this.$t('navbar.home'), 
-          sectionId: 'welcome-section',
-          isActive: this.activeSection === 'welcome-section'
+          sectionId: 'welcome'
         },
         { 
           text: this.$t('navbar.gallery'), 
-          sectionId: 'photo-gallery',
-          isActive: this.activeSection === 'photo-gallery'
+          sectionId: 'gallery'
         },
         { 
           text: this.$t('navbar.wifi'), 
-          sectionId: 'wifi-section',
-          isActive: this.activeSection === 'wifi-section'
+          sectionId: 'wifi'
         },
         { 
           text: this.$t('navbar.recommendations'), 
-          sectionId: 'recommendations',
-          isActive: this.activeSection === 'recommendations'
+          sectionId: 'recommendations'
         },
         { 
           text: this.$t('navbar.contact'), 
-          sectionId: 'social-section',
-          isActive: this.activeSection === 'social-section'
+          sectionId: 'contact'
         }
       ]
     },
@@ -187,6 +189,59 @@ export default {
   },
 
   methods: {
+    handleNavClick(sectionId) {
+      this.activeSection = sectionId;
+      this.isClickNavigation = true;
+      
+      // Scroll instantly to section
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }
+      
+      // Reset after a short delay
+      setTimeout(() => {
+        this.isClickNavigation = false;
+      }, 1000);
+      
+      this.closeMenu();
+    },
+
+    handleScroll() {
+      this.scrolled = window.scrollY > 50;
+      if (!this.isClickNavigation) {
+        this.updateActiveSection();
+      }
+    },
+
+    updateActiveSection() {
+      const sections = this.navigationItems.map(item => document.getElementById(item.sectionId));
+      const navbarHeight = this.$el.offsetHeight;
+      const scrollPosition = window.scrollY + navbarHeight + 50;
+
+      // Find the current section
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section) {
+          const sectionTop = section.offsetTop;
+          if (scrollPosition >= sectionTop) {
+            const sectionId = this.navigationItems[i].sectionId;
+            this.activeSection = sectionId;
+            break;
+          }
+        }
+      }
+    },
+
+    closeMenu() {
+      if (this.isExpanded) {
+        this.isExpanded = false;
+        if (this.collapse) {
+          this.collapse.hide();
+        }
+      }
+    },
+
     toggleMenu() {
       if (!this.collapse) {
         const collapseElement = document.getElementById('navbarNav')
@@ -210,48 +265,11 @@ export default {
       }
     },
 
-    closeMenu() {
-      if (this.isExpanded) {
-        this.isExpanded = false
-        if (this.collapse) {
-          this.collapse.hide()
-        }
-      }
-    },
-
-    handleScroll() {
-      this.scrolled = window.scrollY > 50;
-      this.updateActiveSection();
-    },
-
-    updateActiveSection() {
-      const sections = this.navigationItems.map(item => document.getElementById(item.sectionId));
-      const navbarHeight = this.$el.offsetHeight;
-      const scrollPosition = window.scrollY + navbarHeight + 50; // Add offset for better detection
-
-      // Find the current section
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section) {
-          const sectionTop = section.offsetTop;
-          if (scrollPosition >= sectionTop) {
-            this.activeSection = this.navigationItems[i].sectionId;
-            break;
-          }
-        }
-      }
-
-      // Check if we're at the top of the page
-      if (window.scrollY < 100) {
-        this.activeSection = 'welcome-section';
-      }
-    },
-
     changeLanguage(lang) {
-      this.$i18n.locale = lang
-      if (this.isExpanded) {
-        this.closeMenu()
-      }
+      this.$i18n.locale = lang;
+      const currentHash = window.location.hash;
+      const baseUrl = window.location.pathname.split('/').slice(0, -2).join('/');
+      window.location.href = `${baseUrl}/${lang}/home${currentHash}`;
     },
 
     getLinkClasses(isActive) {
@@ -264,21 +282,30 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('scroll', this.handleScroll);
+    
+    // Initialize active section from URL hash
+    const hash = window.location.hash.replace('#', '');
+    if (hash && this.navigationItems.some(item => item.sectionId === hash)) {
+      this.activeSection = hash;
+    }
     
     // Initialize Bootstrap collapse
-    const collapseElement = document.getElementById('navbarNav')
+    const collapseElement = document.getElementById('navbarNav');
     if (collapseElement) {
       this.collapse = new bootstrap.Collapse(collapseElement, {
         toggle: false
-      })
+      });
     }
+
+    // Initial scroll position check
+    this.handleScroll();
   },
 
   beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('scroll', this.handleScroll);
     if (this.collapse) {
-      this.collapse.dispose()
+      this.collapse.dispose();
     }
   }
 }
@@ -336,8 +363,59 @@ export default {
   opacity: 1;
 }
 
-/* Mobile Menu Styles */
+/* Active state styles */
+.nav-link {
+  transition: all 0.3s ease;
+}
+
+.nav-link.active {
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link.active-click {
+  font-weight: 700;
+  position: relative;
+}
+
+.nav-link.active-click::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  opacity: 0.8;
+}
+
+/* Mobile styles update */
 @media (max-width: 991px) {
+  .nav-link.active::after,
+  .nav-link.active-click::after {
+    display: none;
+  }
+  
+  .nav-link.active {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .nav-link.active-click {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
   .navbar-collapse {
     background: white;
     margin-top: 1rem;
@@ -401,7 +479,6 @@ export default {
 
   .navbar-collapse .dropdown-item {
     color: rgba(0, 0, 0, 0.8) !important;
-    padding-left: 1rem;
   }
 
   .navbar-collapse .dropdown-item:hover,
@@ -444,28 +521,40 @@ export default {
 .dropdown-item.active {
   background-color: rgba(0, 0, 0, 0.05);
   color: black !important;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 @media (max-width: 991px) {
   .language-selector {
-    justify-content: center;
-    width: auto;
-    padding: 0.5rem;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.8) !important;
   }
-  
-  .language-icon {
-    width: 20px;
-    height: 20px;
+
+  .language-selector.btn {
+    text-align: left;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dropdown {
+    width: 100%;
   }
 
   .dropdown-menu {
     width: 100%;
-    background-color: white;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.02);
   }
 
   .dropdown-item {
     width: 100%;
+    padding: 0.75rem 1rem;
   }
 
   .navbar-collapse .dropdown-item {
@@ -478,8 +567,20 @@ export default {
   }
 }
 
-/* Active state */
-.nav-link.active {
-  font-weight: 600;
+/* Add styles for mobile dropdown items */
+@media (max-width: 991px) {
+  .language-selector {
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.8) !important;
+  }
+
+  .navbar-collapse .dropdown-item:hover,
+  .navbar-collapse .dropdown-item.active {
+    color: black !important;
+  }
 }
 </style>
+

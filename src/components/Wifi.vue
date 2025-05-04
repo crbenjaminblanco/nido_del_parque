@@ -1,5 +1,5 @@
 <template>
-  <section id="wifi-section" class="wifi-section py-5">
+  <section id="wifi" class="wifi-section py-5">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">

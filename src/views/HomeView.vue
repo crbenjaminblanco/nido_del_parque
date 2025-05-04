@@ -2,10 +2,10 @@
   <div class="home">
     <welcome-section/>
     <div class="sections-container">
-      <photo-gallery id="photo-gallery"/>
-      <wifi-section id="wifi-section"/>
+      <photo-gallery id="gallery"/>
+      <wifi-section id="wifi"/>
       <recommendations-section id="recommendations"/>
-      <social-section id="social-section"/>
+      <social-section id="contact"/>
       <thank-you/>
     </div>
   </div>

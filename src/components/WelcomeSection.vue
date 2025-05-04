@@ -1,5 +1,5 @@
 <template>
-  <section id="welcome-section" class="welcome-section">
+  <section id="welcome" class="welcome-section">
     <div class="overlay"></div>
     
     <!-- Main Content -->
