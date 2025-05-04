@@ -4,20 +4,18 @@
     <p class="section-subtitle mb-5">{{ $t('recommendations.subtitle') }}</p>
     
     <div class="container">
-      <div class="row">
-        <div v-for="(section, sectionKey) in sectionsConfig" :key="sectionKey" class="row mb-5">
-          <h3 class="section-title section-title--small">{{ $t(`recommendations.${sectionKey}.title`) }}</h3>
-          <div class="row g-4">
-            <div class="col-md-4" v-for="(item, key) in section.items" :key="`${sectionKey}-${key}`">
-              <recommendation-card
-                :icon="item.icon"
-                :title="$t(`recommendations.${sectionKey}.items.${key}.name`)"
-                :type="$t(`recommendations.${sectionKey}.items.${key}.${sectionKey === 'restaurants' ? 'cuisine' : 'type'}`)"
-                :distance="$t(`recommendations.${sectionKey}.items.${key}.distance`)"
-                :description="$t(`recommendations.${sectionKey}.items.${key}.description`)"
-                :is-restaurant="sectionKey === 'restaurants'"
-              />
-            </div>
+      <div v-for="(section, sectionKey) in sectionsConfig" :key="sectionKey" class="mb-5">
+        <h3 class="section-title section-title--small">{{ $t(`recommendations.${sectionKey}.title`) }}</h3>
+        <div class="row justify-content-center">
+          <div class="col-md-4" v-for="(item, key) in section.items" :key="`${sectionKey}-${key}`">
+            <recommendation-card
+              :icon="item.icon"
+              :title="$t(`recommendations.${sectionKey}.items.${key}.name`)"
+              :type="$t(`recommendations.${sectionKey}.items.${key}.${sectionKey === 'restaurants' ? 'cuisine' : 'type'}`)"
+              :distance="$t(`recommendations.${sectionKey}.items.${key}.distance`)"
+              :description="$t(`recommendations.${sectionKey}.items.${key}.description`)"
+              :is-restaurant="sectionKey === 'restaurants'"
+            />
           </div>
         </div>
       </div>
