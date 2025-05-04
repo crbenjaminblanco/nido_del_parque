@@ -116,8 +116,6 @@
 </template>
 
 <script>
-import * as bootstrap from 'bootstrap'
-
 export default {
   name: 'MainNavbar',
   
@@ -125,7 +123,6 @@ export default {
     return {
       scrolled: false,
       isExpanded: false,
-      collapse: null,
       activeSection: 'welcome',
       isClickNavigation: false
     }
@@ -188,29 +185,41 @@ export default {
     }
   },
 
+  watch: {
+    // Watch for route changes to update active section
+    '$route': {
+      immediate: true,
+      handler(to) {
+        const section = to.params.section || 'welcome';
+        this.activeSection = section;
+      }
+    }
+  },
+
   methods: {
     handleNavClick(sectionId) {
-      // Don't do anything if we're already in this section
-      if (this.$route.params.section === sectionId) {
-        return;
-      }
+      // Close menu first
+      this.closeMenu();
       
+      // Update active section immediately
       this.activeSection = sectionId;
       this.isClickNavigation = true;
       
-      // Update route with current language and section, force instant scroll for button clicks
+      // Update route with current language and section
       const currentLang = this.$i18n.locale;
       this.$router.push({
         path: `/${currentLang}/${sectionId}`,
         query: { instant: 'true' }
+      }).finally(() => {
+        // Ensure menu stays closed after navigation
+        this.$nextTick(() => {
+          this.isExpanded = false;
+          // Reset click navigation flag after a short delay
+          setTimeout(() => {
+            this.isClickNavigation = false;
+          }, 100);
+        });
       });
-      
-      // Reset after a short delay
-      setTimeout(() => {
-        this.isClickNavigation = false;
-      }, 1000);
-      
-      this.closeMenu();
     },
 
     handleScroll() {
@@ -221,6 +230,8 @@ export default {
     },
 
     updateActiveSection() {
+      if (this.isClickNavigation) return;
+
       const sections = this.navigationItems.map(item => document.getElementById(item.sectionId));
       const navbarHeight = this.$el.offsetHeight;
       const scrollPosition = window.scrollY + navbarHeight + 50;
@@ -234,15 +245,11 @@ export default {
             const sectionId = this.navigationItems[i].sectionId;
             if (this.activeSection !== sectionId) {
               this.activeSection = sectionId;
-              // Only update route if the current section is different from the route section
+              // Update route without forcing scroll
               const currentLang = this.$i18n.locale;
-              const currentRouteSection = this.$route.params.section || 'welcome';
-              if (currentRouteSection !== sectionId) {
-                // For scroll updates, just update the route without forcing scroll
-                this.$router.push({
-                  path: `/${currentLang}/${sectionId}`
-                }).catch(() => {});
-              }
+              this.$router.push({
+                path: `/${currentLang}/${sectionId}`
+              }).catch(() => {});
             }
             break;
           }
@@ -251,49 +258,36 @@ export default {
     },
 
     closeMenu() {
-      if (this.isExpanded) {
+      this.isExpanded = false;
+      // Ensure it stays closed
+      this.$nextTick(() => {
         this.isExpanded = false;
-        if (this.collapse) {
-          this.collapse.hide();
-        }
-      }
+      });
     },
 
     toggleMenu() {
-      if (!this.collapse) {
-        const collapseElement = document.getElementById('navbarNav')
-        if (collapseElement) {
-          this.collapse = new bootstrap.Collapse(collapseElement, {
-            toggle: false
-          })
-        }
-      }
-      
-      this.isExpanded = !this.isExpanded
-      if (this.collapse) {
-        if (this.isExpanded) {
-          this.collapse.show()
-          if (!this.scrolled) {
-            this.scrolled = true
-          }
-        } else {
-          this.collapse.hide()
-        }
+      this.isExpanded = !this.isExpanded;
+      if (this.isExpanded && !this.scrolled) {
+        this.scrolled = true;
       }
     },
 
     changeLanguage(lang) {
-      // Update i18n locale
-      this.$i18n.locale = lang;
+      // Close menu first
+      this.closeMenu();
       
-      // Get current section from route or use welcome as default
+      this.$i18n.locale = lang;
       const currentSection = this.$route.params.section || 'welcome';
       
-      // Update the route preserving the current section, force instant scroll for language change
       this.$router.push({
         path: `/${lang}/${currentSection}`,
         query: { instant: 'true' }
-      }).catch(() => {});
+      }).finally(() => {
+        // Ensure menu stays closed after language change
+        this.$nextTick(() => {
+          this.isExpanded = false;
+        });
+      });
     },
 
     getLinkClasses(isActive) {
@@ -308,17 +302,8 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
     
-    // Initialize Bootstrap collapse
-    const collapseElement = document.getElementById('navbarNav');
-    if (collapseElement) {
-      this.collapse = new bootstrap.Collapse(collapseElement, {
-        toggle: false
-      });
-    }
-
-    // Handle initial navigation
+    // Initialize navigation
     this.$nextTick(() => {
-      // Get initial section from route or default to welcome
       const currentSection = this.$route.params.section || 'welcome';
       this.activeSection = currentSection;
       
@@ -343,9 +328,6 @@ export default {
 
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-    if (this.collapse) {
-      this.collapse.dispose();
-    }
   }
 }
 </script>
