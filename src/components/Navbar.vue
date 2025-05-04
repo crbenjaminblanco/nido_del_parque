@@ -311,12 +311,11 @@ export default {
       });
     }
 
-    // Handle initial navigation from URL hash
+    // Handle initial navigation
     this.$nextTick(() => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash && this.navigationItems.some(item => item.sectionId === hash)) {
-        this.handleNavClick(hash);
-      }
+      // Get initial section from route or default to welcome
+      const currentSection = this.$route.params.section || 'welcome';
+      this.activeSection = currentSection;
       this.handleScroll();
     });
   },

@@ -71,15 +71,4 @@ const router = createRouter({
   }
 })
 
-// Handle GitHub Pages 404 redirect
-const currentUrl = window.location.href;
-if (currentUrl.includes('/en/') || currentUrl.includes('/es/')) {
-  const segments = currentUrl.split('/');
-  const langIndex = segments.findIndex(s => s === 'en' || s === 'es');
-  if (langIndex !== -1) {
-    const lang = segments[langIndex];
-    router.push(`/${lang}/welcome`);
-  }
-}
-
 export default router 
