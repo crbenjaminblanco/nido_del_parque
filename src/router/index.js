@@ -11,8 +11,8 @@ const routes = [
   {
     path: '/',
     redirect: () => {
-      const lang = getUserLanguage();
-      return `/${lang}/welcome`;
+      const lang = getUserLanguage()
+      return `/${lang}/welcome`
     }
   },
   {
@@ -26,7 +26,8 @@ const routes = [
       const section = to.params.section || 'welcome'
 
       if (!validLanguages.includes(lang)) {
-        next(`/${getUserLanguage()}/welcome`)
+        const defaultLang = getUserLanguage()
+        next(`/${defaultLang}/welcome`)
         return
       }
 
@@ -41,7 +42,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory('/nido_del_parque/'),
+  history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (to.params.section) {
