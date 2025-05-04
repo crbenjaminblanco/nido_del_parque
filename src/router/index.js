@@ -1,29 +1,86 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+// Function to get user's preferred language
+const getUserLanguage = () => {
+  // Get browser language (e.g., 'es-ES', 'en-US')
+  const browserLang = navigator.language.toLowerCase()
+  
+  // Check if it starts with 'es'
+  if (browserLang.startsWith('es')) {
+    return 'es'
+  }
+  
+  // Default to 'en' for all other languages
+  return 'en'
+}
+
 const routes = [
   {
     path: '/',
-    redirect: '/es/home'
+    redirect: () => {
+      const hash = window.location.hash || '#welcome'
+      const userLang = getUserLanguage()
+      return `/${userLang}/home${hash}`
+    }
   },
   {
     path: '/:lang',
-    redirect: to => `/${to.params.lang}/home`
+    redirect: to => {
+      const hash = window.location.hash || '#welcome'
+      return `/${to.params.lang}/home${hash}`
+    }
   },
   {
     path: '/:lang/home',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    beforeEnter: (to, from, next) => {
+      if (!to.hash) {
+        next({ path: to.path, hash: '#welcome', replace: true })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/es/home'
+    redirect: to => {
+      const url = to.fullPath
+      const match = url.match(/\/(es|en)\//)
+      const lang = match ? match[1] : getUserLanguage()
+      const hash = window.location.hash || '#welcome'
+      return `/${lang}/home${hash}`
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const element = document.querySelector(to.hash);
+          const navbar = document.querySelector('.navbar');
+          if (element && navbar) {
+            const navbarHeight = navbar.offsetHeight;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - navbarHeight;
+
+            resolve({
+              top: offsetPosition,
+              behavior: 'instant'
+            });
+          } else {
+            resolve({ el: to.hash, behavior: 'instant' });
+          }
+        }, 100);
+      });
+    }
+    return savedPosition || { top: 0 };
+  }
 })
 
 // Navigation guards
@@ -32,7 +89,9 @@ router.beforeEach((to, from, next) => {
   const lang = to.params.lang
 
   if (!validLanguages.includes(lang)) {
-    next('/es/home')
+    const hash = window.location.hash
+    const userLang = getUserLanguage()
+    next(`/${userLang}/home${hash}`)
     return
   }
 
@@ -42,7 +101,9 @@ router.beforeEach((to, from, next) => {
 // Handle navigation errors
 router.onError((error) => {
   console.error('Router error:', error)
-  router.push('/es/home')
+  const hash = window.location.hash
+  const userLang = getUserLanguage()
+  router.push(`/${userLang}/home${hash}`)
 })
 
 export default router 

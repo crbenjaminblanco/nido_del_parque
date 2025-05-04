@@ -290,12 +290,6 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
     
-    // Initialize active section from URL hash
-    const hash = window.location.hash.replace('#', '');
-    if (hash && this.navigationItems.some(item => item.sectionId === hash)) {
-      this.activeSection = hash;
-    }
-    
     // Initialize Bootstrap collapse
     const collapseElement = document.getElementById('navbarNav');
     if (collapseElement) {
@@ -304,8 +298,14 @@ export default {
       });
     }
 
-    // Initial scroll position check
-    this.handleScroll();
+    // Handle initial navigation from URL hash
+    this.$nextTick(() => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && this.navigationItems.some(item => item.sectionId === hash)) {
+        this.handleNavClick(hash);
+      }
+      this.handleScroll();
+    });
   },
 
   beforeUnmount() {
