@@ -1,10 +1,18 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
     path: '/',
     redirect: '/es/home'
+  },
+  {
+    path: '/es',
+    redirect: '/es/home'
+  },
+  {
+    path: '/en',
+    redirect: '/en/home'
   },
   {
     path: '/:lang/home',
@@ -38,7 +46,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHashHistory(),
   routes
 })
 
@@ -48,14 +56,14 @@ router.beforeEach(async (to, from, next) => {
     const validLanguages = ['es', 'en']
     const lang = to.params.lang
 
-    if (lang && !validLanguages.includes(lang)) {
-      next('/es/home')
+    // Si ya estamos en una ruta válida, no redirigir
+    if (to.matched.length > 0 && to.matched[0].path !== '/:pathMatch(.*)') {
+      next()
       return
     }
 
-    // Ensure any pending navigation is complete
-    if (router.currentRoute.value !== to) {
-      next()
+    if (lang && !validLanguages.includes(lang)) {
+      next('/es/home')
       return
     }
 
