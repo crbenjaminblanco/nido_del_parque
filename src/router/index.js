@@ -31,7 +31,19 @@ const routes = [
   {
     path: '/:lang/home',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    beforeEnter: (to, from, next) => {
+      const lang = to.params.lang
+      const validLanguages = ['es', 'en']
+      if (!validLanguages.includes(lang)) {
+        // Si el idioma no es válido, intentamos usar el idioma actual o el del navegador
+        const currentLang = from.params.lang
+        const targetLang = validLanguages.includes(currentLang) ? currentLang : getUserLanguage()
+        next(`/${targetLang}/home${to.hash || '#welcome'}`)
+        return
+      }
+      next()
+    }
   },
   {
     path: '/:pathMatch(.*)*',
