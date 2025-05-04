@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -16,9 +17,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
         env:
@@ -30,4 +40,5 @@ jobs:
         with:
           folder: docs
           clean: true
-          single-commit: true 
+          single-commit: true
+          commit-message: "Deploy nido_del_parque to GitHub Pages" 
