@@ -83,7 +83,7 @@ export default {
   height: 100vh;
   width: 100%;
   position: relative;
-  background-image: url("@/assets/background2.jpg");
+  background-image: url("@/assets/images/background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

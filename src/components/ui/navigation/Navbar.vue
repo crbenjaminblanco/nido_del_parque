@@ -8,7 +8,7 @@
         @click.prevent="handleNavClick('welcome')"
       >
         <img
-          src="@/assets/logo.png"
+          src="@/assets/icons/logo.png"
           alt="Logo"
           width="60"
           height="30"
@@ -233,6 +233,32 @@ export default {
 
     handleScroll() {
       this.scrolled = window.scrollY > 50;
+      this.updateActiveSection();
+    },
+
+    updateActiveSection() {
+      const sections = this.navigationItems.map(item => document.getElementById(item.sectionId));
+      const navbarHeight = this.$el.offsetHeight;
+      
+      // Find the section that's most in view
+      let mostVisible = null;
+      let maxVisibleHeight = 0;
+
+      sections.forEach((section, index) => {
+        if (!section) return;
+
+        const rect = section.getBoundingClientRect();
+        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, navbarHeight);
+
+        if (visibleHeight > maxVisibleHeight) {
+          maxVisibleHeight = visibleHeight;
+          mostVisible = this.navigationItems[index].sectionId;
+        }
+      });
+
+      if (mostVisible) {
+        this.activeSection = mostVisible;
+      }
     },
 
     closeMenu() {
@@ -278,13 +304,11 @@ export default {
       // Only update route if language changed
       if (this.$i18n.locale !== lang) {
         this.$i18n.locale = lang;
-        const currentSection = this.$route.params.section || 'welcome';
+        const currentSection = this.activeSection || this.$route.params.section || 'welcome';
         
         this.$router.push({
-          path: `/${lang}/${currentSection}`,
-          query: { instant: 'true' }
+          path: `/${lang}/${currentSection}`
         }).finally(() => {
-          // Ensure menu stays closed after language change
           this.$nextTick(() => {
             this.isExpanded = false;
           });
@@ -309,8 +333,8 @@ export default {
       const currentSection = this.$route.params.section || 'welcome';
       this.activeSection = currentSection;
       
-      // Scroll to section if accessed directly via URL
-      if (currentSection !== 'welcome') {
+      // Only scroll to section if not changing language
+      if (currentSection !== 'welcome' && !this.$route.query.noScroll) {
         const targetSection = document.getElementById(currentSection);
         if (targetSection) {
           const navbarHeight = this.$el.offsetHeight;
@@ -581,14 +605,14 @@ export default {
     text-align: left;
   }
 
+  .nav__link:hover {
+    background-color: var(--bg-hover);
+  }
+
   .nav__link--active {
     background-color: var(--bg-hover);
     border-bottom: none;
     border-left: 3px solid currentColor;
-  }
-
-  .nav__link:hover {
-    background-color: var(--bg-hover);
   }
 
   .lang-selector {
