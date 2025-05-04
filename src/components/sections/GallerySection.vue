@@ -5,7 +5,7 @@
     <div class="container">
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
-        <div id="photoCarousel" class="gallery__carousel carousel slide" data-bs-ride="carousel">
+        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div v-for="(item, index) in galleryItems" 
                  :key="index" 
@@ -17,6 +17,7 @@
               </div>
             </div>
           </div>
+          <!-- Carousel Controls -->
           <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -25,6 +26,17 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
+          <!-- Carousel Indicators -->
+          <div class="carousel-indicators">
+            <button v-for="(item, index) in galleryItems" 
+                    :key="index"
+                    type="button"
+                    data-bs-target="#photoCarousel"
+                    :data-bs-slide-to="index"
+                    :class="{ active: index === 0 }"
+                    :aria-label="`Slide ${index + 1}`">
+            </button>
+          </div>
         </div>
       </div>
 
@@ -71,19 +83,8 @@ export default {
       new bootstrap.Carousel(carousel, {
         interval: 5000,
         touch: true,
-        pause: 'hover',
-        wrap: true,
-        keyboard: true
+        wrap: true
       });
-
-      // Add touch event listeners for better iOS support
-      carousel.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-      }, { passive: false });
-
-      carousel.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-      }, { passive: false });
     }
   }
 }
@@ -172,9 +173,11 @@ export default {
 }
 
 /* Carousel styles */
-.gallery__carousel {
+.carousel {
   margin-bottom: 2rem;
   position: relative;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
 }
 
 .carousel-inner {
@@ -183,8 +186,6 @@ export default {
 
 .carousel-item {
   background: var(--bg-primary);
-  border-radius: var(--border-radius-lg);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -221,6 +222,13 @@ export default {
   color: var(--text-primary);
 }
 
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+  top: calc((300px - 120px - 32px) * -1); /* 300px altura imagen, 120px altura descripción, 32px altura flecha */
+}
+
+/* Carousel Indicators */
 .carousel-indicators {
   position: absolute;
   bottom: var(--spacing-sm);
@@ -231,6 +239,7 @@ export default {
   gap: var(--spacing-xs);
   margin: 0;
   padding: 0;
+  z-index: 5;
 }
 
 .carousel-indicators button {
@@ -241,6 +250,7 @@ export default {
   opacity: 0.5;
   border: none;
   padding: 0;
+  transition: opacity 0.3s ease;
 }
 
 .carousel-indicators button.active {
@@ -248,36 +258,13 @@ export default {
   opacity: 1;
 }
 
-.gallery__carousel .carousel-control-prev,
-.gallery__carousel .carousel-control-next {
-  position: absolute !important;
-  top: 150px !important;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  margin: 0 var(--spacing-md);
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+@media (max-width: 768px) {
+  .gallery__title {
+    font-size: var(--text-2xl);
+  }
 
-.gallery__carousel .carousel-control-prev {
-  left: var(--spacing-md);
-}
-
-.gallery__carousel .carousel-control-next {
-  right: var(--spacing-md);
-}
-
-.gallery__carousel .carousel-control-prev-icon,
-.gallery__carousel .carousel-control-next-icon {
-  width: 20px;
-  height: 20px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+  .gallery__subtitle {
+    font-size: var(--text-base);
+  }
 }
 </style> 
