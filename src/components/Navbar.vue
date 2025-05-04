@@ -4,7 +4,10 @@
       <!-- Logo -->
       <a 
         class="navbar-brand"
-        :class="brandClasses"
+        :class="{ 
+          'brand--light': !scrolled,
+          'brand--dark': scrolled
+        }"
         :href="`#welcome`"
         @click.prevent="handleNavClick('welcome')"
       >
@@ -13,8 +16,11 @@
           alt="Logo"
           width="60"
           height="30"
-          class="logo"
-          :class="logoClasses"
+          class="brand__logo"
+          :class="{ 
+            'brand__logo--light': !scrolled,
+            'brand__logo--dark': scrolled 
+          }"
         />
         {{ $t('navbar.title') }}
       </a>
@@ -27,7 +33,10 @@
         data-bs-target="#navbarNav"
         aria-controls="navbarNav"
         aria-label="Toggle navigation"
-        :class="togglerClasses"
+        :class="{ 
+          'navbar-toggler--light': !scrolled,
+          'navbar-toggler--dark': scrolled 
+        }"
         @click="toggleMenu"
       >
         <span class="navbar-toggler-icon"></span>
@@ -39,7 +48,7 @@
         id="navbarNav"
         :class="{ show: isExpanded }"
       >
-        <ul class="navbar-nav ms-auto align-items-center">
+        <ul class="navbar-nav">
           <li 
             v-for="(item, index) in navigationItems" 
             :key="index"
@@ -47,12 +56,12 @@
           >
             <a 
               :href="`#${item.sectionId}`"
-              class="nav-link"
+              class="nav-link nav__link"
               :class="{ 
-                'font-primary-color': !scrolled,
-                'font-dark-color': scrolled,
-                'active': activeSection === item.sectionId && !isClickNavigation,
-                'active-click': activeSection === item.sectionId && isClickNavigation
+                'nav__link--light': !scrolled,
+                'nav__link--dark': scrolled,
+                'nav__link--active': activeSection === item.sectionId && !isClickNavigation,
+                'nav__link--active-click': activeSection === item.sectionId && isClickNavigation
               }"
               @click.prevent="handleNavClick(item.sectionId)"
             >
@@ -60,11 +69,14 @@
             </a>
           </li>
           <!-- Language Selector -->
-          <li class="nav-item ms-lg-3">
+          <li class="nav-item">
             <div class="dropdown">
               <button 
-                class="btn btn-link dropdown-toggle language-selector"
-                :class="getLinkClasses()"
+                class="btn btn-link dropdown-toggle lang-selector"
+                :class="{ 
+                  'lang-selector--light': !scrolled,
+                  'lang-selector--dark': scrolled 
+                }"
                 type="button" 
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -73,35 +85,35 @@
                   <img 
                     :src="require(`@/assets/icons/${currentLanguage}.png`)"
                     :alt="currentLanguage === 'es' ? 'Español' : 'English'"
-                    class="language-icon"
+                    class="lang-selector__icon"
                   />
                 </div>
               </button>
-              <ul class="dropdown-menu dropdown-menu-end">
+              <ul class="dropdown-menu">
                 <li>
                   <button 
-                    class="dropdown-item d-flex align-items-center" 
-                    :class="{ active: currentLanguage === 'es' }"
+                    class="dropdown-item lang-selector__item" 
+                    :class="{ 'lang-selector__item--active': currentLanguage === 'es' }"
                     @click="changeLanguage('es')"
                   >
                     <img 
                       src="@/assets/icons/es.png"
                       alt="Español"
-                      class="language-icon me-2"
+                      class="lang-selector__icon me-2"
                     />
                     <span>Español</span>
                   </button>
                 </li>
                 <li>
                   <button 
-                    class="dropdown-item d-flex align-items-center" 
-                    :class="{ active: currentLanguage === 'en' }"
+                    class="dropdown-item lang-selector__item" 
+                    :class="{ 'lang-selector__item--active': currentLanguage === 'en' }"
                     @click="changeLanguage('en')"
                   >
                     <img 
                       src="@/assets/icons/en.png"
                       alt="English"
-                      class="language-icon me-2"
+                      class="lang-selector__icon me-2"
                     />
                     <span>English</span>
                   </button>
@@ -259,6 +271,10 @@ export default {
 
     closeMenu() {
       this.isExpanded = false;
+      // Reset scrolled state if we're at the top
+      if (window.scrollY <= 50) {
+        this.scrolled = false;
+      }
       // Ensure it stays closed
       this.$nextTick(() => {
         this.isExpanded = false;
@@ -267,8 +283,14 @@ export default {
 
     toggleMenu() {
       this.isExpanded = !this.isExpanded;
+      
+      // Only set scrolled to true when opening menu
       if (this.isExpanded && !this.scrolled) {
         this.scrolled = true;
+      }
+      // Reset scrolled state when closing menu if we're at the top
+      else if (!this.isExpanded && window.scrollY <= 50) {
+        this.scrolled = false;
       }
     },
 
@@ -345,56 +367,116 @@ export default {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
+/* Toggler Button */
+.navbar-toggler {
+  border: none;
+  padding: 0;
+  transition: all 0.3s ease;
 }
 
-.logo {
-  transition: filter 0.3s ease;
+.navbar-toggler:focus {
+  box-shadow: none;
 }
 
-/* Text Colors */
-.font-primary-color {
+.navbar-toggler-icon {
+  background-image: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler-icon::before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background-color: currentColor;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 -8px 0 currentColor, 0 8px 0 currentColor;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler--light {
   color: rgba(255, 255, 255, 0.95) !important;
 }
 
-.font-primary-color:hover {
+.navbar-toggler--light:hover {
   color: white !important;
 }
 
-.font-dark-color {
+.navbar-toggler--dark {
   color: rgba(0, 0, 0, 0.8) !important;
 }
 
-.font-dark-color:hover {
+.navbar-toggler--dark:hover {
   color: black !important;
 }
 
-/* Icon Colors */
-.icon-white-fade {
+/* Brand and Logo */
+.brand--light {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.brand--light:hover {
+  color: white !important;
+}
+
+.brand--dark {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.brand--dark:hover {
+  color: black !important;
+}
+
+.brand__logo {
+  transition: filter 0.3s ease;
+}
+
+.brand__logo--light {
   filter: brightness(0) invert(1);
   opacity: 0.95;
 }
 
-.icon-dark {
+.brand__logo--dark {
   filter: none;
   opacity: 1;
 }
 
-/* Active state styles */
-.nav-link {
+/* Navigation Links */
+.navbar-nav {
+  width: 100%;
+}
+
+.nav__link {
   transition: all 0.3s ease;
 }
 
-.nav-link.active {
+.nav__link--light {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.nav__link--light:hover {
+  color: white !important;
+}
+
+.nav__link--dark {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.nav__link--dark:hover {
+  color: black !important;
+}
+
+.nav__link--active,
+.nav__link--active-click {
   font-weight: 600;
   position: relative;
 }
 
-.nav-link.active::after {
+.nav__link--active::after,
+.nav__link--active-click::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -406,37 +488,56 @@ export default {
   transition: opacity 0.3s ease;
 }
 
-.nav-link.active-click {
-  font-weight: 700;
-  position: relative;
-}
-
-.nav-link.active-click::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: currentColor;
+.nav__link--active-click::after {
   opacity: 0.8;
 }
 
-/* Mobile styles update */
+/* Language Selector */
+.lang-selector {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border: none;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.lang-selector--light {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.lang-selector--dark {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.lang-selector__icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.lang-selector__item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: rgba(0, 0, 0, 0.8) !important;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.lang-selector__item:hover {
+  color: black !important;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.lang-selector__item--active {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: black !important;
+  font-weight: 700;
+}
+
+/* Mobile Styles */
 @media (max-width: 991px) {
-  .nav-link.active::after,
-  .nav-link.active-click::after {
-    display: none;
-  }
-  
-  .nav-link.active {
-    background-color: rgba(0, 0, 0, 0.03);
-  }
-
-  .nav-link.active-click {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
   .navbar-collapse {
     background: white;
     margin-top: 1rem;
@@ -453,154 +554,57 @@ export default {
     width: 100%;
   }
 
-  .nav-link {
+  .nav__link--active::after,
+  .nav__link--active-click::after {
+    display: none;
+  }
+  
+  .nav__link--active,
+  .nav__link--active-click {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .nav__link {
     color: rgba(0, 0, 0, 0.8) !important;
     padding: 0.75rem 1rem !important;
     text-align: left;
     width: 100%;
   }
 
-  .nav-link:hover {
+  .nav__link:hover {
     color: black !important;
     background-color: rgba(0, 0, 0, 0.05);
   }
 
-  /* Language selector mobile styles */
-  .language-selector {
-    justify-content: flex-start;
-    width: 100%;
+  .lang-selector {
     padding: 0.75rem 1rem;
     margin: 0;
     color: rgba(0, 0, 0, 0.8) !important;
   }
 
-  .language-selector.btn {
-    text-align: left;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .dropdown {
-    width: 100%;
-  }
-
-  .dropdown-menu {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    border: none;
-    box-shadow: none;
-    background-color: rgba(0, 0, 0, 0.02);
-  }
-
-  .dropdown-item {
-    width: 100%;
-    padding: 0.75rem 1rem;
-  }
-
-  .navbar-collapse .dropdown-item {
-    color: rgba(0, 0, 0, 0.8) !important;
-  }
-
-  .navbar-collapse .dropdown-item:hover,
-  .navbar-collapse .dropdown-item.active {
-    color: black !important;
-  }
-
-  .language-icon {
+  .lang-selector__icon {
     width: 20px;
     height: 20px;
-    margin-left: 0;
-  }
-}
-
-/* Language Selector Styles */
-.language-selector {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  border: none;
-}
-
-.language-icon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
-.dropdown-item {
-  padding: 0.75rem 1rem;
-  width: 150px;
-  color: rgba(0, 0, 0, 0.8) !important;
-}
-
-.dropdown-item:hover {
-  color: black !important;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.dropdown-item.active {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: black !important;
-  font-weight: 700;
-}
-
-@media (max-width: 991px) {
-  .language-selector {
-    justify-content: flex-start;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    margin: 0;
-    color: rgba(0, 0, 0, 0.8) !important;
-  }
-
-  .language-selector.btn {
-    text-align: left;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .dropdown {
-    width: 100%;
   }
 
   .dropdown-menu {
     width: 100%;
-    margin: 0;
     padding: 0;
+    margin: 0;
     border: none;
     box-shadow: none;
     background-color: rgba(0, 0, 0, 0.02);
   }
-
-  .dropdown-item {
-    width: 100%;
-    padding: 0.75rem 1rem;
-  }
-
-  .navbar-collapse .dropdown-item {
-    color: rgba(0, 0, 0, 0.8) !important;
-  }
-
-  .navbar-collapse .dropdown-item:hover,
-  .navbar-collapse .dropdown-item.active {
-    color: black !important;
-  }
 }
 
-/* Add styles for mobile dropdown items */
-@media (max-width: 991px) {
-  .language-selector {
-    justify-content: flex-start;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    margin: 0;
-    color: rgba(0, 0, 0, 0.8) !important;
+@media (min-width: 992px) {
+  .navbar-nav {
+    align-items: center;
+    justify-content: flex-end;
   }
 
-  .navbar-collapse .dropdown-item:hover,
-  .navbar-collapse .dropdown-item.active {
-    color: black !important;
+  .nav-item:not(:last-child) {
+    margin-right: 1rem;
   }
 }
 </style>

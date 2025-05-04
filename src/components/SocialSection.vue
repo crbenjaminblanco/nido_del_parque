@@ -5,11 +5,13 @@
       <p class="social__subtitle text-center text-muted mb-5">{{ $t('social.subtitle') }}</p>
 
       <div class="row justify-content-center">
-        <div class="col-md-5 mb-4 mb-md-0 d-flex justify-content-center">
+        <!-- Instagram Section -->
+        <div class="col-12 col-md-6 mb-4">
           <instagram-section />
         </div>
 
-        <div class="col-md-5">
+        <!-- Social Links Section -->
+        <div class="col-12 col-md-6">
           <div class="social__links">
             <social-button
               :url="airbnbUrl"
