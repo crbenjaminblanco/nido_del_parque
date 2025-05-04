@@ -80,7 +80,7 @@ export default {
 
 <style scoped>
 .welcome-section {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   position: relative;
   background-image: url("@/assets/background2.jpg");
@@ -89,6 +89,7 @@ export default {
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  padding-top: 80px; /* Account for navbar */
 }
 
 .overlay {
@@ -107,6 +108,7 @@ export default {
   justify-content: center;
   position: relative;
   z-index: 2;
+  min-height: calc(100vh - 80px); /* Account for navbar */
 }
 
 .welcome-content {

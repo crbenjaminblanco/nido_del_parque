@@ -5,8 +5,7 @@
       <a 
         class="navbar-brand"
         :class="brandClasses"
-        href="#home"
-        @click.prevent="handleLinkClick"
+        href="#welcome-section"
       >
         <img
           src="@/assets/logo.png"
@@ -26,7 +25,6 @@
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
         aria-controls="navbarNav"
-        :aria-expanded="isExpanded"
         aria-label="Toggle navigation"
         :class="togglerClasses"
         @click="toggleMenu"
@@ -38,6 +36,7 @@
       <div 
         class="collapse navbar-collapse" 
         id="navbarNav"
+        :class="{ show: isExpanded }"
       >
         <ul class="navbar-nav ms-auto align-items-center">
           <li 
@@ -46,10 +45,10 @@
             class="nav-item"
           >
             <a 
-              :href="item.href"
+              :href="'#' + item.sectionId"
               class="nav-link"
               :class="getLinkClasses(item.isActive)"
-              @click="handleLinkClick"
+              @click="closeMenu"
             >
               {{ item.text }}
             </a>
@@ -64,12 +63,13 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <!-- Solo el icono en el botón principal -->
-                <img 
-                  :src="require(`@/assets/icons/${currentLanguage}.png`)"
-                  :alt="currentLanguage === 'es' ? 'Español' : 'English'"
-                  class="language-icon"
-                />
+                <div class="d-flex align-items-center">
+                  <img 
+                    :src="require(`@/assets/icons/${currentLanguage}.png`)"
+                    :alt="currentLanguage === 'es' ? 'Español' : 'English'"
+                    class="language-icon"
+                  />
+                </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li>
@@ -85,7 +85,7 @@
                     />
                     <span>Español</span>
                   </button>
-          </li>
+                </li>
                 <li>
                   <button 
                     class="dropdown-item d-flex align-items-center" 
@@ -99,7 +99,7 @@
                     />
                     <span>English</span>
                   </button>
-          </li>
+                </li>
               </ul>
             </div>
           </li>
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { Collapse, Dropdown } from 'bootstrap'
+import * as bootstrap from 'bootstrap'
 
 export default {
   name: 'MainNavbar',
@@ -120,17 +120,40 @@ export default {
       scrolled: false,
       isExpanded: false,
       collapse: null,
-      navigationItems: [
-        { text: this.$t('navbar.home'), href: '#welcome-section', isActive: true },
-        { text: this.$t('navbar.gallery'), href: '#photo-gallery' },
-        { text: this.$t('navbar.wifi'), href: '#wifi-section' },
-        { text: this.$t('navbar.recommendations'), href: '#recommendations' },
-        { text: this.$t('navbar.contact'), href: '#social-section' }
-      ]
+      activeSection: 'welcome-section'
     }
   },
 
   computed: {
+    navigationItems() {
+      return [
+        { 
+          text: this.$t('navbar.home'), 
+          sectionId: 'welcome-section',
+          isActive: this.activeSection === 'welcome-section'
+        },
+        { 
+          text: this.$t('navbar.gallery'), 
+          sectionId: 'photo-gallery',
+          isActive: this.activeSection === 'photo-gallery'
+        },
+        { 
+          text: this.$t('navbar.wifi'), 
+          sectionId: 'wifi-section',
+          isActive: this.activeSection === 'wifi-section'
+        },
+        { 
+          text: this.$t('navbar.recommendations'), 
+          sectionId: 'recommendations',
+          isActive: this.activeSection === 'recommendations'
+        },
+        { 
+          text: this.$t('navbar.contact'), 
+          sectionId: 'social-section',
+          isActive: this.activeSection === 'social-section'
+        }
+      ]
+    },
     currentLanguage() {
       return this.$i18n.locale
     },
@@ -139,144 +162,95 @@ export default {
         'navbar',
         'navbar-expand-lg',
         'navbar-light',
-        'pt-4',
-        'pb-4',
+        'fixed-top',
         { scrolled: this.scrolled }
       ]
     },
-
     brandClasses() {
       return {
         'font-primary-color': !this.scrolled,
         'font-dark-color': this.scrolled
       }
     },
-
     logoClasses() {
       return {
         'icon-white-fade': !this.scrolled,
         'icon-dark': this.scrolled
       }
     },
-
     togglerClasses() {
       return {
         'icon-white-fade': !this.scrolled,
         'icon-dark': this.scrolled
       }
-    },
-
-    languagePrefix() {
-      return `/${this.currentLanguage}`
     }
   },
 
   methods: {
-    changeLanguage(lang) {
-      // Update locale
-      this.$i18n.locale = lang
-      
-      // Update navigation items text
-      this.navigationItems = this.navigationItems.map(item => ({
-        ...item,
-        text: this.$t(item.href === '#home' ? 'navbar.home' :
-              item.href === '#photo-gallery' ? 'navbar.gallery' :
-              item.href === '#wifi-section' ? 'navbar.wifi' :
-              item.href === '#recommendations' ? 'navbar.recommendations' :
-              'navbar.contact')
-      }))
-
-      // Close the burger menu if it's open
-      if (this.collapse && this.isExpanded) {
-        this.collapse.hide()
-        this.isExpanded = false
-      }
-    },
-
-    scrollToSection(sectionId) {
-      const targetSection = document.querySelector(sectionId)
-      if (targetSection) {
-        targetSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        })
-      }
-    },
-
-    handleInitialRoute() {
-      const path = window.location.pathname
-      // Extract language from path if present
-      const matches = path.match(/^\/(es|en)(\/.*)$/)
-      if (matches) {
-        const [, lang, actualPath] = matches
-        // Set language if it differs from current
-        if (lang !== this.currentLanguage) {
-          this.$i18n.locale = lang
-        }
-        
-        const routeMap = {
-          '/wifi': '#wifi-section',
-          '/gallery': '#photo-gallery',
-          '/recommendations': '#recommendations',
-          '/contact': '#social-section'
-        }
-
-        const sectionId = routeMap[actualPath]
-        if (sectionId) {
-          setTimeout(() => this.scrollToSection(sectionId), 100)
-        }
-      }
-    },
-
-    updateUrlWithSection(newPath) {
-      const pathWithLang = `${this.languagePrefix}${newPath}`
-      window.history.pushState({}, '', pathWithLang)
-    },
-
-    handleScroll() {
-      this.scrolled = window.scrollY > 50
-    },
-
     toggleMenu() {
       if (!this.collapse) {
         const collapseElement = document.getElementById('navbarNav')
         if (collapseElement) {
-          this.collapse = new Collapse(collapseElement, {
+          this.collapse = new bootstrap.Collapse(collapseElement, {
             toggle: false
           })
         }
       }
-
+      
+      this.isExpanded = !this.isExpanded
       if (this.collapse) {
         if (this.isExpanded) {
-          this.collapse.hide()
-        } else {
           this.collapse.show()
-        }
-        this.isExpanded = !this.isExpanded
-
-        if (this.isExpanded && !this.scrolled) {
-          this.scrolled = true
+          if (!this.scrolled) {
+            this.scrolled = true
+          }
+        } else {
+          this.collapse.hide()
         }
       }
     },
 
-    handleLinkClick(event) {
-      event.preventDefault()
-      const href = event.target.getAttribute('href')
-      const targetSection = document.querySelector(href)
-      
-      if (targetSection) {
-        targetSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        })
+    closeMenu() {
+      if (this.isExpanded) {
+        this.isExpanded = false
+        if (this.collapse) {
+          this.collapse.hide()
+        }
+      }
+    },
+
+    handleScroll() {
+      this.scrolled = window.scrollY > 50;
+      this.updateActiveSection();
+    },
+
+    updateActiveSection() {
+      const sections = this.navigationItems.map(item => document.getElementById(item.sectionId));
+      const navbarHeight = this.$el.offsetHeight;
+      const scrollPosition = window.scrollY + navbarHeight + 50; // Add offset for better detection
+
+      // Find the current section
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section) {
+          const sectionTop = section.offsetTop;
+          if (scrollPosition >= sectionTop) {
+            this.activeSection = this.navigationItems[i].sectionId;
+            break;
+          }
+        }
       }
 
-      // Cerrar el menú móvil si está abierto
-      if (window.innerWidth <= 991 && this.collapse) {
-        this.collapse.hide()
-        this.isExpanded = false
+      // Check if we're at the top of the page
+      if (window.scrollY < 100) {
+        this.activeSection = 'welcome-section';
+      }
+    },
+
+    changeLanguage(lang) {
+      this.$i18n.locale = lang
+      if (this.isExpanded) {
+        this.closeMenu()
       }
     },
 
@@ -291,23 +265,18 @@ export default {
 
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
-    // Initialize Bootstrap components
+    
+    // Initialize Bootstrap collapse
     const collapseElement = document.getElementById('navbarNav')
     if (collapseElement) {
-      this.collapse = new Collapse(collapseElement, {
+      this.collapse = new bootstrap.Collapse(collapseElement, {
         toggle: false
       })
     }
-    // Initialize all dropdowns
-    document.querySelectorAll('.dropdown-toggle').forEach(dropdownToggle => {
-      new Dropdown(dropdownToggle)
-    })
-    this.handleInitialRoute()
   },
 
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
-    // Limpiar la instancia de collapse
     if (this.collapse) {
       this.collapse.dispose()
     }
@@ -318,23 +287,28 @@ export default {
 <style scoped>
 /* NAVBAR DEFAULT: TRANSPARENT OVER CONTENT */
 .navbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   background-color: transparent;
-  z-index: 10;
   transition: all 0.3s ease;
+  padding: 1rem 0;
 }
 
-/* AFTER SCROLL: FIXED + WHITE */
 .navbar.scrolled {
-  position: fixed;
   background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* TEXT COLORS */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.logo {
+  transition: filter 0.3s ease;
+}
+
+/* Text Colors */
 .font-primary-color {
   color: rgba(255, 255, 255, 0.95) !important;
 }
@@ -351,11 +325,10 @@ export default {
   color: black !important;
 }
 
-/* LOGO COLOR EFFECTS */
+/* Icon Colors */
 .icon-white-fade {
   filter: brightness(0) invert(1);
   opacity: 0.95;
-  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
 .icon-dark {
@@ -363,20 +336,10 @@ export default {
   opacity: 1;
 }
 
-/* NAV-LINK OVERRIDE */
-.nav-link.active {
-  font-weight: bold;
-}
-
-/* LOGO STYLE */
-.logo {
-  transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-/* MOBILE MENU STYLES */
+/* Mobile Menu Styles */
 @media (max-width: 991px) {
   .navbar-collapse {
-    background-color: white;
+    background: white;
     margin-top: 1rem;
     padding: 1rem;
     border-radius: 8px;
@@ -391,13 +354,14 @@ export default {
     width: 100%;
   }
 
-  .navbar-collapse .nav-link {
+  .nav-link {
     color: rgba(0, 0, 0, 0.8) !important;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1rem !important;
     text-align: left;
+    width: 100%;
   }
 
-  .navbar-collapse .nav-link:hover {
+  .nav-link:hover {
     color: black !important;
     background-color: rgba(0, 0, 0, 0.05);
   }
@@ -512,5 +476,10 @@ export default {
   .navbar-collapse .dropdown-item.active {
     color: black !important;
   }
+}
+
+/* Active state */
+.nav-link.active {
+  font-weight: 600;
 }
 </style>

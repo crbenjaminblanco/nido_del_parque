@@ -1,30 +1,49 @@
 <template>
   <div class="home">
     <welcome-section/>
-    <photo-gallery v-show="currentRoute === 'gallery' || currentRoute === 'home'"/>
-    <wifi-section v-show="currentRoute === 'wifi' || currentRoute === 'home'"/>
-    <recommendations-section v-show="currentRoute === 'recommendations' || currentRoute === 'home'"/>
-    <social-section v-show="currentRoute === 'contact' || currentRoute === 'home'"/>
-    <thank-you v-show="currentRoute === 'home'"/>
+    <div class="sections-container">
+      <photo-gallery id="photo-gallery"/>
+      <wifi-section id="wifi-section"/>
+      <recommendations-section id="recommendations"/>
+      <social-section id="social-section"/>
+      <thank-you/>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
 import WelcomeSection from '@/components/WelcomeSection.vue';
 import WifiSection from '@/components/Wifi.vue';
 import PhotoGallery from '@/components/PhotoGallery.vue';
 import SocialSection from '@/components/SocialSection.vue';
 import RecommendationsSection from '@/components/RecommendationsSection.vue';
 import ThankYou from '@/components/ThankYou.vue';
-
-const route = useRoute();
-const currentRoute = computed(() => route.name);
 </script>
 
 <style scoped>
 .home {
   min-height: 100vh;
+}
+
+.sections-container {
+  padding-top: 80px; /* Space for fixed navbar */
+}
+
+.sections-container > * {
+  scroll-margin-top: 80px; /* Helps with scroll positioning */
+  scroll-behavior: smooth;
+  position: relative;
+  z-index: 1;
+  padding: 4rem 0; /* Add consistent vertical padding to sections */
+  background-color: var(--bg-primary, #ffffff);
+}
+
+.sections-container > *:nth-child(even) {
+  background-color: var(--bg-secondary, #f8f9fa);
+}
+
+/* Remove top padding from first section after welcome */
+.sections-container > *:first-child {
+  padding-top: 0;
 }
 </style> 
