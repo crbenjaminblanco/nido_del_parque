@@ -73,7 +73,7 @@ if (currentUrl.includes('/en/') || currentUrl.includes('/es/')) {
   const langIndex = segments.findIndex(s => s === 'en' || s === 'es');
   if (langIndex !== -1) {
     const lang = segments[langIndex];
-    router.push(`/${lang}/home${window.location.hash || ''}`);
+    router.push(`/${lang}/welcome`);
   }
 }
 
