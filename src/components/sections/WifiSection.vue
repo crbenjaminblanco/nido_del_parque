@@ -1,14 +1,15 @@
 <template>
   <section id="wifi" class="wifi">
     <div class="container">
+      <h2 class="section-title section-title--medium">{{ $t('wifi.title') }}</h2>
+      <p class="section-subtitle">{{ $t('wifi.subtitle') }}</p>
+      
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <div class="wifi__card">
             <div class="wifi__icon">
               <i class="fas fa-wifi"></i>
             </div>
-            
-            <h2 class="wifi__title text-center">{{ $t('wifi.title') }}</h2>
             
             <div class="wifi__credentials">
               <div class="wifi__credential" @click="copyToClipboard('nidodelparque')">
@@ -67,11 +68,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+@import '@/assets/styles/typography.css';
+
 .wifi {
-  background-color: var(--bg-secondary);
-  min-height: 33vh;
   padding: var(--spacing-xl) 0;
+  background-color: var(--bg-secondary);
 }
 
 .wifi__card {

@@ -1,23 +1,20 @@
 <template>
-  <base-card>
-    <div class="rec-card">
-      <div class="rec-card__icon"><i :class="icon"></i></div>
-      <h4 class="rec-card__title">{{ title }}</h4>
-      <p :class="['rec-card__type', { 'rec-card__type--cuisine': isRestaurant }]">{{ type }}</p>
-      <p class="rec-card__distance"><i class="fas fa-walking me-2"></i>{{ distance }}</p>
-      <p class="rec-card__description">{{ description }}</p>
+  <div class="recommendation-card">
+    <div class="recommendation-card__icon">
+      <i :class="icon"></i>
     </div>
-  </base-card>
+    <div class="recommendation-card__content">
+      <h4 class="recommendation-card__title">{{ title }}</h4>
+      <p class="recommendation-card__type">{{ type }}</p>
+      <p class="recommendation-card__distance">{{ distance }}</p>
+      <p class="recommendation-card__description">{{ description }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
-import BaseCard from '@/components/ui/cards/BaseCard.vue'
-
 export default {
   name: 'RecommendationCard',
-  components: {
-    BaseCard
-  },
   props: {
     icon: {
       type: String,
@@ -48,72 +45,61 @@ export default {
 </script>
 
 <style scoped>
-.rec-card {
-  text-align: center;
+.recommendation-card {
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-speed) var(--transition-timing);
 }
 
-.rec-card__icon {
-  font-size: var(--text-3xl);
-  color: var(--text-primary);
+.recommendation-card:hover {
+  transform: translateY(-4px);
+}
+
+.recommendation-card__icon {
+  font-size: var(--text-2xl);
+  color: var(--brand-accent);
   margin-bottom: var(--spacing-md);
-  text-align: center;
 }
 
-.rec-card__title {
+.recommendation-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.recommendation-card__title {
   font-family: var(--font-primary);
-  margin: 0 0 var(--spacing-xs);
-  color: var(--text-primary);
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-normal);
-}
-
-.rec-card__type {
-  font-family: var(--font-primary);
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
-  margin-bottom: var(--spacing-xs);
-  font-weight: var(--font-weight-medium);
-}
-
-.rec-card__type--cuisine {
-  color: var(--text-accent);
-}
-
-.rec-card__distance {
-  font-family: var(--font-primary);
   color: var(--text-primary);
-  font-size: var(--text-sm);
   margin-bottom: var(--spacing-xs);
-  font-weight: var(--font-weight-medium);
 }
 
-.rec-card__description {
+.recommendation-card__type {
   font-family: var(--font-primary);
-  color: var(--text-secondary);
   font-size: var(--text-sm);
-  margin: var(--spacing-xs) 0 0;
-  line-height: var(--line-height-relaxed);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
 }
 
-@media (max-width: 768px) {
-  .rec-card {
-    padding: var(--spacing-md);
-  }
-  
-  .rec-card__icon {
-    font-size: var(--text-2xl);
-  }
-  
-  .rec-card__title {
-    font-size: var(--text-lg);
-  }
+.recommendation-card__distance {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  color: var(--brand-accent);
+  margin-bottom: var(--spacing-sm);
+}
 
-  .rec-card__type,
-  .rec-card__distance,
-  .rec-card__description {
-    font-size: var(--text-xs);
-  }
+.recommendation-card__description {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: 0;
+  flex: 1;
 }
 </style> 

@@ -1,0 +1,77 @@
+/* Typography Scale */
+:root {
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: var(--letter-spacing-wide);
+  text-align: center;
+}
+
+.section-title--large {
+  font-size: var(--font-size-4xl);
+}
+
+.section-title--medium {
+  font-size: var(--font-size-2xl);
+}
+
+.section-title--small {
+  font-size: var(--font-size-xl);
+}
+
+/* Subtitle styles */
+.section-subtitle {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .section-title--large {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .section-title--medium {
+    font-size: var(--font-size-xl);
+  }
+  
+  .section-title--small {
+    font-size: var(--font-size-lg);
+  }
+  
+  .section-subtitle {
+    font-size: var(--font-size-base);
+  }
+} 

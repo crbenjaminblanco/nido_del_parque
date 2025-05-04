@@ -1,8 +1,8 @@
 <template>
   <section id="gallery" class="gallery">
+    <h2 class="section-title section-title--medium">{{ $t('gallery.title') }}</h2>
+    <p class="section-subtitle">{{ $t('gallery.subtitle') }}</p>
     <div class="container">
-      <h2 class="gallery__title">{{ $t('gallery.title') }}</h2>
-      
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
         <div id="photoCarousel" class="gallery__carousel carousel slide" data-bs-ride="carousel">
@@ -123,9 +123,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+@import '@/assets/styles/typography.css';
+
 .gallery {
-  padding: calc(var(--spacing-xl) * 1.25) 0;
+  padding: var(--spacing-xl) 0;
+  background-color: var(--bg-primary);
 }
 
 .gallery__title {

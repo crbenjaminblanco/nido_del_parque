@@ -1,15 +1,13 @@
 <template>
   <section id="recommendations" class="recommendations">
+    <h2 class="section-title section-title--medium">{{ $t('recommendations.title') }}</h2>
+    <p class="section-subtitle mb-5">{{ $t('recommendations.subtitle') }}</p>
+    
     <div class="container">
-      <h2 class="recommendations__title text-center">{{ $t('recommendations.title') }}</h2>
-      <p class="recommendations__subtitle text-center text-muted">{{ $t('recommendations.subtitle') }}</p>
-
       <div class="row">
         <!-- Places Section -->
-        <div class="col-12 mb-4">
-          <h3 class="recommendations__section-title">
-            <i class="fas fa-map-marker-alt me-2"></i>{{ $t('recommendations.places.title') }}
-          </h3>
+        <div class="col-12 col-md-6 mb-5">
+          <h3 class="section-title section-title--small">{{ $t('recommendations.places.title') }}</h3>
           <div class="row g-4">
             <div class="col-md-4" v-for="(place, key) in places" :key="'place-'+key">
               <recommendation-card
@@ -25,10 +23,8 @@
         </div>
 
         <!-- Restaurants Section -->
-        <div class="col-12">
-          <h3 class="recommendations__section-title">
-            <i class="fas fa-utensils me-2"></i>{{ $t('recommendations.restaurants.title') }}
-          </h3>
+        <div class="col-12 col-md-6 mb-5">
+          <h3 class="section-title section-title--small">{{ $t('recommendations.restaurants.title') }}</h3>
           <div class="row g-4">
             <div class="col-md-4" v-for="(restaurant, key) in restaurants" :key="'restaurant-'+key">
               <recommendation-card
@@ -84,10 +80,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+@import '@/assets/styles/typography.css';
+
 .recommendations {
-  background-color: var(--bg-secondary);
   padding: var(--spacing-xl) 0;
+  background-color: var(--bg-primary);
 }
 
 .recommendations__title {

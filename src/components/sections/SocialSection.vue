@@ -1,8 +1,8 @@
 <template>
   <section id="contact" class="social">
     <div class="container">
-      <h2 class="social__title text-center mb-4">{{ $t('social.title') }}</h2>
-      <p class="social__subtitle text-center text-muted mb-5">{{ $t('social.subtitle') }}</p>
+      <h2 class="section-title section-title--medium">{{ $t('social.title') }}</h2>
+      <p class="section-subtitle">{{ $t('social.subtitle') }}</p>
 
       <div class="row justify-content-center">
         <!-- Booking and Contact Links -->
@@ -77,7 +77,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+@import '@/assets/styles/typography.css';
+
 .social {
   background-color: var(--bg-secondary);
   padding: var(--spacing-xl) 0;

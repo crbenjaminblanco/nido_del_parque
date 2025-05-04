@@ -2,27 +2,28 @@ export default {
   navbar: {
     home: 'Inicio',
     gallery: 'Galería',
-    wifi: 'Wifi',
+    wifi: 'WiFi',
     recommendations: 'Recomendaciones',
     contact: 'Contacto',
     book: 'Reserva',
-    title: 'Nido del parque'
+    title: 'Nido del Parque'
   },
   hero: {
-    title: 'Nido del parque',
-    welcome: '¡Bienvenidos! Es un placer tu estancia.',
+    title: 'Nido del Parque',
+    welcome: '¡Bienvenidos a nuestro alojamiento!',
     contact: 'Contáctanos',
     scroll: 'Desliza hacia abajo para explorar'
   },
   wifi: {
-    title: 'Acceso Wifi',
+    title: 'Conexión WiFi',
+    subtitle: 'WiFi de alta velocidad para trabajo remoto y compartir momentos',
     networkLabel: 'Nombre de Red',
     passwordLabel: 'Contraseña',
     copyMessage: '¡Copiado al portapapeles!'
   },
   recommendations: {
-    title: 'Lugares Cercanos',
-    subtitle: 'Descubre lugares increíbles a poca distancia',
+    title: 'Lugares Recomendados',
+    subtitle: 'Descubre los tesoros locales de Zarcero, desde el icónico parque hasta los mejores restaurantes.',
     places: {
       title: 'Lugares de Interés',
       items: {
@@ -47,7 +48,7 @@ export default {
       }
     },
     restaurants: {
-      title: 'Restaurantes',
+      title: 'Restaurantes Cercanos',
       items: {
         terraza: {
           name: 'La Terraza',
@@ -72,7 +73,7 @@ export default {
   },
   social: {
     title: 'Reserva tu Estancia',
-    subtitle: 'Elige tu plataforma preferida para hacer tu reservación',
+    subtitle: 'Elige tu plataforma preferida para asegurar tu lugar en nuestro alojamiento',
     airbnb: {
       title: 'Reserva en Airbnb',
       description: 'Consulta disponibilidad y reserva tu estancia'
@@ -80,7 +81,7 @@ export default {
     instagram: {
       title: 'Síguenos en Instagram',
       description: 'Mira más fotos y actualizaciones',
-      embedTitle: 'Publicación de Instagram de Nido del Parque',
+      embedTitle: 'Nido del Parque en Instagram',
       loadingText: 'Cargando contenido de Instagram...'
     },
     whatsapp: {
@@ -93,7 +94,8 @@ export default {
     }
   },
   gallery: {
-    title: 'Nuestro Espacio',
+    title: 'Nuestra Galería',
+    subtitle: 'Explora cada rincón de Nido del Parque a través de nuestra galería de imágenes',
     items: {
       livingRoom: {
         title: 'Sala de Estar',
@@ -104,25 +106,26 @@ export default {
         description: 'Acogedora habitación con cama queen y ropa de cama premium.'
       },
       kitchen: {
-        title: 'Cocina',
+        title: 'Cocina Equipada',
         description: 'Cocina moderna con todos los electrodomésticos y utensilios necesarios.'
       },
       bathroom: {
-        title: 'Baño',
+        title: 'Baño Completo',
         description: 'Baño limpio y moderno con ducha.'
       },
       parking: {
-        title: 'Parqueo',
+        title: 'Parqueo Privado',
         description: 'Espacio de estacionamiento disponible para vehículo pequeño o mediano.'
       },
       exterior: {
-        title: 'Exterior',
+        title: 'Vista Exterior',
         description: 'Hermoso exterior del edificio y área circundante.'
       }
     }
   },
   thankYou: {
-    title: '¡Gracias por tu estancia!',
+    title: '¡Gracias por tu Visita!',
+    subtitle: 'Esperamos que hayas disfrutado de tu estancia en Nido del Parque',
     message: 'Esperamos volver a verte pronto en Nido del Parque'
   }
 } 

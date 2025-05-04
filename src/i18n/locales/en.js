@@ -2,69 +2,70 @@ export default {
   navbar: {
     home: 'Home',
     gallery: 'Gallery',
-    wifi: 'Wifi',
+    wifi: 'WiFi',
     recommendations: 'Recommendations',
     contact: 'Contact',
     book: 'Book',
-    title: 'Nido del parque'
+    title: 'Nido del Parque'
   },
   hero: {
-    title: 'Nido del parque',
-    welcome: 'Welcome! Your stay is our pleasure',
-    contact: 'Contact us',
+    title: 'Nido del Parque',
+    welcome: 'Welcome to our accommodation!',
+    contact: 'Contact Us',
     scroll: 'Scroll down to explore'
   },
   wifi: {
-    title: 'Wifi Access',
+    title: 'WiFi Connection',
+    subtitle: 'High-speed WiFi for remote work and sharing moments',
     networkLabel: 'Network Name',
     passwordLabel: 'Password',
     copyMessage: 'Copied to clipboard!'
   },
   recommendations: {
-    title: 'Nearby Attractions',
-    subtitle: 'Discover amazing places within walking distance',
+    title: 'Recommended Places',
+    subtitle: 'Discover Zarcero\'s local treasures, from the iconic park to the best restaurants.',
     places: {
-      title: 'Places of Interest',
+      title: 'Points of Interest',
       items: {
         park: {
           name: 'Central Park',
           type: 'Park & Recreation',
-          distance: '1 min walk',
-          description: 'Beautiful park with walking trails and playground.'
+          distance: '1 min walking',
+          description: 'Beautiful park with trails and playground area.'
         },
         market: {
           name: 'Local Market',
           type: 'Shopping',
-          distance: '10 min walk',
+          distance: '10 min walking',
           description: 'Traditional market with local products and crafts.'
         },
         plaza: {
           name: 'Main Plaza',
           type: 'Historic Site',
-          distance: '6 min walk',
+          distance: '6 min walking',
           description: 'Historic plaza with cultural events and architecture.'
         }
       }
     },
     restaurants: {
-      title: 'Restaurants',
+      title: 'Nearby Restaurants',
       items: {
         terraza: {
           name: 'La Terraza',
           cuisine: 'Mexican • $$',
-          distance: '5 min walk',
+          distance: '5 min walking',
           description: 'Traditional Mexican cuisine with a modern twist'
         },
         cafe: {
           name: 'Café del Parque',
-          cuisine: 'Coffee • $',
-          distance: '2 min walk',
-          description: 'Cozy coffee shop with fresh pastries and great coffee'
+          cuisine: 'Café • $',
+          distance: '2 min walking',
+          description: 'Cozy café with fresh pastries and excellent coffee'
         },
         rincon: {
           name: 'El Rincón',
           cuisine: 'Traditional • $$',
-          distance: '8 min walk',
+          distance: '8 min walking',
           description: 'Local favorite serving authentic dishes'
         }
       }
@@ -72,15 +73,15 @@ export default {
   },
   social: {
     title: 'Book Your Stay',
-    subtitle: 'Choose your preferred platform to make your reservation',
+    subtitle: 'Choose your preferred platform to secure your place in our accommodation',
     airbnb: {
       title: 'Book on Airbnb',
       description: 'Check availability and book your stay'
     },
     instagram: {
-      title: 'Follow on Instagram',
+      title: 'Follow us on Instagram',
       description: 'See more photos and updates',
-      embedTitle: 'Instagram post from Nido del Parque',
+      embedTitle: 'Nido del Parque on Instagram',
       loadingText: 'Loading Instagram content...'
     },
     whatsapp: {
@@ -88,41 +89,43 @@ export default {
       description: 'Get quick answers to your questions'
     },
     booking: {
-      title: 'Book on Booking.com',
+      title: 'Book on Booking',
       description: 'Check availability and book your stay'
     }
   },
   gallery: {
-    title: 'Our Space',
+    title: 'Our Gallery',
+    subtitle: 'Explore every corner of Nido del Parque through our image gallery',
     items: {
       livingRoom: {
         title: 'Living Room',
-        description: 'Spacious and bright living area with comfortable seating.'
+        description: 'Spacious and bright living room with comfortable seating.'
       },
       bedroom: {
-        title: 'Master Bedroom',
-        description: 'Cozy bedroom with a queen-size bed and premium linens.'
+        title: 'Main Bedroom',
+        description: 'Cozy bedroom with queen bed and premium bedding.'
       },
       kitchen: {
-        title: 'Kitchen',
+        title: 'Equipped Kitchen',
         description: 'Modern kitchen with all necessary appliances and utensils.'
       },
       bathroom: {
-        title: 'Bathroom',
+        title: 'Full Bathroom',
         description: 'Clean and modern bathroom with shower.'
       },
       parking: {
-        title: 'Parking',
-        description: 'Parking space available for small to medium-sized vehicle.'
+        title: 'Private Parking',
+        description: 'Parking space available for small or medium vehicle.'
       },
       exterior: {
-        title: 'Exterior',
+        title: 'Exterior View',
         description: 'Beautiful building exterior and surrounding area.'
       }
     }
   },
   thankYou: {
-    title: 'Thank you for your stay!',
+    title: 'Thank You for Your Visit!',
+    subtitle: 'We hope you enjoyed your stay at Nido del Parque',
     message: 'We hope to see you again soon at Nido del Parque'
   }
 } 
