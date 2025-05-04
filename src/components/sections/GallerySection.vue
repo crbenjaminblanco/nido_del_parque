@@ -177,6 +177,7 @@ export default {
   position: relative;
   border-radius: var(--border-radius-lg);
   overflow: hidden;
+  --description-height: 120px;
 }
 
 .carousel-inner {
@@ -200,7 +201,7 @@ export default {
 .carousel-item__content {
   padding: var(--spacing-md);
   background: var(--bg-hover);
-  height: 7.5rem;
+  height: var(--description-height);
   display: flex;
   flex-direction: column;
 }
@@ -224,13 +225,13 @@ export default {
 /* Carousel Controls */
 .carousel-control-prev,
 .carousel-control-next {
-  top: calc((300px - 120px - 32px) * -1);
+  margin-bottom: var(--description-height);
 }
 
 /* Carousel Indicators */
 .carousel-indicators {
   position: absolute;
-  bottom: var(--spacing-sm);
+  bottom: var(--description-height);
   left: 0;
   right: 0;
   display: flex;
@@ -253,7 +254,6 @@ export default {
 }
 
 .carousel-indicators button.active {
-  background-color: var(--brand-accent);
   opacity: 1;
 }
 
