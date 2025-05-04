@@ -5,7 +5,7 @@
     <div class="container">
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
-        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-wrap="true">
           <div class="carousel-inner">
             <div v-for="(item, index) in galleryItems" 
                  :key="index" 
@@ -71,19 +71,38 @@ export default {
         { image: 'bathroom', translationKey: 'bathroom' },
         { image: 'parking', translationKey: 'parking' },
         { image: 'exterior', translationKey: 'exterior' }
-      ]
+      ],
+      carousel: null
     }
   },
   mounted() {
-    // Initialize Bootstrap carousel
-    const carousel = document.getElementById('photoCarousel');
-    if (carousel) {
-      new bootstrap.Carousel(carousel, {
-        interval: 5000,
-        touch: true,
-        wrap: true,
-        keyboard: true
-      });
+    this.$nextTick(() => {
+      const carouselElement = document.getElementById('photoCarousel');
+      if (carouselElement) {
+        this.carousel = new bootstrap.Carousel(carouselElement, {
+          interval: 5000,
+          touch: true,
+          wrap: true,
+          keyboard: true,
+          pause: 'hover'
+        });
+
+        // Asegurar que el carrusel se reinicie cuando llegue al final
+        carouselElement.addEventListener('slid.bs.carousel', () => {
+          const activeItem = carouselElement.querySelector('.carousel-item.active');
+          const isLastItem = activeItem === carouselElement.querySelector('.carousel-item:last-child');
+          if (isLastItem) {
+            setTimeout(() => {
+              this.carousel.to(0);
+            }, 5000);
+          }
+        });
+      }
+    });
+  },
+  beforeUnmount() {
+    if (this.carousel) {
+      this.carousel.dispose();
     }
   }
 }
