@@ -26,11 +26,11 @@ import ThankYou from '@/components/ThankYou.vue';
 }
 
 .sections-container {
-  padding-top: 80px; /* Space for fixed navbar */
+  padding-top: 5rem; /* Space for fixed navbar */
 }
 
 .sections-container > * {
-  scroll-margin-top: 80px; /* Helps with scroll positioning */
+  scroll-margin-top: 5rem; /* Helps with scroll positioning */
   scroll-behavior: smooth;
   position: relative;
   z-index: 1;

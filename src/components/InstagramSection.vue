@@ -76,8 +76,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 400px;
-  max-width: 600px;
+  min-height: 25rem;
+  max-width: 37.5rem;
   margin: 0 auto;
 }
 
@@ -107,7 +107,7 @@ export default {
   max-width: 100% !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .instagram {
     padding: var(--spacing-md);
     max-width: 100%;

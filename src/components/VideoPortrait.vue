@@ -46,29 +46,29 @@ export default {
   border: none;
   margin: 0;
   padding: 0;
-  width: 400px;
-  height: 460px;
+  width: 25rem;
+  height: 28.75rem;
   box-shadow: none;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 33.75rem) {
   .video__frame {
-    width: 350px;
-    height: 420px;
+    width: 21.875rem;
+    height: 26.25rem;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 25rem) {
   .video__frame {
-    width: 300px;
-    height: 380px;
+    width: 18.75rem;
+    height: 23.75rem;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 20rem) {
   .video__frame {
-    width: 280px;
-    height: 350px;
+    width: 17.5rem;
+    height: 21.875rem;
   }
 }
 </style> 

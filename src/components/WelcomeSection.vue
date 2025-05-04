@@ -89,7 +89,7 @@ export default {
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  padding-top: 80px; /* Account for navbar */
+  padding-top: 5rem; /* 80px -> 5rem */
 }
 
 .welcome__overlay {
@@ -108,7 +108,7 @@ export default {
   justify-content: center;
   position: relative;
   z-index: 2;
-  min-height: calc(100vh - 80px); /* Account for navbar */
+  min-height: calc(100vh - 5rem); /* 80px -> 5rem */
 }
 
 .welcome__container {
@@ -117,7 +117,7 @@ export default {
 }
 
 .welcome__content {
-  max-width: 800px;
+  max-width: 50rem; /* 800px -> 50rem */
   padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
@@ -155,7 +155,7 @@ export default {
   width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) { /* 768px -> 48rem */
   .welcome__content {
     padding: var(--spacing-lg);
   }
@@ -169,7 +169,7 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) { /* 480px -> 30rem */
   .welcome__content {
     padding: var(--spacing-md);
   }
@@ -183,3 +183,4 @@ export default {
   }
 }
 </style>
+

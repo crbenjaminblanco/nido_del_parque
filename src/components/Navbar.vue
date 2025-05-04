@@ -387,13 +387,13 @@ export default {
 .navbar-toggler-icon::before {
   content: '';
   position: absolute;
-  width: 30px;
-  height: 2px;
+  width: 1.875rem;
+  height: 0.125rem;
   background-color: currentColor;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 -8px 0 currentColor, 0 8px 0 currentColor;
+  box-shadow: 0 -0.5rem 0 currentColor, 0 0.5rem 0 currentColor;
   transition: all 0.3s ease;
 }
 
@@ -495,7 +495,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 0.125rem;
   background-color: currentColor;
   opacity: 0.5;
   transition: opacity var(--transition-speed) var(--transition-timing);
@@ -527,8 +527,8 @@ export default {
 }
 
 .lang-selector__icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   object-fit: contain;
 }
 
@@ -555,7 +555,7 @@ export default {
 }
 
 /* Mobile Styles */
-@media (max-width: 991px) {
+@media (max-width: 61.9375rem) {
   .navbar-collapse {
     background: var(--bg-primary);
     margin-top: var(--spacing-md);
@@ -601,8 +601,8 @@ export default {
   }
 
   .lang-selector__icon {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   .dropdown-menu {
@@ -615,7 +615,7 @@ export default {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 62rem) {
   .navbar-nav {
     align-items: center;
     justify-content: flex-end;

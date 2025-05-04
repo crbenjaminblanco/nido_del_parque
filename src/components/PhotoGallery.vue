@@ -176,7 +176,7 @@ export default {
 }
 
 .gallery__image {
-  height: 300px;
+  height: 18.75rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -259,7 +259,7 @@ export default {
 }
 
 .gallery__card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-0.3125rem);
   box-shadow: var(--shadow-md);
 }
 
@@ -269,7 +269,7 @@ export default {
 }
 
 .carousel-indicators {
-  bottom: -10px;
+  bottom: -0.625rem;
 }
 
 .carousel-control-prev,

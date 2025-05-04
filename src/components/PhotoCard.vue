@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <img :src="imageSrc" class="card-img-top" :alt="title" style="height: 250px; object-fit: cover;">
+    <img :src="imageSrc" class="card-img-top" :alt="title" style="height: 15.625rem; object-fit: cover;">
     <div class="card-body">
       <h5 class="card-title">{{ title }}</h5>
       <p class="card-text">{{ description }}</p>
