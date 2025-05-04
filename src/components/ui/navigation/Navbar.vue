@@ -287,9 +287,6 @@ export default {
     },
 
     changeLanguage(lang) {
-      // Close menu first
-      this.closeMenu();
-      
       // Close language dropdown
       const dropdown = document.querySelector('.dropdown-toggle');
       if (dropdown) {
@@ -298,7 +295,8 @@ export default {
 
       // Close mobile menu if open
       if (this.isExpanded) {
-        this.toggleMenu();
+        this.isExpanded = false;
+        document.querySelector('#navbarNav')?.classList.remove('show');
       }
 
       // Only update route if language changed
@@ -308,10 +306,6 @@ export default {
         
         this.$router.push({
           path: `/${lang}/${currentSection}`
-        }).finally(() => {
-          this.$nextTick(() => {
-            this.isExpanded = false;
-          });
         });
       }
     },
