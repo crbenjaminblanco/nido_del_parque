@@ -56,9 +56,9 @@ export default {
         },
         cafe: {
           name: 'Café del Parque',
-          cuisine: 'Café • $',
+          cuisine: 'Coffee • $',
           distance: '2 min walk',
-          description: 'Cozy café with fresh pastries and great coffee'
+          description: 'Cozy coffee shop with fresh pastries and great coffee'
         },
         rincon: {
           name: 'El Rincón',
