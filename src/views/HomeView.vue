@@ -3,9 +3,9 @@
     <welcome-section/>
     <div class="sections-container">
       <gallery-section id="gallery"/>
-      <wifi-section id="wifi"/>
-      <recommendations-section id="recommendations"/>
       <social-section id="contact"/>
+      <recommendations-section id="recommendations"/>
+      <wifi-section id="wifi"/>
       <footer-section/>
     </div>
   </div>

@@ -5,6 +5,7 @@ export default {
     wifi: 'Wifi',
     recommendations: 'Recommendations',
     contact: 'Contact',
+    book: 'Book',
     title: 'Nido del parque'
   },
   hero: {
@@ -70,8 +71,8 @@ export default {
     }
   },
   social: {
-    title: 'Follow Us',
-    subtitle: 'Stay connected and discover more about Nido del Parque',
+    title: 'Book Your Stay',
+    subtitle: 'Choose your preferred platform to make your reservation',
     airbnb: {
       title: 'Book on Airbnb',
       description: 'Check availability and book your stay'

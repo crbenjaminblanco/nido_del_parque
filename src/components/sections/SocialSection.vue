@@ -5,14 +5,10 @@
       <p class="social__subtitle text-center text-muted mb-5">{{ $t('social.subtitle') }}</p>
 
       <div class="row justify-content-center">
-        <!-- Instagram Section -->
+        <!-- Booking and Contact Links -->
         <div class="col-12 col-md-6 mb-4">
-          <instagram-section />
-        </div>
-
-        <!-- Social Links Section -->
-        <div class="col-12 col-md-6">
           <div class="social__links">
+            <!-- Booking Options -->
             <social-button
               :url="airbnbUrl"
               icon-class="fab fa-airbnb"
@@ -27,20 +23,26 @@
               :description="$t('social.booking.description')"
             />
 
-            <social-button
-              :url="instagramUrl"
-              icon-class="fab fa-instagram"
-              :title="$t('social.instagram.title')"
-              :description="$t('social.instagram.description')"
-            />
-
+            <!-- Contact Options -->
             <social-button
               :url="whatsappUrl"
               icon-class="fab fa-whatsapp"
               :title="$t('social.whatsapp.title')"
               :description="$t('social.whatsapp.description')"
             />
+
+            <social-button
+              :url="instagramUrl"
+              icon-class="fab fa-instagram"
+              :title="$t('social.instagram.title')"
+              :description="$t('social.instagram.description')"
+            />
           </div>
+        </div>
+
+        <!-- Instagram Feed -->
+        <div class="col-12 col-md-6">
+          <instagram-section />
         </div>
       </div>
     </div>

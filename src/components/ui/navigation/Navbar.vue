@@ -153,16 +153,16 @@ export default {
           sectionId: 'gallery'
         },
         { 
-          text: this.$t('navbar.wifi'), 
-          sectionId: 'wifi'
+          text: this.$t('navbar.book'), 
+          sectionId: 'contact'
         },
         { 
           text: this.$t('navbar.recommendations'), 
           sectionId: 'recommendations'
         },
         { 
-          text: this.$t('navbar.contact'), 
-          sectionId: 'contact'
+          text: this.$t('navbar.wifi'), 
+          sectionId: 'wifi'
         }
       ]
     },
