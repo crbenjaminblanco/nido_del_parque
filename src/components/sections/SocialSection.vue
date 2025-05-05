@@ -16,12 +16,12 @@
               :description="$t('social.airbnb.description')"
             />
 
-            <social-button
+            <!--social-button
               :url="bookingUrl"
               icon-class="fa fa-bed"
               :title="$t('social.booking.title')"
               :description="$t('social.booking.description')"
-            />
+            /-->
 
             <!-- Contact Options -->
             <social-button
