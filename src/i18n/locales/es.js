@@ -107,7 +107,7 @@ export default {
       },
       kitchen: {
         title: 'Cocina Equipada',
-        description: 'Cocina con todos los electrodomésticos y utensilios necesarios.'
+        description: 'Todos los electrodomésticos y utensilios necesarios.'
       },
       bathroom: {
         title: 'Baño Completo',

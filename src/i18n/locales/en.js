@@ -107,7 +107,7 @@ export default {
       },
       kitchen: {
         title: 'Equipped Kitchen',
-        description: 'Kitchen with all necessary appliances and utensils.'
+        description: 'All necessary appliances and utensils.'
       },
       bathroom: {
         title: 'Full Bathroom',
