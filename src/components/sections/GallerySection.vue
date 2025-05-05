@@ -8,9 +8,7 @@
         <div 
           id="photoCarousel" 
           class="carousel slide" 
-          data-bs-ride="carousel"
-          data-bs-touch="true"
-          data-bs-interval="5000"
+          ref="carousel"
         >
           <div class="carousel-inner">
             <div 
@@ -84,24 +82,15 @@ export default {
         { image: 'parking', translationKey: 'parking' },
         { image: 'exterior', translationKey: 'exterior' }
       ],
-      preloadedImages: []
+      carousel: null
     }
   },
   mounted() {
     this.$nextTick(() => {
-      const carouselElement = document.getElementById('photoCarousel');
+      const carouselElement = this.$refs.carousel;
       if (carouselElement) {
-        // Preload images with better caching
-        this.galleryItems.forEach(item => {
-          const img = new Image();
-          img.src = require(`@/assets/images/${item.image}.jpg`);
-          img.loading = 'eager';
-          img.decoding = 'async';
-          this.preloadedImages.push(img);
-        });
-
         // Initialize carousel with optimized settings
-        new Carousel(carouselElement, {
+        this.carousel = new Carousel(carouselElement, {
           interval: 5000,
           touch: true,
           wrap: true,
@@ -111,28 +100,16 @@ export default {
           touchThreshold: 5
         });
 
-        // Preload next and previous images
-        const preloadAdjacentImages = (currentIndex) => {
-          const nextIndex = (currentIndex + 1) % this.galleryItems.length;
-          const prevIndex = (currentIndex - 1 + this.galleryItems.length) % this.galleryItems.length;
-          
-          const nextImg = new Image();
-          nextImg.src = require(`@/assets/images/${this.galleryItems[nextIndex].image}.jpg`);
-          nextImg.loading = 'eager';
-          nextImg.decoding = 'async';
-          
-          const prevImg = new Image();
-          prevImg.src = require(`@/assets/images/${this.galleryItems[prevIndex].image}.jpg`);
-          prevImg.loading = 'eager';
-          prevImg.decoding = 'async';
-        };
-
-        // Listen for slide changes to preload adjacent images
-        carouselElement.addEventListener('slide.bs.carousel', (event) => {
-          preloadAdjacentImages(event.to);
-        });
+        // Start the carousel
+        this.carousel.cycle();
       }
     });
+  },
+  beforeUnmount() {
+    // Clean up carousel when component is destroyed
+    if (this.carousel) {
+      this.carousel.dispose();
+    }
   }
 }
 </script>
