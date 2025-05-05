@@ -31,6 +31,9 @@
         <div class="carousel-caption">
           <h4 class="carousel-caption__title">{{ item.title }}</h4>
           <p class="carousel-caption__description">{{ item.description }}</p>
+          <!-- <button class="btn btn-primary carousel-caption__button">
+            {{ $t('common.bookNow') }}
+          </button> -->
         </div>
       </div>
     </div>
