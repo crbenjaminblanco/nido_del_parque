@@ -7,7 +7,7 @@
       <div class="d-block d-md-none">
         <div 
           id="photoCarousel" 
-          class="carousel slide" 
+          class="carousel slide carousel-fade" 
           data-bs-ride="carousel"
           data-bs-touch="true"
           data-bs-interval="5000"
@@ -108,23 +108,6 @@ export default {
           keyboard: true,
           pause: 'hover',
           ride: 'carousel'
-        });
-
-        // Add event listeners for smoother transitions
-        carouselElement.addEventListener('slide.bs.carousel', (e) => {
-          const activeItem = e.relatedTarget;
-          const nextItem = e.target.querySelector(`.carousel-item:nth-child(${e.to + 1})`);
-          
-          if (activeItem && nextItem) {
-            // Preload next image
-            const nextImage = nextItem.querySelector('img');
-            if (nextImage) {
-              nextImage.style.opacity = '0';
-              setTimeout(() => {
-                nextImage.style.opacity = '1';
-              }, 50);
-            }
-          }
         });
       }
     });
@@ -276,7 +259,7 @@ export default {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.6s ease-in-out;
   background-color: var(--bg-primary);
 }
 
@@ -433,5 +416,14 @@ export default {
   .carousel-item__content {
     margin-bottom: 0 !important;
   }
+}
+
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.carousel-fade .carousel-item.active {
+  opacity: 1;
 }
 </style> 
