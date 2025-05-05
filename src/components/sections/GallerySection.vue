@@ -14,10 +14,14 @@
             <div 
               v-for="(item, index) in galleryItems" 
               :key="index"
-              :class="['carousel-item', { active: index === 0 }, `carousel-item--${item.image}`]"
+              :class="['carousel-item', { active: index === 0 }]"
             >
               <div class="carousel-item__image-container">
-                <div class="carousel-item__image"></div>
+                <img 
+                  :src="preloadedImages[item.image]"
+                  :alt="$t(`gallery.items.${item.translationKey}.title`)"
+                  class="carousel-item__image"
+                >
                 <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
@@ -52,7 +56,7 @@
       <div class="row row-cols-1 row-cols-md-3 g-4 d-none d-md-flex">
         <div class="col-md-4" v-for="(item, key) in galleryItems" :key="key">
           <photo-card
-            :image-src="require(`@/assets/images/${item.image}.jpg`)"
+            :image-src="preloadedImages[item.image]"
             :title="$t(`gallery.items.${item.translationKey}.title`)"
             :description="$t(`gallery.items.${item.translationKey}.description`)"
             :is-carousel="false"
@@ -82,8 +86,17 @@ export default {
         { image: 'parking', translationKey: 'parking' },
         { image: 'exterior', translationKey: 'exterior' }
       ],
-      carousel: null
+      carousel: null,
+      preloadedImages: {}
     }
+  },
+  created() {
+    // Preload all images at component creation
+    this.galleryItems.forEach(item => {
+      const img = new Image();
+      img.src = require(`@/assets/images/${item.image}.jpg`);
+      this.preloadedImages[item.image] = img.src;
+    });
   },
   mounted() {
     this.$nextTick(() => {
@@ -259,10 +272,10 @@ export default {
 .carousel-item__image {
   width: 100%;
   height: 300px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  object-fit: cover;
+  object-position: center;
   pointer-events: none;
+  transition: transform 1s ease-in-out;
   will-change: transform;
   background-color: var(--bg-primary);
   backface-visibility: hidden;
