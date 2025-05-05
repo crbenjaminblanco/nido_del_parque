@@ -95,7 +95,7 @@ export default {
   },
   gallery: {
     title: 'Galería',
-    subtitle: 'Explora cada rincón a través de nuestra galería de imágenes',
+    subtitle: 'Explora cada rincón a través de nuestra galería',
     items: {
       livingRoom: {
         title: 'Sala de Estar',

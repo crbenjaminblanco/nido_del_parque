@@ -95,7 +95,7 @@ export default {
   },
   gallery: {
     title: 'Gallery',
-    subtitle: 'Explore every corner through our image gallery',
+    subtitle: 'Explore every corner through our gallery',
     items: {
       livingRoom: {
         title: 'Living Room',
