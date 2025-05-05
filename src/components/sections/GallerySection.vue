@@ -213,7 +213,6 @@ export default {
   position: relative;
   width: 100%;
   display: none;
-  transition: transform 0.6s ease-in-out;
   touch-action: pan-x;
   background-color: var(--bg-primary);
 }
@@ -235,92 +234,7 @@ export default {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  transition: transform 0.6s ease-in-out;
-  will-change: transform;
   background-color: var(--bg-primary);
-}
-
-/* Carousel slide transitions */
-.carousel-item-next:not(.carousel-item-start),
-.active.carousel-item-end {
-  transform: translateX(100%);
-}
-
-.carousel-item-prev:not(.carousel-item-end),
-.active.carousel-item-start {
-  transform: translateX(-100%);
-}
-
-.carousel-item-next,
-.carousel-item-prev,
-.carousel-item.active {
-  display: block;
-  transition: transform 0.6s ease-in-out;
-}
-
-.carousel-item-next.carousel-item-start,
-.active.carousel-item-end {
-  transform: translateX(0);
-}
-
-.carousel-item-prev.carousel-item-end,
-.active.carousel-item-start {
-  transform: translateX(0);
-}
-
-/* Preloaded backgrounds */
-.carousel-item--living-room .carousel-item__image {
-  background-image: url("@/assets/images/living-room.jpg");
-}
-
-.carousel-item--bedroom .carousel-item__image {
-  background-image: url("@/assets/images/bedroom.jpg");
-}
-
-.carousel-item--kitchen .carousel-item__image {
-  background-image: url("@/assets/images/kitchen.jpg");
-}
-
-.carousel-item--bathroom .carousel-item__image {
-  background-image: url("@/assets/images/bathroom.jpg");
-}
-
-.carousel-item--parking .carousel-item__image {
-  background-image: url("@/assets/images/parking.jpg");
-}
-
-.carousel-item--exterior .carousel-item__image {
-  background-image: url("@/assets/images/exterior.jpg");
-}
-
-.carousel-item__content {
-  padding: var(--spacing-md);
-  background: var(--bg-hover);
-  height: var(--description-height);
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0 !important;
-}
-
-.carousel-item__title {
-  font-family: var(--font-primary);
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-semibold);
-  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: var(--spacing-xs);
-  letter-spacing: var(--letter-spacing-wide);
-  display: inline-block;
-}
-
-.carousel-item__description {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  line-height: var(--line-height-relaxed);
-  color: var(--text-dark);
-  margin: 0;
 }
 
 /* Carousel Controls */
