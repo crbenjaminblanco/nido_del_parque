@@ -7,7 +7,7 @@
       <div class="d-block d-md-none">
         <div 
           id="photoCarousel" 
-          class="carousel slide carousel-fade" 
+          class="carousel slide" 
           data-bs-ride="carousel"
           data-bs-touch="true"
           data-bs-interval="5000"
@@ -238,7 +238,7 @@ export default {
   position: relative;
   width: 100%;
   display: none;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.6s ease-in-out;
   touch-action: pan-x;
   background-color: var(--bg-primary);
 }
@@ -260,8 +260,7 @@ export default {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  transition: opacity 0.6s ease-in-out;
-  will-change: opacity;
+  will-change: transform;
   background-color: var(--bg-primary);
 }
 
@@ -390,10 +389,10 @@ export default {
   background-color: var(--text-light) !important;
 }
 
-/* Fade effect */
+/* Slide effect */
 .carousel-fade .carousel-item {
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
+  opacity: 1;
+  transition: transform 0.6s ease-in-out;
 }
 
 .carousel-fade .carousel-item.active {
@@ -440,11 +439,11 @@ export default {
   }
 
   .carousel-fade .carousel-item {
-    transition: opacity 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
   }
 
   .carousel-item__image {
-    transition: opacity 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
   }
 }
 </style> 
