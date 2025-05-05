@@ -116,8 +116,14 @@ export default {
           const nextItem = e.target.querySelector(`.carousel-item:nth-child(${e.to + 1})`);
           
           if (activeItem && nextItem) {
-            activeItem.style.transition = 'transform 0.6s ease-in-out';
-            nextItem.style.transition = 'transform 0.6s ease-in-out';
+            // Preload next image
+            const nextImage = nextItem.querySelector('img');
+            if (nextImage) {
+              nextImage.style.opacity = '0';
+              setTimeout(() => {
+                nextImage.style.opacity = '1';
+              }, 50);
+            }
           }
         });
       }
@@ -227,12 +233,13 @@ export default {
 
 /* Carousel styles */
 .carousel {
-  margin-bottom: 2rem;
+  margin-bottom: 0 !important;
   position: relative;
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   --description-height: 120px;
   touch-action: pan-x;
+  background-color: var(--bg-primary);
 }
 
 .carousel-inner {
@@ -240,6 +247,7 @@ export default {
   width: 100%;
   overflow: hidden;
   touch-action: pan-x;
+  background-color: var(--bg-primary);
 }
 
 .carousel-item {
@@ -248,6 +256,7 @@ export default {
   display: none;
   transition: transform 0.3s ease-out;
   touch-action: pan-x;
+  background-color: var(--bg-primary);
 }
 
 .carousel-item.active {
@@ -258,6 +267,7 @@ export default {
   position: relative;
   overflow: hidden;
   touch-action: pan-x;
+  background-color: var(--bg-primary);
 }
 
 .carousel-item__image {
@@ -266,6 +276,8 @@ export default {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
+  transition: opacity 0.3s ease-out;
+  background-color: var(--bg-primary);
 }
 
 .carousel-item__content {
@@ -274,6 +286,7 @@ export default {
   height: var(--description-height);
   display: flex;
   flex-direction: column;
+  margin-bottom: 0 !important;
 }
 
 .carousel-item__title {
@@ -392,6 +405,10 @@ export default {
     font-size: var(--text-base);
   }
 
+  .carousel {
+    margin: 0 !important;
+  }
+
   .carousel-control-prev,
   .carousel-control-next {
     width: 40px;
@@ -411,6 +428,10 @@ export default {
   .carousel-indicators button {
     width: 8px;
     height: 8px;
+  }
+
+  .carousel-item__content {
+    margin-bottom: 0 !important;
   }
 }
 </style> 
