@@ -10,7 +10,7 @@
           class="carousel slide carousel-fade" 
           data-bs-ride="carousel"
           data-bs-touch="true"
-          data-bs-interval="3000"
+          data-bs-interval="5000"
         >
           <div class="carousel-inner">
             <div 
@@ -107,7 +107,8 @@ export default {
           wrap: true,
           keyboard: true,
           pause: 'hover',
-          ride: 'carousel'
+          ride: 'carousel',
+          touchThreshold: 5
         });
       }
     });
@@ -260,6 +261,7 @@ export default {
   object-position: center;
   pointer-events: none;
   transition: opacity 0.6s ease-in-out;
+  will-change: opacity;
   background-color: var(--bg-primary);
 }
 
@@ -297,11 +299,12 @@ export default {
 #photoCarousel .carousel-control-prev,
 #photoCarousel .carousel-control-next {
   position: absolute !important;
-  top: 150px !important; /* Half of the image height */
+  top: 50% !important;
   transform: translateY(-50%) !important;
   width: 48px !important;
   height: 48px !important;
-  background-color: transparent !important;
+  background: none !important;
+  border: none !important;
   border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
@@ -309,6 +312,14 @@ export default {
   z-index: 3 !important;
   opacity: 0.8 !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  outline: none !important;
+}
+
+#photoCarousel .carousel-control-prev:focus,
+#photoCarousel .carousel-control-next:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
 }
 
 #photoCarousel .carousel-control-prev {
@@ -379,6 +390,17 @@ export default {
   background-color: var(--text-light) !important;
 }
 
+/* Fade effect */
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
   .gallery__title {
     font-size: var(--text-2xl);
@@ -416,14 +438,13 @@ export default {
   .carousel-item__content {
     margin-bottom: 0 !important;
   }
-}
 
-.carousel-fade .carousel-item {
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
-}
+  .carousel-fade .carousel-item {
+    transition: opacity 0.6s ease-in-out;
+  }
 
-.carousel-fade .carousel-item.active {
-  opacity: 1;
+  .carousel-item__image {
+    transition: opacity 0.6s ease-in-out;
+  }
 }
 </style> 
