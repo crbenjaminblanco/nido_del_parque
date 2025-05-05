@@ -7,7 +7,7 @@
       <div class="d-block d-md-none">
         <div 
           id="photoCarousel" 
-          class="carousel slide" 
+          class="carousel slide carousel-fade" 
           data-bs-ride="carousel"
           data-bs-touch="true"
           data-bs-interval="5000"
