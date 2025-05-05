@@ -5,52 +5,7 @@
     <div class="container">
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
-        <div 
-          id="photoCarousel" 
-          class="carousel slide" 
-          data-bs-ride="carousel"
-          data-bs-interval="5000"
-        >
-          <div class="carousel-inner">
-            <div 
-              v-for="(item, index) in galleryItems" 
-              :key="index"
-              :class="['carousel-item', { active: index === 0 }]"
-            >
-              <div class="carousel-item__image-container">
-                <img 
-                  :src="require(`@/assets/images/${item.image}.jpg`)"
-                  :alt="$t(`gallery.items.${item.translationKey}.title`)"
-                  class="carousel-item__image"
-                >
-                <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
-              <div class="carousel-item__content">
-                <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
-                <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-indicators">
-            <button 
-              v-for="(item, index) in galleryItems" 
-              :key="index"
-              type="button"
-              data-bs-target="#photoCarousel"
-              :data-bs-slide-to="index"
-              :class="{ active: index === 0 }"
-              :aria-label="`Slide ${index + 1}`"
-            ></button>
-          </div>
-        </div>
+        <image-carousel :items="formattedGalleryItems" />
       </div>
 
       <!-- Grid Layout (visible on md screens and up) -->
@@ -70,11 +25,13 @@
 
 <script>
 import PhotoCard from '../ui/cards/PhotoCard.vue'
+import ImageCarousel from '../ui/carousel/ImageCarousel.vue'
 
 export default {
   name: 'GallerySection',
   components: {
-    PhotoCard
+    PhotoCard,
+    ImageCarousel
   },
   data() {
     return {
@@ -86,6 +43,15 @@ export default {
         { image: 'parking', translationKey: 'parking' },
         { image: 'exterior', translationKey: 'exterior' }
       ]
+    }
+  },
+  computed: {
+    formattedGalleryItems() {
+      return this.galleryItems.map(item => ({
+        image: item.image,
+        title: this.$t(`gallery.items.${item.translationKey}.title`),
+        description: this.$t(`gallery.items.${item.translationKey}.description`)
+      }))
     }
   }
 }
@@ -190,158 +156,6 @@ export default {
   background-repeat: no-repeat;
 }
 
-/* Carousel styles */
-.carousel {
-  margin-bottom: 0 !important;
-  position: relative;
-  border-radius: var(--border-radius-lg);
-  overflow: hidden;
-  --description-height: 120px;
-  touch-action: pan-x;
-  background-color: var(--bg-primary);
-}
-
-.carousel-inner {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  touch-action: pan-x;
-  background-color: var(--bg-primary);
-}
-
-.carousel-item {
-  position: relative;
-  width: 100%;
-  display: none;
-  touch-action: pan-x;
-  background-color: var(--bg-primary);
-}
-
-.carousel-item.active {
-  display: block;
-}
-
-.carousel-item__image-container {
-  position: relative;
-  overflow: hidden;
-  touch-action: pan-x;
-  background-color: var(--bg-primary);
-}
-
-.carousel-item__image {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  object-position: center;
-  pointer-events: none;
-  background-color: var(--bg-primary);
-}
-
-/* Carousel Controls */
-#photoCarousel .carousel-control-prev,
-#photoCarousel .carousel-control-next {
-  position: absolute !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  width: 48px !important;
-  height: 48px !important;
-  background: none !important;
-  border: none !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 3 !important;
-  opacity: 0.8 !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  outline: none !important;
-}
-
-#photoCarousel .carousel-control-prev:focus,
-#photoCarousel .carousel-control-next:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  background: none !important;
-}
-
-#photoCarousel .carousel-control-prev {
-  left: var(--spacing-md) !important;
-}
-
-#photoCarousel .carousel-control-next {
-  right: var(--spacing-md) !important;
-}
-
-#photoCarousel .carousel-control-prev:hover,
-#photoCarousel .carousel-control-next:hover {
-  opacity: 1 !important;
-  transform: translateY(-50%) scale(1.05) !important;
-}
-
-#photoCarousel .carousel-control-prev-icon,
-#photoCarousel .carousel-control-next-icon {
-  width: 24px !important;
-  height: 24px !important;
-  background-color: var(--text-light) !important;
-  mask-size: 100% !important;
-  -webkit-mask-size: 100% !important;
-  mask-repeat: no-repeat !important;
-  -webkit-mask-repeat: no-repeat !important;
-  mask-position: center !important;
-  -webkit-mask-position: center !important;
-}
-
-#photoCarousel .carousel-control-prev-icon {
-  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
-  -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
-}
-
-#photoCarousel .carousel-control-next-icon {
-  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
-  -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
-}
-
-/* Carousel Indicators */
-#photoCarousel .carousel-indicators {
-  position: absolute !important;
-  bottom: calc(var(--description-height) + var(--spacing-md)) !important;
-  left: 0 !important;
-  right: 0 !important;
-  display: flex !important;
-  justify-content: center !important;
-  gap: var(--spacing-xs) !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  z-index: 3 !important;
-}
-
-#photoCarousel .carousel-indicators button {
-  width: 10px !important;
-  height: 10px !important;
-  border-radius: 50% !important;
-  background-color: var(--text-light) !important;
-  opacity: 0.5 !important;
-  border: none !important;
-  padding: 0 !important;
-  transition: all var(--transition-speed) var(--transition-timing) !important;
-}
-
-#photoCarousel .carousel-indicators button.active {
-  opacity: 1 !important;
-  transform: scale(1.2) !important;
-  background-color: var(--text-light) !important;
-}
-
-/* Fade effect */
-.carousel-fade .carousel-item {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.carousel-fade .carousel-item.active {
-  opacity: 1;
-}
-
 /* Mobile styles */
 @media (max-width: 768px) {
   .gallery__title {
@@ -350,43 +164,6 @@ export default {
 
   .gallery__subtitle {
     font-size: var(--text-base);
-  }
-
-  .carousel {
-    margin: 0 !important;
-  }
-
-  .carousel-control-prev,
-  .carousel-control-next {
-    width: 40px;
-    height: 40px;
-  }
-
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .carousel-indicators {
-    bottom: calc(var(--description-height) + var(--spacing-sm));
-  }
-
-  .carousel-indicators button {
-    width: 8px;
-    height: 8px;
-  }
-
-  .carousel-item__content {
-    margin-bottom: 0 !important;
-  }
-
-  .carousel-fade .carousel-item {
-    transition: opacity 1s ease-in-out;
-  }
-
-  .carousel-item__image {
-    transition: transform 1s ease-in-out;
   }
 }
 </style> 
