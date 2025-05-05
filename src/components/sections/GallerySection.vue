@@ -1,71 +1,69 @@
 <template>
   <section id="gallery" class="gallery">
+    <h2 class="section-title section-title--medium">{{ $t('gallery.title') }}</h2>
+    <p class="section-subtitle">{{ $t('gallery.subtitle') }}</p>
     <div class="container">
-      <h2 class="section-title section-title--medium">{{ $t('gallery.title') }}</h2>
-      <p class="section-subtitle">{{ $t('gallery.subtitle') }}</p>
-      <div class="container">
-        <!-- Mobile Carousel (visible only on xs screens) -->
-        <div class="d-block d-md-none">
-          <div 
-            id="photoCarousel" 
-            class="carousel slide" 
-            data-bs-ride="carousel"
-            data-bs-touch="true"
-            data-bs-interval="5000"
-          >
-            <div class="carousel-inner">
-              <div 
-                v-for="(item, index) in galleryItems" 
-                :key="index"
-                :class="['carousel-item', { active: index === 0 }]"
-              >
-                <div class="carousel-item__image-container">
-                  <img 
-                    :src="require(`@/assets/images/${item.image}.jpg`)"
-                    :alt="$t(`gallery.items.${item.translationKey}.title`)"
-                    class="carousel-item__image"
-                    loading="eager"
-                  >
-                  <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
-                </div>
-                <div class="carousel-item__content">
-                  <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
-                  <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
-                </div>
+      <!-- Mobile Carousel (visible only on xs screens) -->
+      <div class="d-block d-md-none">
+        <div 
+          id="photoCarousel" 
+          class="carousel slide" 
+          data-bs-ride="carousel"
+          data-bs-touch="true"
+          data-bs-interval="5000"
+        >
+          <div class="carousel-inner">
+            <div 
+              v-for="(item, index) in galleryItems" 
+              :key="index"
+              :class="['carousel-item', { active: index === 0 }]"
+            >
+              <div class="carousel-item__image-container">
+                <img 
+                  :src="require(`@/assets/images/${item.image}.jpg`)"
+                  :alt="$t(`gallery.items.${item.translationKey}.title`)"
+                  class="carousel-item__image"
+                  loading="eager"
+                >
+                <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              <div class="carousel-item__content">
+                <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
+                <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
               </div>
             </div>
+          </div>
 
-            <div class="carousel-indicators">
-              <button 
-                v-for="(item, index) in galleryItems" 
-                :key="index"
-                type="button"
-                data-bs-target="#photoCarousel"
-                :data-bs-slide-to="index"
-                :class="{ active: index === 0 }"
-                :aria-label="`Slide ${index + 1}`"
-              ></button>
-            </div>
+          <div class="carousel-indicators">
+            <button 
+              v-for="(item, index) in galleryItems" 
+              :key="index"
+              type="button"
+              data-bs-target="#photoCarousel"
+              :data-bs-slide-to="index"
+              :class="{ active: index === 0 }"
+              :aria-label="`Slide ${index + 1}`"
+            ></button>
           </div>
         </div>
+      </div>
 
-        <!-- Grid Layout (visible on md screens and up) -->
-        <div class="row row-cols-1 row-cols-md-3 g-4 d-none d-md-flex">
-          <div class="col-md-4" v-for="(item, key) in galleryItems" :key="key">
-            <photo-card
-              :image-src="require(`@/assets/images/${item.image}.jpg`)"
-              :title="$t(`gallery.items.${item.translationKey}.title`)"
-              :description="$t(`gallery.items.${item.translationKey}.description`)"
-              :is-carousel="false"
-            />
-          </div>
+      <!-- Grid Layout (visible on md screens and up) -->
+      <div class="row row-cols-1 row-cols-md-3 g-4 d-none d-md-flex">
+        <div class="col-md-4" v-for="(item, key) in galleryItems" :key="key">
+          <photo-card
+            :image-src="require(`@/assets/images/${item.image}.jpg`)"
+            :title="$t(`gallery.items.${item.translationKey}.title`)"
+            :description="$t(`gallery.items.${item.translationKey}.description`)"
+            :is-carousel="false"
+          />
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
   color: var(--text-primary);
-  margin-bottom: var(--spacing-lg);
+  margin: 0 0 var(--spacing-lg);
   letter-spacing: var(--letter-spacing-wide);
   text-align: center;
 }
