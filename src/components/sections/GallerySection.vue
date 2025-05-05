@@ -95,12 +95,30 @@ export default {
     this.$nextTick(() => {
       const carouselElement = document.getElementById('photoCarousel');
       if (carouselElement) {
+        // Preload images
+        this.galleryItems.forEach(item => {
+          const img = new Image();
+          img.src = require(`@/assets/images/${item.image}.jpg`);
+        });
+
         new Carousel(carouselElement, {
           interval: 5000,
           touch: true,
           wrap: true,
           keyboard: true,
-          pause: 'hover'
+          pause: 'hover',
+          ride: 'carousel'
+        });
+
+        // Add event listeners for smoother transitions
+        carouselElement.addEventListener('slide.bs.carousel', (e) => {
+          const activeItem = e.relatedTarget;
+          const nextItem = e.target.querySelector(`.carousel-item:nth-child(${e.to + 1})`);
+          
+          if (activeItem && nextItem) {
+            activeItem.style.transition = 'transform 0.6s ease-in-out';
+            nextItem.style.transition = 'transform 0.6s ease-in-out';
+          }
         });
       }
     });
@@ -287,7 +305,7 @@ export default {
   transform: translateY(-50%) !important;
   width: 48px !important;
   height: 48px !important;
-  background-color: rgba(0, 0, 0, 0.3) !important;
+  background-color: transparent !important;
   border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
@@ -308,7 +326,6 @@ export default {
 #photoCarousel .carousel-control-prev:hover,
 #photoCarousel .carousel-control-next:hover {
   opacity: 1 !important;
-  background-color: rgba(0, 0, 0, 0.5) !important;
   transform: translateY(-50%) scale(1.05) !important;
 }
 
@@ -363,7 +380,7 @@ export default {
 #photoCarousel .carousel-indicators button.active {
   opacity: 1 !important;
   transform: scale(1.2) !important;
-  background-color: var(--brand-primary) !important;
+  background-color: var(--text-light) !important;
 }
 
 @media (max-width: 768px) {

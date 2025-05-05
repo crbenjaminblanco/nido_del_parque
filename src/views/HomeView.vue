@@ -30,7 +30,7 @@ import FooterSection from '@/components/sections/FooterSection.vue';
   scroll-behavior: smooth;
   position: relative;
   z-index: 1;
-  padding: var(--spacing-xl) 0; /* Consistent vertical padding */
+  padding: calc(var(--spacing-xl) * 1.5) 0 var(--spacing-xl); /* Increased top padding */
   background-color: var(--bg-primary, #ffffff);
 }
 
