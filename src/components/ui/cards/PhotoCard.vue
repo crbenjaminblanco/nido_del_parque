@@ -49,29 +49,9 @@ export default {
   position: relative;
 }
 
-.photo-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, 
-    rgba(230, 126, 34, 0.1), 
-    rgba(22, 160, 133, 0.1)
-  );
-  opacity: 0;
-  transition: opacity var(--transition-speed) var(--transition-timing);
-  z-index: 1;
-}
-
 .photo-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-}
-
-.photo-card:hover::before {
-  opacity: 1;
 }
 
 .photo-card__image {
@@ -114,10 +94,7 @@ export default {
   font-family: var(--font-primary);
   font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
-  background: linear-gradient(45deg, var(--brand-accent), var(--brand-turquoise));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
   margin-bottom: var(--spacing-xs);
   letter-spacing: var(--letter-spacing-wide);
   display: inline-block;
@@ -138,8 +115,6 @@ export default {
 }
 
 .photo-card__overlay .photo-card__title {
-  background: none;
-  -webkit-text-fill-color: var(--text-light);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 

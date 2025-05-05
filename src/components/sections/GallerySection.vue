@@ -5,34 +5,41 @@
     <div class="container">
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
-        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div 
+          id="photoCarousel" 
+          class="carousel slide" 
+          data-bs-ride="carousel"
+          data-bs-touch="true"
+          data-bs-interval="5000"
+        >
           <div class="carousel-inner">
             <div 
               v-for="(item, index) in galleryItems" 
               :key="index"
               :class="['carousel-item', { active: index === 0 }]"
             >
-              <img 
-                :src="require(`@/assets/images/${item.image}.jpg`)"
-                :alt="$t(`gallery.items.${item.translationKey}.title`)"
-                class="carousel-item__image"
-                loading="eager"
-              >
+              <div class="carousel-item__image-container">
+                <img 
+                  :src="require(`@/assets/images/${item.image}.jpg`)"
+                  :alt="$t(`gallery.items.${item.translationKey}.title`)"
+                  class="carousel-item__image"
+                  loading="eager"
+                >
+                <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
               <div class="carousel-item__content">
                 <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
                 <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
               </div>
             </div>
           </div>
-
-          <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
 
           <div class="carousel-indicators">
             <button 
@@ -207,71 +214,32 @@ export default {
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   --description-height: 120px;
+  touch-action: pan-x;
 }
 
 .carousel-inner {
   position: relative;
   width: 100%;
   overflow: hidden;
+  touch-action: pan-x;
 }
 
 .carousel-item {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
-  will-change: transform, opacity;
+  display: none;
+  transition: transform 0.3s ease-out;
+  touch-action: pan-x;
 }
 
 .carousel-item.active {
+  display: block;
+}
+
+.carousel-item__image-container {
   position: relative;
-  opacity: 1;
-  z-index: 2;
-  transform: translateX(0);
-}
-
-.carousel-item-next:not(.carousel-item-start) {
-  transform: translateX(100%);
-  opacity: 0;
-  z-index: 1;
-}
-
-.carousel-item-prev:not(.carousel-item-end) {
-  transform: translateX(-100%);
-  opacity: 0;
-  z-index: 1;
-}
-
-.carousel-item-next,
-.carousel-item-prev {
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.carousel-item-next.carousel-item-start,
-.active.carousel-item-end {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.carousel-item-prev.carousel-item-end,
-.active.carousel-item-start {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.carousel-item.active.carousel-item-start {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-.carousel-item.active.carousel-item-end {
-  transform: translateX(100%);
-  opacity: 0;
+  overflow: hidden;
+  touch-action: pan-x;
 }
 
 .carousel-item__image {
@@ -279,6 +247,7 @@ export default {
   height: 300px;
   object-fit: cover;
   object-position: center;
+  pointer-events: none;
 }
 
 .carousel-item__content {
@@ -311,36 +280,90 @@ export default {
 }
 
 /* Carousel Controls */
-.carousel-control-prev,
-.carousel-control-next {
-  z-index: 2;
+#photoCarousel .carousel-control-prev,
+#photoCarousel .carousel-control-next {
+  position: absolute !important;
+  top: 150px !important; /* Half of the image height */
+  transform: translateY(-50%) !important;
+  width: 48px !important;
+  height: 48px !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 3 !important;
+  opacity: 0.8 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#photoCarousel .carousel-control-prev {
+  left: var(--spacing-md) !important;
+}
+
+#photoCarousel .carousel-control-next {
+  right: var(--spacing-md) !important;
+}
+
+#photoCarousel .carousel-control-prev:hover,
+#photoCarousel .carousel-control-next:hover {
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  transform: translateY(-50%) scale(1.05) !important;
+}
+
+#photoCarousel .carousel-control-prev-icon,
+#photoCarousel .carousel-control-next-icon {
+  width: 24px !important;
+  height: 24px !important;
+  background-color: var(--text-light) !important;
+  mask-size: 100% !important;
+  -webkit-mask-size: 100% !important;
+  mask-repeat: no-repeat !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-position: center !important;
+  -webkit-mask-position: center !important;
+}
+
+#photoCarousel .carousel-control-prev-icon {
+  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+  -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+}
+
+#photoCarousel .carousel-control-next-icon {
+  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+  -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
 }
 
 /* Carousel Indicators */
-.carousel-indicators {
-  position: absolute;
-  bottom: var(--description-height);
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-xs);
-  margin: 0;
-  padding: 0;
+#photoCarousel .carousel-indicators {
+  position: absolute !important;
+  bottom: calc(var(--description-height) + var(--spacing-md)) !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: var(--spacing-xs) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 3 !important;
 }
 
-.carousel-indicators button {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--text-muted);
-  opacity: 0.5;
-  border: none;
-  padding: 0;
+#photoCarousel .carousel-indicators button {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background-color: var(--text-light) !important;
+  opacity: 0.5 !important;
+  border: none !important;
+  padding: 0 !important;
+  transition: all var(--transition-speed) var(--transition-timing) !important;
 }
 
-.carousel-indicators button.active {
-  opacity: 1;
+#photoCarousel .carousel-indicators button.active {
+  opacity: 1 !important;
+  transform: scale(1.2) !important;
+  background-color: var(--brand-primary) !important;
 }
 
 @media (max-width: 768px) {
@@ -350,6 +373,27 @@ export default {
 
   .gallery__subtitle {
     font-size: var(--text-base);
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .carousel-indicators {
+    bottom: calc(var(--description-height) + var(--spacing-sm));
+  }
+
+  .carousel-indicators button {
+    width: 8px;
+    height: 8px;
   }
 }
 </style> 
