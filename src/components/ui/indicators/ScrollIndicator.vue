@@ -53,6 +53,12 @@ export default {
 .scroll__icon {
   font-size: var(--text-lg);
   opacity: 0.8;
+  color: var(--text-light);
+}
+
+.scroll:hover .scroll__icon {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .scroll__icon--bounce {

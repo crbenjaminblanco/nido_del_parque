@@ -37,8 +37,8 @@ export default {
 .contact-btn {
   display: inline-flex;
   align-items: center;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--text-light);
+  color: var(--brand-primary);
   padding: var(--spacing-md) calc(var(--spacing-xl) * 1.25);
   font-family: var(--font-primary);
   font-size: var(--text-lg);
@@ -46,9 +46,9 @@ export default {
   text-decoration: none;
   border-radius: var(--border-radius-lg);
   transition: all var(--transition-speed) var(--transition-timing);
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--text-light);
   margin-top: var(--spacing-xs);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
 }
@@ -67,12 +67,14 @@ export default {
 
 .contact-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--bg-secondary);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .contact-btn:hover::before {
-  opacity: 1;
+  opacity: 0;
 }
 
 .contact-btn__icon {
@@ -81,7 +83,7 @@ export default {
   transition: all var(--transition-speed) var(--transition-timing);
   position: relative;
   z-index: 1;
-  color: var(--text-primary);
+  color: var(--brand-primary);
 }
 
 .contact-btn:hover .contact-btn__icon {
@@ -94,7 +96,7 @@ export default {
   letter-spacing: var(--letter-spacing-wide);
   position: relative;
   z-index: 1;
-  color: var(--text-primary);
+  color: var(--brand-primary);
 }
 
 @media (max-width: 768px) {

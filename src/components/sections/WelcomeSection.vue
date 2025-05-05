@@ -66,11 +66,15 @@ export default {
 
   methods: {
     scrollToNextSection() {
-      const nextSection = this.$el.nextElementSibling
-      if (nextSection) {
-        nextSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
+      const gallerySection = document.getElementById('gallery')
+      if (gallerySection) {
+        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0
+        const elementPosition = gallerySection.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - navbarHeight
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         })
       }
     }
@@ -100,7 +104,7 @@ export default {
   bottom: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.4) 0%,
     rgba(0, 0, 0, 0.7) 100%
   );
   z-index: 1;
@@ -129,7 +133,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
 }
 
 .welcome__title {
@@ -154,7 +158,7 @@ export default {
   line-height: var(--line-height-relaxed);
   max-width: 40rem;
   margin: 0 auto;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
   opacity: 0;
   animation: fadeIn 1s ease-out 0.5s forwards;
 }
@@ -190,17 +194,6 @@ export default {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes lineExpand {
-  from {
-    width: 0;
-    opacity: 0;
-  }
-  to {
-    width: 100px;
-    opacity: 1;
   }
 }
 
