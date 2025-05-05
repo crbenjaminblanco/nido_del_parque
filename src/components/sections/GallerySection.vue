@@ -5,21 +5,26 @@
     <div class="container">
       <!-- Mobile Carousel (visible only on xs screens) -->
       <div class="d-block d-md-none">
-        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <div v-for="(item, index) in galleryItems" 
-                 :key="index" 
-                 :class="['carousel-item', { active: index === 0 }]">
-              <img :src="require(`@/assets/images/${item.image}.jpg`)"
-                   :alt="$t(`gallery.items.${item.translationKey}.title`)"
-                   class="carousel-item__image"
-                   loading="eager">
+            <div 
+              v-for="(item, index) in galleryItems" 
+              :key="index"
+              :class="['carousel-item', { active: index === 0 }]"
+            >
+              <img 
+                :src="require(`@/assets/images/${item.image}.jpg`)"
+                :alt="$t(`gallery.items.${item.translationKey}.title`)"
+                class="carousel-item__image"
+                loading="eager"
+              >
               <div class="carousel-item__content">
                 <h4 class="carousel-item__title">{{ $t(`gallery.items.${item.translationKey}.title`) }}</h4>
                 <p class="carousel-item__description">{{ $t(`gallery.items.${item.translationKey}.description`) }}</p>
               </div>
             </div>
           </div>
+
           <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -28,15 +33,17 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
+
           <div class="carousel-indicators">
-            <button v-for="(item, index) in galleryItems" 
-                    :key="index"
-                    type="button"
-                    data-bs-target="#photoCarousel"
-                    :data-bs-slide-to="index"
-                    :class="{ active: index === 0 }"
-                    :aria-label="`Slide ${index + 1}`">
-            </button>
+            <button 
+              v-for="(item, index) in galleryItems" 
+              :key="index"
+              type="button"
+              data-bs-target="#photoCarousel"
+              :data-bs-slide-to="index"
+              :class="{ active: index === 0 }"
+              :aria-label="`Slide ${index + 1}`"
+            ></button>
           </div>
         </div>
       </div>
@@ -58,7 +65,7 @@
 
 <script>
 import PhotoCard from '../ui/cards/PhotoCard.vue'
-import * as bootstrap from 'bootstrap'
+import { Carousel } from 'bootstrap'
 
 export default {
   name: 'GallerySection',
@@ -81,14 +88,12 @@ export default {
     this.$nextTick(() => {
       const carouselElement = document.getElementById('photoCarousel');
       if (carouselElement) {
-        new bootstrap.Carousel(carouselElement, {
+        new Carousel(carouselElement, {
           interval: 5000,
           touch: true,
           wrap: true,
           keyboard: true,
-          pause: 'hover',
-          ride: 'carousel',
-          slide: false
+          pause: 'hover'
         });
       }
     });
@@ -274,7 +279,6 @@ export default {
   height: 300px;
   object-fit: cover;
   object-position: center;
-  will-change: transform;
 }
 
 .carousel-item__content {
@@ -283,8 +287,6 @@ export default {
   height: var(--description-height);
   display: flex;
   flex-direction: column;
-  transition: opacity 0.6s ease-in-out;
-  will-change: opacity;
 }
 
 .carousel-item__title {
@@ -311,14 +313,7 @@ export default {
 /* Carousel Controls */
 .carousel-control-prev,
 .carousel-control-next {
-  margin-bottom: var(--description-height);
-  transition: opacity 0.3s ease;
-  z-index: 3;
-}
-
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-  opacity: 0.8;
+  z-index: 2;
 }
 
 /* Carousel Indicators */

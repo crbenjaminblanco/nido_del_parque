@@ -31,10 +31,6 @@
       <button
         class="navbar-toggler"
         type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-label="Toggle navigation"
         :class="{ 
           'navbar-toggler--light': !scrolled,
           'navbar-toggler--dark': scrolled 
@@ -47,7 +43,6 @@
       <!-- Links -->
       <div 
         class="collapse navbar-collapse" 
-        id="navbarNav"
         :class="{ show: isExpanded }"
       >
         <ul class="navbar-nav">
@@ -72,58 +67,10 @@
           </li>
           <!-- Language Selector -->
           <li class="nav-item">
-            <div class="dropdown">
-              <button 
-                class="btn btn-link dropdown-toggle lang-selector"
-                :class="{ 
-                  'lang-selector--light': !scrolled,
-                  'lang-selector--dark': scrolled 
-                }"
-                type="button" 
-                id="languageDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                @click="toggleLanguageDropdown"
-              >
-                <div class="d-flex align-items-center">
-                  <img 
-                    :src="require(`@/assets/icons/${currentLanguage}.png`)"
-                    :alt="currentLanguage === 'es' ? 'Español' : 'English'"
-                    class="lang-selector__icon"
-                  />
-                </div>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                <li>
-                  <button 
-                    class="dropdown-item lang-selector__item" 
-                    :class="{ 'lang-selector__item--active': currentLanguage === 'es' }"
-                    @click="changeLanguage('es')"
-                  >
-                    <img 
-                      src="@/assets/icons/es.png"
-                      alt="Español"
-                      class="lang-selector__icon me-2"
-                    />
-                    <span>Español</span>
-                  </button>
-                </li>
-                <li>
-                  <button 
-                    class="dropdown-item lang-selector__item" 
-                    :class="{ 'lang-selector__item--active': currentLanguage === 'en' }"
-                    @click="changeLanguage('en')"
-                  >
-                    <img 
-                      src="@/assets/icons/en.png"
-                      alt="English"
-                      class="lang-selector__icon me-2"
-                    />
-                    <span>English</span>
-                  </button>
-                </li>
-              </ul>
-            </div>
+            <LanguageSelector 
+              :scrolled="scrolled" 
+              @close-mobile-menu="isExpanded = false"
+            />
           </li>
         </ul>
       </div>
@@ -132,18 +79,20 @@
 </template>
 
 <script>
-import { Dropdown } from 'bootstrap'
+import LanguageSelector from './LanguageSelector.vue'
 
 export default {
   name: 'MainNavbar',
+  
+  components: {
+    LanguageSelector
+  },
   
   data() {
     return {
       scrolled: false,
       isExpanded: false,
-      activeSection: 'welcome',
-      isLanguageDropdownOpen: false,
-      languageDropdown: null
+      activeSection: 'welcome'
     }
   },
 
@@ -205,7 +154,6 @@ export default {
   },
 
   watch: {
-    // Watch for route changes to update active section
     '$route': {
       immediate: true,
       handler(to) {
@@ -216,15 +164,40 @@ export default {
   },
 
   methods: {
+    toggleMenu() {
+      this.isExpanded = !this.isExpanded;
+      
+      // Only set scrolled to true when opening menu
+      if (this.isExpanded && !this.scrolled) {
+        this.scrolled = true;
+      }
+      // Reset scrolled state when closing menu if we're at the top
+      else if (!this.isExpanded && window.scrollY <= 50) {
+        this.scrolled = false;
+      }
+    },
+
     handleNavClick(sectionId) {
       // Close menu first
-      this.closeMenu();
-      
-      // Clear active section before redirecting
-      this.activeSection = '';
+      this.isExpanded = false;
       
       // Update route with current language and section
       const currentLang = this.$i18n.locale;
+      
+      // Scroll to section first
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        const navbarHeight = this.$el.offsetHeight;
+        const elementPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - navbarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'instant'
+        });
+      }
+
+      // Then update route
       this.$router.push({
         path: `/${currentLang}/${sectionId}`,
         query: { instant: 'true' }
@@ -232,7 +205,6 @@ export default {
         // Set the new active section after navigation
         this.$nextTick(() => {
           this.activeSection = sectionId;
-          this.isExpanded = false;
         });
       });
     },
@@ -279,36 +251,7 @@ export default {
       });
     },
 
-    toggleMenu() {
-      this.isExpanded = !this.isExpanded;
-      
-      // Only set scrolled to true when opening menu
-      if (this.isExpanded && !this.scrolled) {
-        this.scrolled = true;
-      }
-      // Reset scrolled state when closing menu if we're at the top
-      else if (!this.isExpanded && window.scrollY <= 50) {
-        this.scrolled = false;
-      }
-    },
-
-    toggleLanguageDropdown() {
-      if (!this.languageDropdown) {
-        const dropdownElement = document.getElementById('languageDropdown');
-        if (dropdownElement) {
-          this.languageDropdown = new Dropdown(dropdownElement);
-        }
-      }
-      this.isLanguageDropdownOpen = !this.isLanguageDropdownOpen;
-    },
-
     changeLanguage(lang) {
-      // Close language dropdown
-      this.isLanguageDropdownOpen = false;
-      if (this.languageDropdown) {
-        this.languageDropdown.hide();
-      }
-
       // Close mobile menu if open
       if (this.isExpanded) {
         this.isExpanded = false;
@@ -321,7 +264,12 @@ export default {
         const currentSection = this.activeSection || this.$route.params.section || 'welcome';
         
         this.$router.push({
-          path: `/${lang}/${currentSection}`
+          path: `/${lang}/${currentSection}`,
+          query: { instant: 'true' }
+        }).catch(err => {
+          if (err.name !== 'NavigationDuplicated') {
+            console.error('Navigation error:', err);
+          }
         });
       }
     },
@@ -342,15 +290,6 @@ export default {
     this.$nextTick(() => {
       const currentSection = this.$route.params.section || 'welcome';
       this.activeSection = currentSection;
-      
-      // Initialize language dropdown
-      const dropdownElement = document.getElementById('languageDropdown');
-      if (dropdownElement) {
-        this.languageDropdown = new Dropdown(dropdownElement, {
-          offset: [0, 8],
-          boundary: 'viewport'
-        });
-      }
       
       // Only scroll to section if not changing language
       if (currentSection !== 'welcome' && !this.$route.query.noScroll) {
@@ -618,6 +557,11 @@ export default {
     padding: var(--spacing-md);
     border-radius: 0;
     box-shadow: var(--shadow-md);
+    display: none;
+  }
+
+  .navbar-collapse.show {
+    display: block;
   }
 
   .navbar-nav {
@@ -652,36 +596,6 @@ export default {
     background-color: var(--bg-hover);
     border-bottom: none;
     border-left: 3px solid currentColor;
-  }
-
-  .lang-selector {
-    width: 100%;
-    justify-content: flex-start;
-    padding: var(--spacing-sm) var(--spacing-md);
-  }
-
-  .lang-selector--light {
-    color: var(--text-light);
-  }
-
-  .lang-selector--dark {
-    color: var(--brand-primary);
-  }
-
-  .lang-selector:hover {
-    background-color: var(--bg-hover);
-  }
-
-  .lang-selector__item {
-    padding: var(--spacing-sm) var(--spacing-md);
-  }
-
-  .lang-selector__item:hover {
-    background-color: var(--bg-hover);
-  }
-
-  .lang-selector__item--active {
-    background-color: var(--bg-hover);
   }
 }
 

@@ -49,6 +49,12 @@ const routes = [
         return
       }
 
+      // If it's a language change, don't scroll
+      if (to.query.instant === 'true') {
+        next()
+        return
+      }
+
       next()
     }
   }
@@ -58,33 +64,13 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    // If it's a manual navigation (back/forward), use saved position
+    if (to.query.instant === 'true') {
+      return false
+    }
     if (savedPosition) {
-      return savedPosition;
+      return savedPosition
     }
-
-    // Scroll when it's a direct URL access or instant scroll is requested
-    if (!from.name || to.query.instant === 'true') {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const element = document.getElementById(to.params.section || 'welcome');
-          const navbar = document.querySelector('.navbar');
-          if (element && navbar) {
-            const navbarHeight = navbar.offsetHeight;
-            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - navbarHeight;
-
-            resolve({
-              top: offsetPosition,
-              behavior: 'instant'
-            });
-          }
-        }, 100);
-      });
-    }
-    
-    // For scroll-based navigation, don't scroll
-    return false;
+    return { top: 0 }
   }
 })
 
