@@ -7,7 +7,7 @@
       <div class="d-block d-md-none">
         <div 
           id="photoCarousel" 
-          class="carousel slide carousel-fade" 
+          class="carousel slide" 
           data-bs-ride="carousel"
           data-bs-touch="true"
           data-bs-interval="5000"
@@ -16,15 +16,10 @@
             <div 
               v-for="(item, index) in galleryItems" 
               :key="index"
-              :class="['carousel-item', { active: index === 0 }]"
+              :class="['carousel-item', { active: index === 0 }, `carousel-item--${item.image}`]"
             >
               <div class="carousel-item__image-container">
-                <img 
-                  :src="require(`@/assets/images/${item.image}.jpg`)"
-                  :alt="$t(`gallery.items.${item.translationKey}.title`)"
-                  class="carousel-item__image"
-                  loading="eager"
-                >
+                <div class="carousel-item__image"></div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
@@ -264,7 +259,7 @@ export default {
   position: relative;
   width: 100%;
   display: none;
-  transition: transform 0.6s ease-in-out;
+  transition: transform 1s ease-in-out;
   touch-action: pan-x;
   background-color: var(--bg-primary);
   backface-visibility: hidden;
@@ -287,16 +282,41 @@ export default {
 .carousel-item__image {
   width: 100%;
   height: 300px;
-  object-fit: cover;
-  object-position: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   pointer-events: none;
-  transition: opacity 1s ease-in-out;
-  will-change: opacity;
+  will-change: transform;
   background-color: var(--bg-primary);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+}
+
+/* Preloaded backgrounds */
+.carousel-item--living-room .carousel-item__image {
+  background-image: url("@/assets/images/living-room.jpg");
+}
+
+.carousel-item--bedroom .carousel-item__image {
+  background-image: url("@/assets/images/bedroom.jpg");
+}
+
+.carousel-item--kitchen .carousel-item__image {
+  background-image: url("@/assets/images/kitchen.jpg");
+}
+
+.carousel-item--bathroom .carousel-item__image {
+  background-image: url("@/assets/images/bathroom.jpg");
+}
+
+.carousel-item--parking .carousel-item__image {
+  background-image: url("@/assets/images/parking.jpg");
+}
+
+.carousel-item--exterior .carousel-item__image {
+  background-image: url("@/assets/images/exterior.jpg");
 }
 
 .carousel-item__content {
@@ -478,7 +498,7 @@ export default {
   }
 
   .carousel-item__image {
-    transition: opacity 1s ease-in-out;
+    transition: transform 1s ease-in-out;
   }
 }
 </style> 
