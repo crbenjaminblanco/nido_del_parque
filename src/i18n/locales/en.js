@@ -99,7 +99,7 @@ export default {
     items: {
       livingRoom: {
         title: 'Living Room',
-        description: 'Spacious and bright living room with comfortable seating.'
+        description: 'Bright living room with comfortable seating.'
       },
       bedroom: {
         title: 'Main Bedroom',
@@ -107,7 +107,7 @@ export default {
       },
       kitchen: {
         title: 'Equipped Kitchen',
-        description: 'Modern kitchen with all necessary appliances and utensils.'
+        description: 'Kitchen with all necessary appliances and utensils.'
       },
       bathroom: {
         title: 'Full Bathroom',
@@ -115,7 +115,7 @@ export default {
       },
       parking: {
         title: 'Private Parking',
-        description: 'Parking space available for small or medium vehicle.'
+        description: 'Parking space for small or medium vehicle.'
       },
       exterior: {
         title: 'Exterior View',

@@ -99,7 +99,7 @@ export default {
     items: {
       livingRoom: {
         title: 'Sala de Estar',
-        description: 'Sala espaciosa y luminosa con asientos confortables.'
+        description: 'Sala luminosa con asientos confortables.'
       },
       bedroom: {
         title: 'Habitación Principal',
@@ -107,7 +107,7 @@ export default {
       },
       kitchen: {
         title: 'Cocina Equipada',
-        description: 'Cocina moderna con todos los electrodomésticos y utensilios necesarios.'
+        description: 'Cocina con todos los electrodomésticos y utensilios necesarios.'
       },
       bathroom: {
         title: 'Baño Completo',
@@ -115,7 +115,7 @@ export default {
       },
       parking: {
         title: 'Parqueo Privado',
-        description: 'Espacio de estacionamiento disponible para vehículo pequeño o mediano.'
+        description: 'Estacionamiento para vehículo pequeño o mediano.'
       },
       exterior: {
         title: 'Vista Exterior',
