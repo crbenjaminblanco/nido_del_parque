@@ -10,7 +10,7 @@
           class="carousel slide carousel-fade" 
           data-bs-ride="carousel"
           data-bs-touch="true"
-          data-bs-interval="5000"
+          data-bs-interval="3000"
         >
           <div class="carousel-inner">
             <div 
