@@ -10,7 +10,7 @@ export default {
   },
   hero: {
     title: 'Nido del Parque',
-    welcome: 'Welcome to our accommodation!',
+    welcome: 'Welcome to our loft!',
     contact: 'Contact Us',
     scroll: 'Scroll down to explore'
   },
@@ -73,7 +73,7 @@ export default {
   },
   social: {
     title: 'Book Your Stay',
-    subtitle: 'Choose your preferred platform to secure your place in our accommodation',
+    subtitle: 'Choose your preferred platform to secure your place in our loft',
     airbnb: {
       title: 'Book on Airbnb',
       description: 'Check availability and book your stay'
