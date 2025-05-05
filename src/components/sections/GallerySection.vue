@@ -213,7 +213,7 @@ export default {
   position: relative;
   width: 100%;
   display: none;
-  transition: transform 1s ease-in-out;
+  transition: transform 0.6s ease-in-out;
   touch-action: pan-x;
   background-color: var(--bg-primary);
 }
@@ -235,9 +235,37 @@ export default {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  transition: transform 1s ease-in-out;
+  transition: transform 0.6s ease-in-out;
   will-change: transform;
   background-color: var(--bg-primary);
+}
+
+/* Carousel slide transitions */
+.carousel-item-next:not(.carousel-item-start),
+.active.carousel-item-end {
+  transform: translateX(100%);
+}
+
+.carousel-item-prev:not(.carousel-item-end),
+.active.carousel-item-start {
+  transform: translateX(-100%);
+}
+
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: block;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item-next.carousel-item-start,
+.active.carousel-item-end {
+  transform: translateX(0);
+}
+
+.carousel-item-prev.carousel-item-end,
+.active.carousel-item-start {
+  transform: translateX(0);
 }
 
 /* Preloaded backgrounds */
