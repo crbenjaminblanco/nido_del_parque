@@ -7,7 +7,7 @@
       <div class="d-block d-md-none">
         <div 
           id="photoCarousel" 
-          class="carousel slide carousel-fade" 
+          class="carousel slide" 
           data-bs-ride="carousel"
           data-bs-touch="true"
           data-bs-interval="5000"
@@ -88,19 +88,24 @@ export default {
         { image: 'bathroom', translationKey: 'bathroom' },
         { image: 'parking', translationKey: 'parking' },
         { image: 'exterior', translationKey: 'exterior' }
-      ]
+      ],
+      preloadedImages: []
     }
   },
   mounted() {
     this.$nextTick(() => {
       const carouselElement = document.getElementById('photoCarousel');
       if (carouselElement) {
-        // Preload images
+        // Preload images with better caching
         this.galleryItems.forEach(item => {
           const img = new Image();
           img.src = require(`@/assets/images/${item.image}.jpg`);
+          img.loading = 'eager';
+          img.decoding = 'async';
+          this.preloadedImages.push(img);
         });
 
+        // Initialize carousel with optimized settings
         new Carousel(carouselElement, {
           interval: 5000,
           touch: true,
@@ -109,6 +114,27 @@ export default {
           pause: 'hover',
           ride: 'carousel',
           touchThreshold: 5
+        });
+
+        // Preload next and previous images
+        const preloadAdjacentImages = (currentIndex) => {
+          const nextIndex = (currentIndex + 1) % this.galleryItems.length;
+          const prevIndex = (currentIndex - 1 + this.galleryItems.length) % this.galleryItems.length;
+          
+          const nextImg = new Image();
+          nextImg.src = require(`@/assets/images/${this.galleryItems[nextIndex].image}.jpg`);
+          nextImg.loading = 'eager';
+          nextImg.decoding = 'async';
+          
+          const prevImg = new Image();
+          prevImg.src = require(`@/assets/images/${this.galleryItems[prevIndex].image}.jpg`);
+          prevImg.loading = 'eager';
+          prevImg.decoding = 'async';
+        };
+
+        // Listen for slide changes to preload adjacent images
+        carouselElement.addEventListener('slide.bs.carousel', (event) => {
+          preloadAdjacentImages(event.to);
         });
       }
     });
@@ -241,6 +267,10 @@ export default {
   transition: transform 0.6s ease-in-out;
   touch-action: pan-x;
   background-color: var(--bg-primary);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .carousel-item.active {
@@ -260,9 +290,12 @@ export default {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  transition: opacity 0.6s ease-in-out;
-  will-change: opacity;
+  will-change: transform;
   background-color: var(--bg-primary);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .carousel-item__content {
@@ -390,10 +423,10 @@ export default {
   background-color: var(--text-light) !important;
 }
 
-/* Fade effect */
+/* Remove fade styles */
 .carousel-fade .carousel-item {
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
+  opacity: 1;
+  transition: transform 0.6s ease-in-out;
 }
 
 .carousel-fade .carousel-item.active {
@@ -440,11 +473,11 @@ export default {
   }
 
   .carousel-fade .carousel-item {
-    transition: opacity 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
   }
 
   .carousel-item__image {
-    transition: opacity 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
   }
 }
 </style> 
