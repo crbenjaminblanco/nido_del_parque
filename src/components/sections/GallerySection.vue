@@ -290,7 +290,8 @@ export default {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  will-change: transform;
+  transition: opacity 1s ease-in-out;
+  will-change: opacity;
   background-color: var(--bg-primary);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -423,10 +424,10 @@ export default {
   background-color: var(--text-light) !important;
 }
 
-/* Remove fade styles */
+/* Fade effect */
 .carousel-fade .carousel-item {
-  opacity: 1;
-  transition: transform 0.6s ease-in-out;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
 .carousel-fade .carousel-item.active {
@@ -473,11 +474,11 @@ export default {
   }
 
   .carousel-fade .carousel-item {
-    transition: transform 0.6s ease-in-out;
+    transition: opacity 1s ease-in-out;
   }
 
   .carousel-item__image {
-    transition: transform 0.6s ease-in-out;
+    transition: opacity 1s ease-in-out;
   }
 }
 </style> 
