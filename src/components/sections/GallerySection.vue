@@ -8,7 +8,8 @@
         <div 
           id="photoCarousel" 
           class="carousel slide" 
-          ref="carousel"
+          data-bs-ride="carousel"
+          data-bs-interval="5000"
         >
           <div class="carousel-inner">
             <div 
@@ -18,7 +19,7 @@
             >
               <div class="carousel-item__image-container">
                 <img 
-                  :src="preloadedImages[item.image]"
+                  :src="require(`@/assets/images/${item.image}.jpg`)"
                   :alt="$t(`gallery.items.${item.translationKey}.title`)"
                   class="carousel-item__image"
                 >
@@ -56,7 +57,7 @@
       <div class="row row-cols-1 row-cols-md-3 g-4 d-none d-md-flex">
         <div class="col-md-4" v-for="(item, key) in galleryItems" :key="key">
           <photo-card
-            :image-src="preloadedImages[item.image]"
+            :image-src="require(`@/assets/images/${item.image}.jpg`)"
             :title="$t(`gallery.items.${item.translationKey}.title`)"
             :description="$t(`gallery.items.${item.translationKey}.description`)"
             :is-carousel="false"
@@ -69,7 +70,6 @@
 
 <script>
 import PhotoCard from '../ui/cards/PhotoCard.vue'
-import { Carousel } from 'bootstrap'
 
 export default {
   name: 'GallerySection',
@@ -85,43 +85,7 @@ export default {
         { image: 'bathroom', translationKey: 'bathroom' },
         { image: 'parking', translationKey: 'parking' },
         { image: 'exterior', translationKey: 'exterior' }
-      ],
-      carousel: null,
-      preloadedImages: {}
-    }
-  },
-  created() {
-    // Preload all images at component creation
-    this.galleryItems.forEach(item => {
-      const img = new Image();
-      img.src = require(`@/assets/images/${item.image}.jpg`);
-      this.preloadedImages[item.image] = img.src;
-    });
-  },
-  mounted() {
-    this.$nextTick(() => {
-      const carouselElement = this.$refs.carousel;
-      if (carouselElement) {
-        // Initialize carousel with optimized settings
-        this.carousel = new Carousel(carouselElement, {
-          interval: 5000,
-          touch: true,
-          wrap: true,
-          keyboard: true,
-          pause: 'hover',
-          ride: 'carousel',
-          touchThreshold: 5
-        });
-
-        // Start the carousel
-        this.carousel.cycle();
-      }
-    });
-  },
-  beforeUnmount() {
-    // Clean up carousel when component is destroyed
-    if (this.carousel) {
-      this.carousel.dispose();
+      ]
     }
   }
 }
@@ -252,10 +216,6 @@ export default {
   transition: transform 1s ease-in-out;
   touch-action: pan-x;
   background-color: var(--bg-primary);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 .carousel-item.active {
@@ -278,10 +238,6 @@ export default {
   transition: transform 1s ease-in-out;
   will-change: transform;
   background-color: var(--bg-primary);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 /* Preloaded backgrounds */
