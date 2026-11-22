@@ -56,7 +56,9 @@
       "Cama queen",
       "1 baño",
       "Parqueo"
-    ]
+    ],
+    "peek": "Ver el apartamento",
+    "peekCard": "Tu nido en Zarcero"
   },
   "gallery": {
     "eyebrow": "Galería",

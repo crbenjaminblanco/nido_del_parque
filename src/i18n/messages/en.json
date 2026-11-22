@@ -55,7 +55,9 @@
       "Queen bed",
       "1 bath",
       "Parking"
-    ]
+    ],
+    "peek": "See the apartment",
+    "peekCard": "Your nest in Zarcero"
   },
   "gallery": {
     "eyebrow": "Gallery",
