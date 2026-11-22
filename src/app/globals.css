@@ -136,16 +136,6 @@
   .hero-in {
     animation: hero-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
-  /* Portada: tarjeta del apartamento que flota y alterna tres fotos. */
-  .peek-float {
-    animation:
-      hero-in 1.2s 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both,
-      float 7s 1.7s ease-in-out infinite;
-  }
-  .peek-slide {
-    animation: peek-slide 15s infinite;
-    animation-delay: var(--d, 0s);
-  }
   /* Portada: la foto entra con un fundido y luego se acerca muy despacio. */
   .hero-kenburns {
     animation:
@@ -161,8 +151,6 @@
   html {
     scroll-behavior: auto;
   }
-  .peek-slide,
-  .peek-float,
   .hero-kenburns {
     animation: none !important;
   }
@@ -198,35 +186,6 @@
   }
   to {
     transform: scale(1.12) translateY(-1.5%);
-  }
-}
-/* Sin movimiento: solo se ve la primera foto de la tarjeta. */
-.peek-slide {
-  opacity: 0;
-}
-.peek-slide:first-child {
-  opacity: 1;
-}
-@keyframes peek-slide {
-  0%,
-  28% {
-    opacity: 1;
-  }
-  33%,
-  95% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-2deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(-1deg);
   }
 }
 @keyframes fade {

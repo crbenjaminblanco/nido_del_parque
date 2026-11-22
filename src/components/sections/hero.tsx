@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { site } from "@/config/site";
@@ -10,7 +9,7 @@ import { AirbnbIcon, WhatsAppIcon } from "../social-icons";
 import { sectionId } from "../nav-items";
 
 /** Fotos del apartamento que se asoman en la portada. */
-const peek = (["bedroom", "livingRoom", "bathroom"] as const).map((key) => gallery.find((g) => g.key === key)!);
+const peek = (["livingRoom", "bedroom", "bathroom"] as const).map((key) => gallery.find((g) => g.key === key)!);
 
 /**
  * Portada: el túnel de arcos de Zarcero a pantalla completa.
@@ -52,25 +51,6 @@ export function Hero({ t }: { t: Dictionary }) {
         <div className="grain absolute inset-0" />
       </div>
 
-      {/* Pantallas grandes: tarjeta flotante con fotos del apartamento */}
-      <a
-        href={`#${sectionId.gallery}`}
-        aria-label={`${t.hero.peekCard}: ${t.hero.peek}`}
-        className="peek-float absolute right-[max(2rem,calc((100vw-80rem)/2+2rem))] bottom-20 hidden w-56 rounded-[1.75rem] border border-white/20 bg-white/10 p-2.5 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.7)] backdrop-blur-xl transition hover:bg-white/15 lg:block"
-      >
-        <span className="relative block aspect-[4/5] overflow-hidden rounded-[1.25rem]">
-          {peek.map((p, i) => (
-            <span key={p.key} className="peek-slide absolute inset-0" style={{ "--d": `${-i * 5}s` } as CSSProperties}>
-              <Image src={p.src} alt="" fill sizes="224px" className="object-cover" />
-            </span>
-          ))}
-        </span>
-        <span className="flex items-center justify-between gap-2 px-1.5 pt-2.5 pb-0.5 text-sm font-semibold">
-          {t.hero.peekCard}
-          <ArrowRight aria-hidden className="size-4" />
-        </span>
-      </a>
-
       <div className="hero-in mx-auto w-full max-w-7xl px-4 pt-32 pb-[max(2rem,env(safe-area-inset-bottom))] [text-shadow:0_1px_2px_rgb(0_0_0/0.35),0_4px_24px_rgb(0_0_0/0.45)] sm:px-6 md:pb-20 lg:px-8">
         <p className="text-xs font-bold tracking-[0.22em] text-[#9fdde2] uppercase">{t.hero.eyebrow}</p>
         <h1 id="hero-title" className="mt-3 font-display text-[clamp(3.2rem,15vw,7.5rem)] leading-[0.9]">
@@ -85,8 +65,8 @@ export function Hero({ t }: { t: Dictionary }) {
         >
           <span className="flex shrink-0 -space-x-3">
             {peek.map((p) => (
-              <span key={p.key} className="relative size-10 overflow-hidden rounded-full ring-2 ring-[#0b1517]">
-                <Image src={p.src} alt="" fill sizes="40px" className="object-cover" />
+              <span key={p.key} className="relative size-10 overflow-hidden rounded-full ring-2 ring-[#0b1517] md:size-12">
+                <Image src={p.src} alt="" fill sizes="48px" className="object-cover" />
               </span>
             ))}
           </span>
