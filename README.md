@@ -32,8 +32,8 @@ npm run images     # regenera public/images/ desde assets-src/
 | Fotos de la galería y lugares de la zona | `src/data/media.ts` |
 | Recorte y ajuste de fotos | `scripts/process-images.mjs` |
 
-**Ubicación:** las coordenadas (10.1848, -84.3903) son las del anuncio de Airbnb. Si la entrada
-está en otro punto, cámbielas en `src/config/site.ts`; Waze, Google Maps, el mapa y el JSON-LD las toman de ahí.
+**Ubicación:** punto exacto de la entrada (10.1846898, -84.3901703), del lugar "Nido del Parque" en
+Waze/Google. Está en `src/config/site.ts`; Waze, Google Maps, el mapa y el JSON-LD lo toman de ahí.
 
 **Wifi:** el sitio muestra solo el nombre de la red. La contraseña no se publica (el sitio anterior
 la incrustaba en el JavaScript público); se envía por WhatsApp al confirmar la reserva.
