@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "title": "Nido del Parque · Apartamento a 25 m del parque de Zarcero",
+    "titleTemplate": "%s · Nido del Parque",
+    "description": "Apartamento acogedor para 2 personas a 25 metros del famoso parque de topiarios de Zarcero, Costa Rica. Ideal para estancias cortas: wifi Starlink, agua caliente y parqueo privado.",
+    "keywords": [
+      "Nido del Parque",
+      "Zarcero",
+      "alojamiento Zarcero",
+      "apartamento Zarcero",
+      "Airbnb Zarcero",
+      "parque de Zarcero",
+      "topiarios",
+      "Alajuela",
+      "Costa Rica"
+    ],
+    "ogAlt": "Habitación luminosa de Nido del Parque en Zarcero"
+  },
+  "a11y": {
+    "skip": "Saltar al contenido",
+    "home": "Nido del Parque, inicio",
+    "mainNav": "Navegación principal",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "language": "Idioma",
+    "themeToggle": "Cambiar entre modo claro y oscuro",
+    "newTab": "(se abre en otra pestaña)",
+    "floatingWhatsapp": "Escríbenos por WhatsApp",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "slide": "Foto {n} de {total}",
+    "openPhoto": "Ampliar foto: {title}",
+    "carousel": "Carrusel",
+    "closeLightbox": "Cerrar"
+  },
+  "languageNames": {
+    "es": "Español",
+    "en": "English"
+  },
+  "nav": {
+    "gallery": "Galería",
+    "stay": "El espacio",
+    "area": "La zona",
+    "location": "Ubicación",
+    "contact": "Reservar"
+  },
+  "hero": {
+    "eyebrow": "Zarcero · Costa Rica",
+    "title": "Nido del Parque",
+    "lead": "Tu apartamento a 25 metros del parque de Zarcero.",
+    "imageAlt": "Figuras de ciprés con forma de animales y una buganvilla en flor en el parque de Zarcero",
+    "ctaPrimary": "Reservar en Airbnb",
+    "whatsapp": "Escríbenos",
+    "facts": [
+      "2 huéspedes",
+      "Cama queen",
+      "1 baño",
+      "Parqueo"
+    ]
+  },
+  "gallery": {
+    "eyebrow": "Galería",
+    "title": "Pequeño, luminoso y completo",
+    "hint": "Desliza y toca una foto para ampliarla",
+    "items": {
+      "livingRoom": {
+        "title": "Sala",
+        "alt": "Sala con sofá turquesa, mesa de madera y televisor"
+      },
+      "bedroom": {
+        "title": "Habitación",
+        "alt": "Cama queen con cobija tejida junto a ventanales con cortinas"
+      },
+      "bathroom": {
+        "title": "Baño",
+        "alt": "Baño moderno con lavamanos sobre mueble de madera"
+      },
+      "bedroomLight": {
+        "title": "Luz de la tarde",
+        "alt": "Habitación con luz cálida de la tarde y repisa con plantas"
+      },
+      "view": {
+        "title": "Detalles",
+        "alt": "Pared blanca con un cuadro de montañas en tonos cálidos"
+      },
+      "sign": {
+        "title": "Bienvenida",
+        "alt": "Rótulo turquesa de Nido del Parque con un ave sobre un nido"
+      },
+      "street": {
+        "title": "La calle",
+        "alt": "Calle del apartamento con la iglesia de Zarcero al fondo al atardecer"
+      },
+      "exterior": {
+        "title": "Fachada",
+        "alt": "Fachada blanca con balcón en segundo piso y escalera de madera"
+      },
+      "parking": {
+        "title": "Parqueo",
+        "alt": "Cochera techada para un vehículo pequeño o mediano"
+      }
+    },
+    "video": {
+      "cta": "Ver recorrido en video",
+      "duration": "1:23",
+      "title": "Recorrido por Nido del Parque",
+      "close": "Cerrar video",
+      "label": "Video del recorrido por el apartamento"
+    },
+    "tour": {
+      "video": "Video",
+      "living": "Sala",
+      "bedroom": "Habitación",
+      "bathroom": "Baño",
+      "outside": "Exterior"
+    },
+    "tourLabel": "Ir a un espacio"
+  },
+  "stay": {
+    "eyebrow": "El espacio",
+    "title": "Todo lo que necesitas",
+    "lead": "Apartamento entero de una habitación, ideal para estancias cortas en pareja.",
+    "tabsLabel": "Detalles del apartamento",
+    "tabs": {
+      "amenities": "Comodidades",
+      "rules": "Reglas"
+    },
+    "amenities": {
+      "wifi": "Wifi Starlink",
+      "tv": "Televisión",
+      "hotWater": "Agua caliente",
+      "washer": "Lavadora",
+      "parking": "Parqueo privado",
+      "workspace": "Ideal para estancias cortas"
+    },
+    "rules": {
+      "checkIn": {
+        "label": "Entrada",
+        "value": "Desde las 3:00 p. m."
+      },
+      "checkOut": {
+        "label": "Salida",
+        "value": "Hasta las 11:00 a. m."
+      },
+      "guests": {
+        "label": "Huéspedes",
+        "value": "Máximo 2 personas"
+      },
+      "pets": {
+        "label": "Mascotas",
+        "value": "No se permiten"
+      }
+    },
+    "parkingNote": "Cochera para un vehículo pequeño o mediano."
+  },
+  "area": {
+    "eyebrow": "La zona",
+    "title": "Zarcero y alrededores",
+    "lead": "Nuestras recomendaciones, de la puerta al mirador.",
+    "map": "Ver en el mapa",
+    "photoBy": "Foto: {author} · {license}",
+    "places": {
+      "park": {
+        "name": "Parque Francisco Alvarado",
+        "distance": "A 25 m",
+        "text": "Su famoso túnel de arcos de ciprés, que lleva hasta la iglesia.",
+        "alt": "Túnel de arcos de ciprés recortados en el parque de Zarcero, con la iglesia al fondo"
+      },
+      "church": {
+        "name": "Iglesia de San Rafael",
+        "distance": "1 min a pie",
+        "text": "Templo de 1895 con torres de cúpula roja y vitrales, frente al parque.",
+        "alt": "Fachada gris de la iglesia de San Rafael de Zarcero, con torres de cúpula roja y un reloj"
+      },
+      "mosaic": {
+        "name": "Muro de mosaicos",
+        "distance": "2 min a pie",
+        "text": "Un mural colorido de cerámica a un costado del parque.",
+        "alt": "Muro de mosaicos de colores con la iglesia al fondo"
+      },
+      "palmira": {
+        "name": "Palmira",
+        "distance": "10 min en carro",
+        "text": "Pueblo de montaña con vistas a los valles, fincas lecheras y el famoso queso palmito.",
+        "alt": "Valles verdes de Zarcero bajo las nubes al atardecer"
+      },
+      "toro": {
+        "name": "Bajos del Toro",
+        "distance": "50 min en carro",
+        "text": "Cataratas en bosque nuboso, como la Catarata del Toro dentro de un antiguo cráter.",
+        "alt": "Catarata del Toro cayendo entre paredes de roca rojiza y musgo"
+      }
+    }
+  },
+  "location": {
+    "eyebrow": "Ubicación",
+    "title": "A 25 metros del parque",
+    "address": "Detrás de la iglesia de San Rafael, centro de Zarcero, Alajuela.",
+    "waze": "Abrir en Waze",
+    "google": "Google Maps",
+    "showMap": "Mostrar mapa",
+    "mapTitle": "Mapa de la ubicación de Nido del Parque en Zarcero",
+    "mapNote": "El mapa carga contenido de Google.",
+    "nearby": [
+      "Supermercados",
+      "Restaurantes",
+      "Cafés"
+    ],
+    "imageAlt": "Calle del apartamento con la iglesia de Zarcero al fondo"
+  },
+  "contact": {
+    "eyebrow": "Reservar",
+    "title": "¿Te quedas con nosotros?",
+    "lead": "Reserva en Airbnb o escríbenos para dudas.",
+    "airbnb": {
+      "title": "Reservar en Airbnb",
+      "text": "Disponibilidad y precio al día"
+    },
+    "whatsapp": {
+      "title": "WhatsApp",
+      "text": "Respuesta rápida"
+    },
+    "instagram": {
+      "title": "Instagram",
+      "text": "Fotos y novedades"
+    },
+    "guests": {
+      "title": "¿Ya eres huésped?",
+      "network": "Red wifi",
+      "password": "La contraseña te llega por WhatsApp al confirmar.",
+      "copy": "Copiar",
+      "copyLabel": "Copiar nombre de la red wifi",
+      "copied": "¡Copiado!"
+    }
+  },
+  "footer": {
+    "tagline": "Un nido tranquilo en el corazón de Zarcero.",
+    "rights": "© {year} Nido del Parque.",
+    "credits": "Créditos de fotos de la zona",
+    "creditsNote": "Fotos de Wikimedia Commons y Flickr con licencia libre.",
+    "backToTop": "Volver arriba",
+    "heroCredit": "Portada"
+  },
+  "notFound": {
+    "title": "Esta página voló del nido",
+    "text": "No encontramos lo que buscabas.",
+    "cta": "Volver al inicio"
+  },
+  "bookingBar": {
+    "label": "Reserva rápida",
+    "title": "Nido del Parque",
+    "sub": "A 25 m del parque",
+    "cta": "Reservar"
+  }
+}

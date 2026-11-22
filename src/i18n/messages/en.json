@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "title": "Nido del Parque · Apartment 25 m from Zarcero's park",
+    "titleTemplate": "%s · Nido del Parque",
+    "description": "Cozy apartment for 2, just 25 meters from Zarcero's famous topiary park in Costa Rica. Great for short stays: Starlink wifi, hot water and private parking.",
+    "keywords": [
+      "Nido del Parque",
+      "Zarcero",
+      "Zarcero lodging",
+      "Zarcero apartment",
+      "Airbnb Zarcero",
+      "Zarcero topiary park",
+      "Alajuela",
+      "Costa Rica"
+    ],
+    "ogAlt": "Bright bedroom at Nido del Parque in Zarcero"
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "home": "Nido del Parque, home",
+    "mainNav": "Main navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "themeToggle": "Switch between light and dark mode",
+    "newTab": "(opens in a new tab)",
+    "floatingWhatsapp": "Message us on WhatsApp",
+    "prev": "Previous",
+    "next": "Next",
+    "slide": "Photo {n} of {total}",
+    "openPhoto": "Enlarge photo: {title}",
+    "carousel": "Carousel",
+    "closeLightbox": "Close"
+  },
+  "languageNames": {
+    "es": "Español",
+    "en": "English"
+  },
+  "nav": {
+    "gallery": "Gallery",
+    "stay": "The space",
+    "area": "The area",
+    "location": "Location",
+    "contact": "Book"
+  },
+  "hero": {
+    "eyebrow": "Zarcero · Costa Rica",
+    "title": "Nido del Parque",
+    "lead": "Your apartment 25 meters from Zarcero's park.",
+    "imageAlt": "Animal-shaped cypress topiaries and a blooming bougainvillea in Zarcero's park",
+    "ctaPrimary": "Book on Airbnb",
+    "whatsapp": "Message us",
+    "facts": [
+      "2 guests",
+      "Queen bed",
+      "1 bath",
+      "Parking"
+    ]
+  },
+  "gallery": {
+    "eyebrow": "Gallery",
+    "title": "Small, bright and complete",
+    "hint": "Swipe and tap a photo to enlarge it",
+    "items": {
+      "livingRoom": {
+        "title": "Living room",
+        "alt": "Living room with teal sofa, wooden table and TV"
+      },
+      "bedroom": {
+        "title": "Bedroom",
+        "alt": "Queen bed with knit blanket next to curtained windows"
+      },
+      "bathroom": {
+        "title": "Bathroom",
+        "alt": "Modern bathroom with sink on a wooden vanity"
+      },
+      "bedroomLight": {
+        "title": "Afternoon light",
+        "alt": "Bedroom in warm afternoon light with a plant shelf"
+      },
+      "view": {
+        "title": "Details",
+        "alt": "White wall with a warm-toned mountain painting"
+      },
+      "sign": {
+        "title": "Welcome",
+        "alt": "Teal Nido del Parque sign with a bird on a nest"
+      },
+      "street": {
+        "title": "The street",
+        "alt": "The apartment's street with Zarcero's church in the background at sunset"
+      },
+      "exterior": {
+        "title": "Facade",
+        "alt": "White facade with a second-floor balcony and wooden stairs"
+      },
+      "parking": {
+        "title": "Parking",
+        "alt": "Covered garage for a small or mid-size car"
+      }
+    },
+    "video": {
+      "cta": "Watch the video tour",
+      "duration": "1:23",
+      "title": "Video tour of Nido del Parque",
+      "close": "Close video",
+      "label": "Video tour of the apartment"
+    },
+    "tour": {
+      "video": "Video",
+      "living": "Living room",
+      "bedroom": "Bedroom",
+      "bathroom": "Bathroom",
+      "outside": "Outside"
+    },
+    "tourLabel": "Jump to a space"
+  },
+  "stay": {
+    "eyebrow": "The space",
+    "title": "Everything you need",
+    "lead": "Entire one-bedroom apartment, great for short stays for two.",
+    "tabsLabel": "Apartment details",
+    "tabs": {
+      "amenities": "Amenities",
+      "rules": "House rules"
+    },
+    "amenities": {
+      "wifi": "Starlink wifi",
+      "tv": "TV",
+      "hotWater": "Hot water",
+      "washer": "Washer",
+      "parking": "Private parking",
+      "workspace": "Great for short stays"
+    },
+    "rules": {
+      "checkIn": {
+        "label": "Check-in",
+        "value": "From 3:00 p.m."
+      },
+      "checkOut": {
+        "label": "Checkout",
+        "value": "By 11:00 a.m."
+      },
+      "guests": {
+        "label": "Guests",
+        "value": "Up to 2 people"
+      },
+      "pets": {
+        "label": "Pets",
+        "value": "Not allowed"
+      }
+    },
+    "parkingNote": "Garage for a small or mid-size car."
+  },
+  "area": {
+    "eyebrow": "The area",
+    "title": "Zarcero and around",
+    "lead": "Our picks, from the front door to the lookout.",
+    "map": "View on map",
+    "photoBy": "Photo: {author} · {license}",
+    "places": {
+      "park": {
+        "name": "Francisco Alvarado Park",
+        "distance": "25 m away",
+        "text": "Its famous tunnel of cypress arches, leading up to the church.",
+        "alt": "Tunnel of trimmed cypress arches in Zarcero's park, with the church at the end"
+      },
+      "church": {
+        "name": "San Rafael Church",
+        "distance": "1 min walk",
+        "text": "An 1895 church with red-domed towers and stained glass, facing the park.",
+        "alt": "Grey facade of Zarcero's San Rafael Church, with red-domed towers and a clock"
+      },
+      "mosaic": {
+        "name": "Mosaic wall",
+        "distance": "2 min walk",
+        "text": "A colorful ceramic mural beside the park.",
+        "alt": "Colorful mosaic wall with the church in the background"
+      },
+      "palmira": {
+        "name": "Palmira",
+        "distance": "10 min drive",
+        "text": "A mountain village with valley views, dairy farms and the famous palmito cheese.",
+        "alt": "Green Zarcero valleys under the clouds at sunset"
+      },
+      "toro": {
+        "name": "Bajos del Toro",
+        "distance": "50 min drive",
+        "text": "Cloud-forest waterfalls, like Catarata del Toro inside an ancient crater.",
+        "alt": "Catarata del Toro falling between reddish, mossy rock walls"
+      }
+    }
+  },
+  "location": {
+    "eyebrow": "Location",
+    "title": "25 meters from the park",
+    "address": "Behind San Rafael Church, downtown Zarcero, Alajuela.",
+    "waze": "Open in Waze",
+    "google": "Google Maps",
+    "showMap": "Show map",
+    "mapTitle": "Map of Nido del Parque's location in Zarcero",
+    "mapNote": "The map loads content from Google.",
+    "nearby": [
+      "Supermarkets",
+      "Restaurants",
+      "Cafés"
+    ],
+    "imageAlt": "The apartment's street with Zarcero's church in the background"
+  },
+  "contact": {
+    "eyebrow": "Book",
+    "title": "Staying with us?",
+    "lead": "Book on Airbnb or message us with questions.",
+    "airbnb": {
+      "title": "Book on Airbnb",
+      "text": "Live availability and price"
+    },
+    "whatsapp": {
+      "title": "WhatsApp",
+      "text": "Quick replies"
+    },
+    "instagram": {
+      "title": "Instagram",
+      "text": "Photos and news"
+    },
+    "guests": {
+      "title": "Already a guest?",
+      "network": "Wifi network",
+      "password": "We send you the password on WhatsApp once you book.",
+      "copy": "Copy",
+      "copyLabel": "Copy wifi network name",
+      "copied": "Copied!"
+    }
+  },
+  "footer": {
+    "tagline": "A quiet nest in the heart of Zarcero.",
+    "rights": "© {year} Nido del Parque.",
+    "credits": "Area photo credits",
+    "creditsNote": "Photos from Wikimedia Commons and Flickr under free licenses.",
+    "backToTop": "Back to top",
+    "heroCredit": "Cover photo"
+  },
+  "notFound": {
+    "title": "This page flew the nest",
+    "text": "We couldn't find what you were looking for.",
+    "cta": "Back to home"
+  },
+  "bookingBar": {
+    "label": "Quick booking",
+    "title": "Nido del Parque",
+    "sub": "25 m from the park",
+    "cta": "Book"
+  }
+}

@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* Modo oscuro por atributo (lo fija un script antes del primer pintado). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Paleta: blanco cálido de las paredes y el turquesa del rótulo y del sofá. */
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #e9e5dc;
+  --card: #fcfbf8;
+  --ink: #132629;
+  --ink-soft: #4a5b5d;
+  --accent: #0f6670;
+  --accent-ink: #f4fbfb;
+  --leaf: #3d6a48;
+  --line: rgb(19 38 41 / 0.14);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --paper: #0c1618;
+  --paper-2: #152427;
+  --card: #111e21;
+  --ink: #e7efed;
+  --ink-soft: #a6b8b8;
+  --accent: #6cc4cb;
+  --accent-ink: #0c1618;
+  --leaf: #9cc8a6;
+  --line: rgb(231 239 237 / 0.14);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-leaf: var(--leaf);
+  --color-line: var(--line);
+  --font-sans: var(--font-jakarta);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+  section[id] {
+    scroll-margin-top: 4rem;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+}
+
+/* Barra superior transparente sobre el hero (salvo con el menú móvil abierto). */
+.site-header {
+  color: var(--ink);
+}
+.site-header[data-over="true"]:not(:has([aria-expanded="true"])) {
+  --ink: #f4f7f5;
+  --ink-soft: rgb(244 247 245 / 0.85);
+  --paper: #132629;
+  --paper-2: rgb(255 255 255 / 0.14);
+  --line: rgb(255 255 255 / 0.24);
+  color: var(--ink);
+  & .header-bg {
+    opacity: 0;
+  }
+  & .header-logo {
+    filter: invert(1);
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-instrument), ui-serif, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Carruseles: sin barra de desplazamiento visible. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Lightbox: colores de la marca. */
+.yarl__root {
+  --yarl__color_backdrop: rgb(8 16 18 / 0.96);
+  --yarl__color_button: rgb(255 255 255 / 0.9);
+  --yarl__color_button_active: #fff;
+}
+.yarl__button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Aparición al bajar (ver reveal-observer.tsx): fundido y subida suave, una vez.
+   Solo se oculta si el script lo activó (data-motion="on") y no se pidió reducir movimiento. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-motion="on"] .reveal {
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+  [data-motion="on"] .reveal:not([data-shown]) {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-in {
+    animation: hero-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-zoom {
+    animation: hero-zoom 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
