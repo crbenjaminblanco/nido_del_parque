@@ -22,21 +22,7 @@ function grade(img, { lift = 0, sat = 1.04 } = {}) {
 
 const jpeg = { quality: 82, mozjpeg: true, progressive: true };
 
-/** Portada: corrige la diapositiva antigua (tonos lavados y azulados) con un look de
- *  película suave: rango completo, verde profundo, buganvilla viva y un toque cálido. */
-function heroGrade(img) {
-  return img
-    .normalise({ lower: 2, upper: 99 })
-    .modulate({ saturation: 1.15 })
-    .recomb([
-      [1.05, 0.03, 0],
-      [0, 1.0, 0.02],
-      [0, 0.04, 0.88],
-    ])
-    .gamma(1.1)
-    .linear(0.92, 14)
-    .sharpen({ sigma: 0.6, m1: 0.4, m2: 1.5 });
-}
+
 
 const jobs = [
   // Hero: figuras de ciprés del parque de Zarcero (Wikimedia Commons, ver README).
@@ -79,21 +65,22 @@ for (const j of jobs) {
   console.log("✓", j.out);
 }
 
-// Portada (hero): figuras de ciprés del parque de Zarcero (Wikimedia Commons, ver README).
+// Portada (hero): túnel de arcos del parque de Zarcero (Flickr, ver README).
+// El original mide 1024×683: se escala con lanczos y nitidez fina. En el sitio los bordes
+// van difuminados y la foto se acerca despacio, así la falta de detalle no se nota.
 {
-  const src = path.join(SRC, "zona/figuras-parque.jpg");
-  // Computadora: panorámica a pantalla completa
-  await heroGrade(sharp(src).rotate().resize(2400, 1400, { fit: "cover", position: "centre", kernel: "lanczos3" }))
-    .jpeg(jpeg)
-    .toFile(path.join(OUT, "hero-ancho.jpg"));
-  console.log("✓ hero-ancho.jpg");
-  // Celular: encuadre abierto (figura completa y buganvilla) para la parte de arriba
+  const src = path.join(SRC, "zona/arcos-flickr.jpg");
   const { width, height } = await sharp(src).metadata();
+  const finish = (img) => img.modulate({ saturation: 1.06 }).sharpen({ sigma: 0.9, m1: 0.6, m2: 2 }).jpeg({ ...jpeg, quality: 86 });
+  // Computadora: foto completa
+  await finish(sharp(src).resize(1920, 1280, { fit: "cover", kernel: "lanczos3" })).toFile(path.join(OUT, "hero-ancho.jpg"));
+  console.log("✓ hero-ancho.jpg");
+  // Celular: recorte vertical centrado en el túnel
   const w = Math.round(height * (1080 / 1300));
-  const left = Math.min(width - w, Math.max(0, Math.round(width * 0.6 - w / 2)));
-  await heroGrade(sharp(src).extract({ left, top: 0, width: w, height }).resize(1080, 1300, { kernel: "lanczos3" }))
-    .jpeg(jpeg)
-    .toFile(path.join(OUT, "hero-movil.jpg"));
+  const left = Math.min(width - w, Math.max(0, Math.round(width * 0.55 - w / 2)));
+  await finish(sharp(src).extract({ left, top: 0, width: w, height }).resize(1080, 1300, { kernel: "lanczos3" })).toFile(
+    path.join(OUT, "hero-movil.jpg"),
+  );
   console.log("✓ hero-movil.jpg");
 }
 

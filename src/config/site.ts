@@ -6,7 +6,7 @@ const lat = 10.1848;
 const lng = -84.3903;
 
 export const site = {
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nidodelparque.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nidodelparque.com",
   name: "Nido del Parque",
   phoneE164: "+50686150014",
   phoneDisplay: "+506 8615 0014",

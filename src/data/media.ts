@@ -43,12 +43,12 @@ export type GalleryKey = (typeof gallery)[number]["key"];
 
 type Credit = { author: string; license: string; licenseUrl: string; source: string };
 
-/** Foto de portada (hero): figuras de ciprés del parque de Zarcero. */
+/** Foto de portada (hero): túnel de arcos del parque de Zarcero. */
 export const heroCredit: Credit = {
-  author: "Jerrye & Roy Klotz MD",
-  license: "CC BY-SA 3.0",
-  licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
-  source: "https://commons.wikimedia.org/wiki/File:ZARCERO_TOPIARY_GARDEN,_COSTA_RICA.jpg",
+  author: "Vytautas Šėrys",
+  license: "CC BY 2.0",
+  licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  source: "https://www.flickr.com/photos/32992770@N05/6866143932",
 };
 
 /** Lugares de la zona. `query` alimenta el enlace de Google Maps de cada tarjeta. */

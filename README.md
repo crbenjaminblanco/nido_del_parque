@@ -48,8 +48,7 @@ la incrustaba en el JavaScript público); se envía por WhatsApp al confirmar la
 
 | Uso en el sitio | Archivo en Commons | Autor | Licencia |
 | --- | --- | --- | --- |
-| Portada (hero) | [ZARCERO TOPIARY GARDEN, COSTA RICA.jpg](https://commons.wikimedia.org/wiki/File:ZARCERO_TOPIARY_GARDEN,_COSTA_RICA.jpg) | Jerrye & Roy Klotz MD | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
-| Parque Francisco Alvarado | [Parque Francisco Alvardoa (Flickr)](https://www.flickr.com/photos/32992770@N05/6866143932) | Vytautas Šėrys | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| Portada (hero) y Parque Francisco Alvarado | [Parque Francisco Alvardoa (Flickr)](https://www.flickr.com/photos/32992770@N05/6866143932) | Vytautas Šėrys | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
 | Iglesia de San Rafael | [Zarcero church.jpg](https://commons.wikimedia.org/wiki/File:Zarcero_church.jpg) | Rodtico21 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 | Muro de mosaicos | [Parque de Zarcero, Alajuela, Costa Rica - panoramio.jpg](https://commons.wikimedia.org/wiki/File:Parque_de_Zarcero,_Alajuela,_Costa_Rica_-_panoramio.jpg) | Peloy (Allan H.M.) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
 | Bajos del Toro | [Catarata del Toro. Waterfall. Costa Rica.jpg](https://commons.wikimedia.org/wiki/File:Catarata_del_Toro._Waterfall._Costa_Rica.jpg) | Steve Jurvetson | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |

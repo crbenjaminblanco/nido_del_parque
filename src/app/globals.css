@@ -112,6 +112,14 @@
   min-height: 44px;
 }
 
+/* Grano fino de película sobre la luz ambiente de la portada. */
+@utility grain {
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
 /* Aparición al bajar (ver reveal-observer.tsx): fundido y subida suave, una vez.
    Solo se oculta si el script lo activó (data-motion="on") y no se pidió reducir movimiento. */
 @media (prefers-reduced-motion: no-preference) {
@@ -127,6 +135,12 @@
   }
   .hero-in {
     animation: hero-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  /* Portada: la foto entra con un fundido y luego se acerca muy despacio. */
+  .hero-kenburns {
+    animation:
+      fade 1.6s ease both,
+      kenburns 26s ease-in-out infinite alternate;
   }
   .hero-zoom {
     animation: hero-zoom 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
@@ -161,6 +175,14 @@
   }
   to {
     transform: scale(1);
+  }
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.12) translateY(-1.5%);
   }
 }
 @keyframes fade {

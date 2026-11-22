@@ -15,10 +15,16 @@ async function getYear() {
 
 export async function Footer({ t }: { t: Dictionary }) {
   const year = await getYear();
-  const credited = [
+  // Una línea por foto: si la portada usa la misma foto que un lugar, se juntan los nombres.
+  const credited: { key: string; name: string; credit: typeof heroCredit }[] = [];
+  for (const item of [
     { key: "hero", name: t.footer.heroCredit, credit: heroCredit },
     ...places.filter((p) => p.credit).map((p) => ({ key: p.key, name: t.area.places[p.key].name, credit: p.credit! })),
-  ];
+  ]) {
+    const same = credited.find((c) => c.credit.source === item.credit.source);
+    if (same) same.name = `${same.name} · ${item.name}`;
+    else credited.push(item);
+  }
 
   return (
     <footer className="border-t border-line pt-14 pb-28 sm:pb-14">
