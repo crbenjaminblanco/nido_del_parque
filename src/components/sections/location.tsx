@@ -59,7 +59,7 @@ export function Location({ t }: { t: Dictionary }) {
           </div>
         </div>
         <div className="reveal aspect-[4/3] overflow-hidden rounded-3xl border border-line lg:mt-8 lg:aspect-auto lg:h-auto lg:min-h-[28rem]">
-          <MapEmbed src={site.maps.embed} title={t.location.mapTitle} cta={t.location.showMap} note={t.location.mapNote} />
+          <MapEmbed src={site.maps.embed} title={t.location.mapTitle} />
         </div>
       </Container>
     </section>
