@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import { MapPin, ShoppingBasket, UtensilsCrossed, Coffee } from "lucide-react";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -6,6 +7,7 @@ import { Container, SectionHeading } from "../ui";
 import { MapEmbed } from "../map-embed";
 import { WazeIcon } from "../social-icons";
 import { sectionId } from "../nav-items";
+import street from "../../../public/images/ubicacion.jpg";
 
 const nearbyIcons = [ShoppingBasket, UtensilsCrossed, Coffee];
 
@@ -51,6 +53,9 @@ export function Location({ t }: { t: Dictionary }) {
               {t.location.google}
               <span className="sr-only"> {t.a11y.newTab}</span>
             </a>
+          </div>
+          <div className="reveal relative mt-8 aspect-[16/10] overflow-hidden rounded-3xl">
+            <Image src={street} alt={t.location.imageAlt} fill placeholder="blur" sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
           </div>
         </div>
         <div className="reveal aspect-[4/3] overflow-hidden rounded-3xl border border-line lg:mt-8 lg:aspect-auto lg:h-auto lg:min-h-[28rem]">

@@ -88,6 +88,10 @@
         "title": "Welcome",
         "alt": "Teal Nido del Parque sign with a bird on a nest"
       },
+      "street": {
+        "title": "The street",
+        "alt": "The apartment's street with Zarcero's church in the background at sunset"
+      },
       "exterior": {
         "title": "Facade",
         "alt": "White facade with a second-floor balcony and wooden stairs"
@@ -166,6 +170,12 @@
         "name": "Palmira",
         "distance": "10 min drive",
         "text": "A mountain village with valley views, dairy farms and the famous palmito cheese.",
+        "alt": "Cow in a green pasture on Zarcero's hills, under a blue sky"
+      },
+      "toro": {
+        "name": "Bajos del Toro",
+        "distance": "50 min drive",
+        "text": "Cloud-forest waterfalls, like Catarata del Toro inside an ancient crater.",
         "alt": "Green valleys in Zarcero's mountains under the clouds"
       }
     }
@@ -182,7 +192,8 @@
       "Restaurants",
       "Cafés"
     ],
-    "mapActivate": "Tap to move the map"
+    "mapActivate": "Tap to move the map",
+    "imageAlt": "The apartment's street with Zarcero's church in the background"
   },
   "contact": {
     "eyebrow": "Book",

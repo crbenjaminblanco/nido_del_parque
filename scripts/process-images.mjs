@@ -35,11 +35,15 @@ const jobs = [
   { src: "balcony.jpg", out: "galeria/vista.jpg", w: 1080, h: 1350, opts: { lift: -0.04 } },
   { src: "exterior.jpg", out: "galeria/exterior.jpg", w: 1200, h: 1500 },
   { src: "pro/parqueo.png", out: "galeria/parqueo.jpg", w: 1200, h: 1500, opts: { lift: -0.03 } },
+  // Calle con la iglesia al fondo (foto profesional): galería y sección de ubicación
+  { src: "pro/calle.jpg", out: "galeria/calle.jpg", w: 1200, h: 1500, position: "centre" },
+  { src: "pro/calle.jpg", out: "ubicacion.jpg", w: 1600, h: 1000, position: "centre" },
   { src: "DJI_0571_1.jpg", out: "galeria/rotulo.jpg", w: 1200, h: 1500, position: "centre" },
   // Portada del video del recorrido (fotograma del propio video)
   { src: "pro/detalle.png", out: "recorrido-portada.jpg", w: 540, h: 960, position: "centre" },
   // Zona (fotos propias, 4:3)
   { src: "zona/iglesia-arbustos.jpg", out: "zona/parque.jpg", w: 900, h: 675, crop: { left: 120, top: 720, width: 780, height: 585 } },
+  { src: "zona/vaca-potreros.jpg", out: "zona/palmira.jpg", w: 900, h: 675, crop: { left: 0, top: 560, width: 900, height: 675 } },
   { src: "background.jpg", out: "zona/montana.jpg", w: 1200, h: 900, position: "centre" },
 ];
 

@@ -8,9 +8,11 @@ import habitacion2 from "../../public/images/galeria/habitacion-2.jpg";
 import bano from "../../public/images/galeria/bano.jpg";
 import vista from "../../public/images/galeria/vista.jpg";
 import exterior from "../../public/images/galeria/exterior.jpg";
+import calle from "../../public/images/galeria/calle.jpg";
 import parqueo from "../../public/images/galeria/parqueo.jpg";
 import rotulo from "../../public/images/galeria/rotulo.jpg";
 import parque from "../../public/images/zona/parque.jpg";
+import palmira from "../../public/images/zona/palmira.jpg";
 import montana from "../../public/images/zona/montana.jpg";
 
 /** Ordenadas por espacio, como el recorrido de fotos de Airbnb (ver `galleryTour`). */
@@ -21,6 +23,7 @@ export const gallery = [
   { key: "view", src: vista },
   { key: "bathroom", src: bano },
   { key: "sign", src: rotulo },
+  { key: "street", src: calle },
   { key: "exterior", src: exterior },
   { key: "parking", src: parqueo },
 ] as const;
@@ -38,12 +41,13 @@ export type GalleryKey = (typeof gallery)[number]["key"];
 
 /** Lugares de la zona (todas las fotos son propias). `query` alimenta el enlace de Google Maps. */
 export const places: {
-  key: "park" | "palmira";
+  key: "park" | "palmira" | "toro";
   src: typeof parque;
   query: string;
   /** Cómo se llega desde el apartamento (cambia el ícono de la distancia). */
   mode: "walk" | "drive";
 }[] = [
   { key: "park", mode: "walk", src: parque, query: "Parque Francisco Alvarado Segura, Zarcero" },
-  { key: "palmira", mode: "drive", src: montana, query: "Palmira, Zarcero, Alajuela" },
+  { key: "palmira", mode: "drive", src: palmira, query: "Palmira, Zarcero, Alajuela" },
+  { key: "toro", mode: "drive", src: montana, query: "Catarata del Toro, Bajos del Toro" },
 ];

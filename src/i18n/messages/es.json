@@ -89,6 +89,10 @@
         "title": "Bienvenida",
         "alt": "Rótulo turquesa de Nido del Parque con un ave sobre un nido"
       },
+      "street": {
+        "title": "La calle",
+        "alt": "Calle del apartamento con la iglesia de Zarcero al fondo al atardecer"
+      },
       "exterior": {
         "title": "Fachada",
         "alt": "Fachada blanca con balcón en segundo piso y escalera de madera"
@@ -167,6 +171,12 @@
         "name": "Palmira",
         "distance": "10 min en carro",
         "text": "Pueblo de montaña con vistas a los valles, fincas lecheras y el famoso queso palmito.",
+        "alt": "Vaca en un potrero verde de las colinas de Zarcero, con cielo azul"
+      },
+      "toro": {
+        "name": "Bajos del Toro",
+        "distance": "50 min en carro",
+        "text": "Cataratas en bosque nuboso, como la Catarata del Toro dentro de un antiguo cráter.",
         "alt": "Valles verdes de las montañas de Zarcero bajo las nubes"
       }
     }
@@ -183,7 +193,8 @@
       "Restaurantes",
       "Cafés"
     ],
-    "mapActivate": "Toca para mover el mapa"
+    "mapActivate": "Toca para mover el mapa",
+    "imageAlt": "Calle del apartamento con la iglesia de Zarcero al fondo"
   },
   "contact": {
     "eyebrow": "Reservar",
