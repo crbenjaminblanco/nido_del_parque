@@ -136,11 +136,15 @@
   .hero-in {
     animation: hero-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
-  /* Portada: la foto entra con un fundido y luego se acerca muy despacio. */
-  .hero-kenburns {
+  /* Portada: la foto entra como una cámara que avanza (de grande y desenfocada a nítida)
+     y luego sigue avanzando hacia el fondo del túnel. Nunca empieza invisible. */
+  .hero-photo {
     animation:
-      fade 1.6s ease both,
-      kenburns 26s ease-in-out infinite alternate;
+      hero-dolly 2.2s cubic-bezier(0.16, 1, 0.3, 1) both,
+      kenburns 14s 2.2s ease-in-out infinite alternate;
+  }
+  .hero-cue {
+    animation: cue 2.4s 2.5s ease-in-out infinite both;
   }
   .hero-zoom {
     animation: hero-zoom 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
@@ -151,7 +155,8 @@
   html {
     scroll-behavior: auto;
   }
-  .hero-kenburns {
+  .hero-photo,
+  .hero-cue {
     animation: none !important;
   }
   *,
@@ -180,12 +185,33 @@
     transform: scale(1);
   }
 }
-@keyframes kenburns {
+@keyframes hero-dolly {
   from {
-    transform: scale(1.02);
+    transform: scale(1.22);
+    filter: blur(10px) brightness(0.85);
   }
   to {
-    transform: scale(1.12) translateY(-1.5%);
+    transform: scale(1);
+    filter: blur(0) brightness(1);
+  }
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+@keyframes cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
   }
 }
 @keyframes fade {

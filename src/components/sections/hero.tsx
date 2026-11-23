@@ -3,7 +3,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { site } from "@/config/site";
 import heroMobile from "../../../public/images/hero-movil.jpg";
 import heroWide from "../../../public/images/hero-ancho.jpg";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { gallery } from "@/data/media";
 import { AirbnbIcon, WhatsAppIcon } from "../social-icons";
 import { sectionId } from "../nav-items";
@@ -14,7 +14,9 @@ const peek = (["livingRoom", "bedroom", "bathroom"] as const).map((key) => galle
 /**
  * Portada: el túnel de arcos de Zarcero a pantalla completa.
  * - El centro queda nítido y los bordes se difuminan (desenfoque con máscara radial).
- * - La foto entra con un fundido y se acerca muy despacio (Ken Burns).
+ * - Se ve desde el primer instante (versión borrosa mientras carga) y entra como una cámara
+ *   que avanza: de grande y desenfocada a nítida; luego sigue avanzando hacia el fondo del
+ *   túnel, donde está la iglesia, como si se caminara bajo los arcos.
  * - Abajo (y a la izquierda en pantallas anchas) se funde en oscuro para que el texto se lea.
  * Con "reducir movimiento" la foto queda quieta (ver globals.css).
  */
@@ -35,11 +37,11 @@ export function Hero({ t }: { t: Dictionary }) {
             preload
             placeholder="blur"
             sizes="100vw"
-            className="hero-kenburns object-cover"
+            className="hero-photo object-cover [transform-origin:50%_56%] [@media(max-height:700px)]:object-[50%_25%]"
           />
         </div>
         <div className="absolute inset-0 hidden overflow-hidden md:block">
-          <Image src={heroWide} alt="" fill placeholder="blur" sizes="100vw" className="hero-kenburns object-cover object-[55%_45%]" />
+          <Image src={heroWide} alt="" fill placeholder="blur" sizes="100vw" className="hero-photo object-cover object-[55%_45%] [transform-origin:54%_56%]" />
         </div>
 
         {/* Bordes difuminados: el centro queda nítido */}
@@ -51,35 +53,42 @@ export function Hero({ t }: { t: Dictionary }) {
         <div className="grain absolute inset-0" />
       </div>
 
-      <div className="hero-in mx-auto w-full max-w-7xl px-4 pt-32 pb-[max(2rem,env(safe-area-inset-bottom))] [text-shadow:0_1px_2px_rgb(0_0_0/0.35),0_4px_24px_rgb(0_0_0/0.45)] sm:px-6 md:pb-20 lg:px-8">
-        <p className="text-xs font-bold tracking-[0.22em] text-[#9fdde2] uppercase">{t.hero.eyebrow}</p>
-        <h1 id="hero-title" className="mt-3 font-display text-[clamp(3.2rem,15vw,7.5rem)] leading-[0.9]">
+      <div className="hero-in mx-auto w-full max-w-7xl px-4 pt-32 pb-[max(2rem,env(safe-area-inset-bottom))] [@media(max-height:700px)]:pt-20 [@media(max-height:700px)]:pb-5 [@media(min-height:860px)]:pb-16 [text-shadow:0_1px_2px_rgb(0_0_0/0.35),0_4px_24px_rgb(0_0_0/0.45)] sm:px-6 md:pb-20 lg:px-8">
+        <p className="text-xs font-bold tracking-[0.22em] text-[#9fdde2] uppercase [@media(max-height:700px)]:hidden">{t.hero.eyebrow}</p>
+        <h1 id="hero-title" className="mt-3 font-display text-[clamp(3.2rem,15vw,7.5rem)] leading-[0.9] [@media(max-height:700px)]:mt-0 [@media(max-height:700px)]:text-[clamp(2.6rem,12vw,4rem)]">
           {t.hero.title}
         </h1>
-        <p className="mt-4 max-w-md text-lg leading-relaxed text-pretty sm:text-xl">{t.hero.lead}</p>
+        <p className="mt-4 max-w-md text-lg leading-relaxed text-pretty sm:text-xl [@media(max-height:700px)]:mt-2 [@media(max-height:700px)]:text-base">{t.hero.lead}</p>
 
         {/* Un vistazo al apartamento: tres miniaturas que llevan a la galería */}
         <a
           href={`#${sectionId.gallery}`}
-          className="group mt-5 flex w-fit max-w-full items-center gap-3 rounded-[1.75rem] border border-white/20 bg-white/10 py-1.5 pr-4 pl-1.5 backdrop-blur-md transition hover:bg-white/15 [text-shadow:none]"
+          className="group mt-5 flex min-h-11 w-fit max-w-full items-center gap-3 rounded-2xl [text-shadow:none] [@media(max-height:700px)]:mt-3"
         >
           <span className="flex shrink-0 -space-x-3">
             {peek.map((p) => (
-              <span key={p.key} className="relative size-10 overflow-hidden rounded-full ring-2 ring-[#0b1517] md:size-12">
+              <span key={p.key} className="relative size-9 overflow-hidden rounded-full ring-2 ring-[#0b1517] md:size-11">
                 <Image src={p.src} alt="" fill sizes="48px" className="object-cover" />
               </span>
             ))}
           </span>
           <span className="min-w-0">
-            <span className="flex items-center gap-1 text-sm font-semibold">
+            <span className="flex items-center gap-1 text-sm font-semibold underline-offset-4 group-hover:underline">
               {t.hero.peek}
               <ArrowRight aria-hidden className="size-4 transition group-hover:translate-x-0.5" />
             </span>
-            <span className="block text-xs leading-snug text-[#f4f7f5]/75">{t.hero.facts.join(" · ")}</span>
+            <span className="flex flex-wrap gap-x-1.5 text-xs leading-snug text-[#f4f7f5]/75">
+              {t.hero.facts.map((f, i) => (
+                <span key={f} className="whitespace-nowrap">
+                  {f}
+                  {i < t.hero.facts.length - 1 && <span aria-hidden> ·</span>}
+                </span>
+              ))}
+            </span>
           </span>
         </a>
 
-        <div className="mt-7 flex items-center gap-3">
+        <div className="mt-6 flex items-center gap-3 [@media(max-height:700px)]:mt-4">
           <a
             href={site.airbnb}
             target="_blank"
@@ -102,6 +111,15 @@ export function Hero({ t }: { t: Dictionary }) {
           </a>
         </div>
       </div>
+
+      {/* Pista para bajar (se oculta en pantallas bajas, donde no hay espacio) */}
+      <a
+        href={`#${sectionId.gallery}`}
+        aria-label={t.a11y.scrollDown}
+        className="hero-cue absolute bottom-1 left-1/2 hidden size-11 -translate-x-1/2 place-items-center text-[#f4f7f5]/60 transition hover:text-[#f4f7f5] [@media(min-height:860px)]:grid md:bottom-4"
+      >
+        <ChevronDown aria-hidden className="size-5" />
+      </a>
     </section>
   );
 }

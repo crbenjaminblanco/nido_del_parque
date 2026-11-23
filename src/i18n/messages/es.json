@@ -31,7 +31,8 @@
     "slide": "Foto {n} de {total}",
     "openPhoto": "Ampliar foto: {title}",
     "carousel": "Carrusel",
-    "closeLightbox": "Cerrar"
+    "closeLightbox": "Cerrar",
+    "scrollDown": "Bajar a la galería"
   },
   "languageNames": {
     "es": "Español",

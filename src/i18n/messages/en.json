@@ -30,7 +30,8 @@
     "slide": "Photo {n} of {total}",
     "openPhoto": "Enlarge photo: {title}",
     "carousel": "Carousel",
-    "closeLightbox": "Close"
+    "closeLightbox": "Close",
+    "scrollDown": "Scroll to the gallery"
   },
   "languageNames": {
     "es": "Español",
