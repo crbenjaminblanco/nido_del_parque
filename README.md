@@ -44,18 +44,12 @@ la incrustaba en el JavaScript público); se envía por WhatsApp al confirmar la
 - `assets-src/pro/`: fotos profesionales del anuncio de Airbnb (propias).
 - `public/video/recorrido.mp4`: recorrido profesional (84 s), exportado a 404×720 H.264 con `avconvert`
   de macOS (~34 MB). Solo se descarga cuando alguien toca "Ver recorrido".
-- `assets-src/zona/`: fotos de Zarcero con licencia libre (Wikimedia Commons y Flickr):
+- `assets-src/zona/`: fotos propias de Zarcero (parque, iglesia y potreros).
 
-| Uso en el sitio | Archivo en Commons | Autor | Licencia |
-| --- | --- | --- | --- |
-| Portada (hero) y Parque Francisco Alvarado | [Parque Francisco Alvardoa (Flickr)](https://www.flickr.com/photos/32992770@N05/6866143932) | Vytautas Šėrys | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
-| Iglesia de San Rafael | [Zarcero church.jpg](https://commons.wikimedia.org/wiki/File:Zarcero_church.jpg) | Rodtico21 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
-| Muro de mosaicos | [Parque de Zarcero, Alajuela, Costa Rica - panoramio.jpg](https://commons.wikimedia.org/wiki/File:Parque_de_Zarcero,_Alajuela,_Costa_Rica_-_panoramio.jpg) | Peloy (Allan H.M.) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
-| Bajos del Toro | [Catarata del Toro. Waterfall. Costa Rica.jpg](https://commons.wikimedia.org/wiki/File:Catarata_del_Toro._Waterfall._Costa_Rica.jpg) | Steve Jurvetson | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
-
-Las fotos se recortaron y se les ajustó luz y nitidez (cambios permitidos por las licencias; las
-versiones CC BY-SA modificadas quedan bajo la misma licencia). El sitio muestra el crédito en cada
-tarjeta y en el pie de página.
+Todas las fotos del sitio son propias del alojamiento; no hay fotos de terceros ni créditos
+que mostrar. Para sumar lugares nuevos (por ejemplo el muro de mosaicos o la catarata de
+Bajos del Toro), agregue la foto original en `assets-src/zona/` y una línea en
+`scripts/process-images.mjs`.
 
 ## Despliegue
 

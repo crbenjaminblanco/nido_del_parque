@@ -9,10 +9,10 @@ import { AirbnbIcon, WhatsAppIcon } from "../social-icons";
 import { sectionId } from "../nav-items";
 
 /** Fotos del apartamento que se asoman en la portada. */
-const peek = (["livingRoom", "bedroom", "bathroom"] as const).map((key) => gallery.find((g) => g.key === key)!);
+const peek = (["livingRoom", "bathroom", "view"] as const).map((key) => gallery.find((g) => g.key === key)!);
 
 /**
- * Portada: el túnel de arcos de Zarcero a pantalla completa.
+ * Portada: la habitación del apartamento a pantalla completa.
  * - El centro queda nítido y los bordes se difuminan (desenfoque con máscara radial).
  * - Se ve desde el primer instante (versión borrosa mientras carga) y entra como una cámara
  *   que avanza: de grande y desenfocada a nítida; luego sigue avanzando hacia el fondo del
@@ -37,18 +37,18 @@ export function Hero({ t }: { t: Dictionary }) {
             preload
             placeholder="blur"
             sizes="100vw"
-            className="hero-photo object-cover [transform-origin:50%_56%] [@media(max-height:700px)]:object-[50%_25%]"
+            className="hero-photo object-cover [transform-origin:50%_55%] [@media(max-height:700px)]:object-[50%_40%]"
           />
         </div>
         <div className="absolute inset-0 hidden overflow-hidden md:block">
-          <Image src={heroWide} alt="" fill placeholder="blur" sizes="100vw" className="hero-photo object-cover object-[55%_45%] [transform-origin:54%_56%]" />
+          <Image src={heroWide} alt="" fill placeholder="blur" sizes="100vw" className="hero-photo object-cover object-[50%_55%] [transform-origin:62%_60%]" />
         </div>
 
         {/* Bordes difuminados: el centro queda nítido */}
-        <div className="absolute inset-0 backdrop-blur-[6px] [mask-image:radial-gradient(ellipse_55%_50%_at_55%_38%,transparent_35%,black_100%)] md:[mask-image:radial-gradient(ellipse_50%_55%_at_60%_45%,transparent_40%,black_100%)]" />
+        <div className="absolute inset-0 backdrop-blur-[6px] [mask-image:radial-gradient(ellipse_55%_50%_at_55%_38%,transparent_35%,black_100%)] md:[mask-image:radial-gradient(ellipse_50%_60%_at_62%_50%,transparent_40%,black_100%)]" />
         {/* Velo para leer el texto */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b1517] from-[30%] via-[#0b1517]/80 via-[45%] to-transparent to-[70%] md:from-[8%] md:via-[#0b1517]/50 md:via-[35%] md:to-[65%]" />
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0b1517]/85 via-[#0b1517]/35 via-[40%] to-transparent to-[65%] md:block" />
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0b1517]/90 via-[#0b1517]/45 via-[40%] to-transparent to-[62%] md:block" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0b1517]/70 to-transparent" />
         <div className="grain absolute inset-0" />
       </div>

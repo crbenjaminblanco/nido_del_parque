@@ -53,11 +53,6 @@ export function Area({ t }: { t: Dictionary }) {
                         <ArrowUpRight aria-hidden className="size-4" />
                         <span className="sr-only"> {t.a11y.newTab}</span>
                       </a>
-                      {p.credit && (
-                        <p className="pb-3 text-[0.7rem] text-ink-soft">
-                          {t.area.photoBy.replace("{author}", p.credit.author).replace("{license}", p.credit.license)}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </article>

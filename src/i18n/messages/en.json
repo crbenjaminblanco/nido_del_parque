@@ -48,7 +48,7 @@
     "eyebrow": "Zarcero · Costa Rica",
     "title": "Nido del Parque",
     "lead": "Your apartment 25 meters from Zarcero's arches.",
-    "imageAlt": "Tunnel of cypress arches in Zarcero's park with the church's red domes at the end",
+    "imageAlt": "Nido del Parque bedroom with a queen bed, knit blanket and curtained windows",
     "ctaPrimary": "Book on Airbnb",
     "whatsapp": "Message us",
     "facts": [
@@ -87,10 +87,6 @@
       "sign": {
         "title": "Welcome",
         "alt": "Teal Nido del Parque sign with a bird on a nest"
-      },
-      "street": {
-        "title": "The street",
-        "alt": "The apartment's street with Zarcero's church in the background at sunset"
       },
       "exterior": {
         "title": "Facade",
@@ -159,37 +155,18 @@
     "title": "Zarcero and around",
     "lead": "Our picks, from the front door to the lookout.",
     "map": "View on map",
-    "photoBy": "Photo: {author} · {license}",
     "places": {
       "park": {
         "name": "Francisco Alvarado Park",
         "distance": "25 m away",
-        "text": "Its famous tunnel of cypress arches, leading up to the church.",
-        "alt": "Tunnel of trimmed cypress arches in Zarcero's park, with the church at the end"
-      },
-      "church": {
-        "name": "San Rafael Church",
-        "distance": "1 min walk",
-        "text": "An 1895 church with red-domed towers and stained glass, facing the park.",
-        "alt": "Grey facade of Zarcero's San Rafael Church, with red-domed towers and a clock"
-      },
-      "mosaic": {
-        "name": "Mosaic wall",
-        "distance": "2 min walk",
-        "text": "A colorful ceramic mural beside the park.",
-        "alt": "Colorful mosaic wall with the church in the background"
+        "text": "The famous cypress figures and arches, facing the church.",
+        "alt": "Trimmed cypress shrubs in Zarcero's park with the church behind and a blue sky"
       },
       "palmira": {
         "name": "Palmira",
         "distance": "10 min drive",
         "text": "A mountain village with valley views, dairy farms and the famous palmito cheese.",
-        "alt": "Green Zarcero valleys under the clouds at sunset"
-      },
-      "toro": {
-        "name": "Bajos del Toro",
-        "distance": "50 min drive",
-        "text": "Cloud-forest waterfalls, like Catarata del Toro inside an ancient crater.",
-        "alt": "Catarata del Toro falling between reddish, mossy rock walls"
+        "alt": "Green valleys in Zarcero's mountains under the clouds"
       }
     }
   },
@@ -205,7 +182,7 @@
       "Restaurants",
       "Cafés"
     ],
-    "imageAlt": "The apartment's street with Zarcero's church in the background"
+    "mapActivate": "Tap to move the map"
   },
   "contact": {
     "eyebrow": "Book",
@@ -235,10 +212,7 @@
   "footer": {
     "tagline": "A quiet nest in the heart of Zarcero.",
     "rights": "© {year} Nido del Parque.",
-    "credits": "Area photo credits",
-    "creditsNote": "Photos from Wikimedia Commons and Flickr under free licenses.",
-    "backToTop": "Back to top",
-    "heroCredit": "Cover photo"
+    "backToTop": "Back to top"
   },
   "notFound": {
     "title": "This page flew the nest",

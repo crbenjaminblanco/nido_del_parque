@@ -2,8 +2,8 @@
 // Uso: npm run images
 // Toma los originales de assets-src/ y genera public/images/. Aplica un ajuste
 // suave y uniforme (luz, contraste y nitidez) para que las fotos del apartamento
-// se vean como una misma sesión. Las fotos profesionales del anuncio están en assets-src/pro/. Las fotos de la zona (assets-src/zona/) son de
-// Wikimedia Commons con licencia libre: ver créditos en README.md.
+// se vean como una misma sesión. Todas las fotos son propias del alojamiento: las
+// profesionales del anuncio están en assets-src/pro/ y las de Zarcero en assets-src/zona/.
 import sharp from "sharp";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
@@ -35,20 +35,11 @@ const jobs = [
   { src: "balcony.jpg", out: "galeria/vista.jpg", w: 1080, h: 1350, opts: { lift: -0.04 } },
   { src: "exterior.jpg", out: "galeria/exterior.jpg", w: 1200, h: 1500 },
   { src: "pro/parqueo.png", out: "galeria/parqueo.jpg", w: 1200, h: 1500, opts: { lift: -0.03 } },
-  // Calle con la iglesia al fondo (foto profesional): galería y sección de ubicación
-  { src: "pro/calle.jpg", out: "galeria/calle.jpg", w: 1200, h: 1500, position: "centre" },
-  { src: "pro/calle.jpg", out: "ubicacion.jpg", w: 1600, h: 1000, position: "centre" },
   { src: "DJI_0571_1.jpg", out: "galeria/rotulo.jpg", w: 1200, h: 1500, position: "centre" },
   // Portada del video del recorrido (fotograma del propio video)
   { src: "pro/detalle.png", out: "recorrido-portada.jpg", w: 540, h: 960, position: "centre" },
-  // Zona (Wikimedia Commons, 4:3)
-  // Túnel de arcos de ciprés con la iglesia al fondo (Flickr, original de 1024×683: no se agranda)
-  { src: "zona/arcos-flickr.jpg", out: "zona/parque.jpg", w: 911, h: 683, position: "centre", opts: { sat: 1 } },
-  // Iglesia como se ve hoy (2016): recorte con torres, reloj y entrada
-  { src: "zona/iglesia-2016.jpg", out: "zona/iglesia.jpg", w: 960, h: 720, position: "north" },
-  { src: "zona/parque.jpg", out: "zona/mosaico.jpg", w: 1200, h: 900 },
-  { src: "zona/dinosaurio.jpg", out: "zona/dinosaurio.jpg", w: 1200, h: 900 },
-  { src: "zona/toro.jpg", out: "zona/toro.jpg", w: 1200, h: 900 },
+  // Zona (fotos propias, 4:3)
+  { src: "zona/iglesia-arbustos.jpg", out: "zona/parque.jpg", w: 900, h: 675, crop: { left: 120, top: 720, width: 780, height: 585 } },
   { src: "background.jpg", out: "zona/montana.jpg", w: 1200, h: 900, position: "centre" },
 ];
 
@@ -56,7 +47,9 @@ await mkdir(path.join(OUT, "galeria"), { recursive: true });
 await mkdir(path.join(OUT, "zona"), { recursive: true });
 
 for (const j of jobs) {
-  const base = sharp(path.join(SRC, j.src)).rotate().resize(j.w, j.h, {
+  let base = sharp(path.join(SRC, j.src)).rotate();
+  if (j.crop) base = sharp(await base.extract(j.crop).toBuffer());
+  base = base.resize(j.w, j.h, {
     fit: "cover",
     position: j.position ?? "attention",
     kernel: "lanczos3",
@@ -65,23 +58,19 @@ for (const j of jobs) {
   console.log("✓", j.out);
 }
 
-// Portada (hero): túnel de arcos del parque de Zarcero (Flickr, ver README).
-// El original mide 1024×683: se escala con lanczos y nitidez fina. En el sitio los bordes
-// van difuminados y la foto se acerca despacio, así la falta de detalle no se nota.
+// Portada (hero): la habitación del apartamento (foto profesional de 4000×2250).
+// En el sitio los bordes van difuminados y la foto se acerca despacio hacia la cama.
 {
-  const src = path.join(SRC, "zona/arcos-flickr.jpg");
-  const { width, height } = await sharp(src).metadata();
-  const finish = (img) => img.modulate({ saturation: 1.06 }).sharpen({ sigma: 0.9, m1: 0.6, m2: 2 }).jpeg({ ...jpeg, quality: 86 });
-  // Computadora: foto completa
-  await finish(sharp(src).resize(1920, 1280, { fit: "cover", kernel: "lanczos3" })).toFile(path.join(OUT, "hero-ancho.jpg"));
-  console.log("✓ hero-ancho.jpg");
-  // Celular: recorte vertical centrado en el túnel
-  const w = Math.round(height * (1080 / 1300));
-  const left = Math.min(width - w, Math.max(0, Math.round(width * 0.55 - w / 2)));
-  await finish(sharp(src).extract({ left, top: 0, width: w, height }).resize(1080, 1300, { kernel: "lanczos3" })).toFile(
+  const src = path.join(SRC, "bedroom.jpg");
+  const finish = (img) => grade(img, { lift: 0.02 }).jpeg({ ...jpeg, quality: 86 });
+  // Celular: vertical con la cama y las ventanas
+  await finish(sharp(src).rotate().extract({ left: 1500, top: 0, width: 1440, height: 2250 }).resize(1080, 1688, { kernel: "lanczos3" })).toFile(
     path.join(OUT, "hero-movil.jpg"),
   );
   console.log("✓ hero-movil.jpg");
+  // Computadora: panorámica completa
+  await finish(sharp(src).rotate().resize(2400, 1350, { fit: "cover", kernel: "lanczos3" })).toFile(path.join(OUT, "hero-ancho.jpg"));
+  console.log("✓ hero-ancho.jpg");
 }
 
 // Open Graph 1200x630 a partir de la habitación

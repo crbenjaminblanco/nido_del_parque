@@ -2,7 +2,6 @@ import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { site } from "@/config/site";
-import { heroCredit, places } from "@/data/media";
 import { navLinks } from "./nav-items";
 import { Container } from "./ui";
 import { InstagramIcon, WhatsAppIcon } from "./social-icons";
@@ -15,16 +14,6 @@ async function getYear() {
 
 export async function Footer({ t }: { t: Dictionary }) {
   const year = await getYear();
-  // Una línea por foto: si la portada usa la misma foto que un lugar, se juntan los nombres.
-  const credited: { key: string; name: string; credit: typeof heroCredit }[] = [];
-  for (const item of [
-    { key: "hero", name: t.footer.heroCredit, credit: heroCredit },
-    ...places.filter((p) => p.credit).map((p) => ({ key: p.key, name: t.area.places[p.key].name, credit: p.credit! })),
-  ]) {
-    const same = credited.find((c) => c.credit.source === item.credit.source);
-    if (same) same.name = `${same.name} · ${item.name}`;
-    else credited.push(item);
-  }
 
   return (
     <footer className="border-t border-line pt-14 pb-28 sm:pb-14">
@@ -69,27 +58,6 @@ export async function Footer({ t }: { t: Dictionary }) {
               </a>
             </li>
           </ul>
-          <details className="group text-sm text-ink-soft">
-            <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 font-semibold text-ink [&::-webkit-details-marker]:hidden">
-              {t.footer.credits}
-              <span aria-hidden className="transition group-open:rotate-45">+</span>
-            </summary>
-            <p className="mt-1 text-xs">{t.footer.creditsNote}</p>
-            <ul className="mt-2 text-xs">
-              {credited.map((p) => (
-                <li key={p.key}>
-                  {p.name}:{" "}
-                  <a href={p.credit.source} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-ink">
-                    {p.credit.author}
-                  </a>{" "}
-                  ·{" "}
-                  <a href={p.credit.licenseUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-ink">
-                    {p.credit.license}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </details>
         </div>
       </Container>
       <Container className="mt-12 border-t border-line pt-6 text-xs text-ink-soft">

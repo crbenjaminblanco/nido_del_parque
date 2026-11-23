@@ -49,7 +49,7 @@
     "eyebrow": "Zarcero · Costa Rica",
     "title": "Nido del Parque",
     "lead": "Tu apartamento a 25 metros de los arcos de Zarcero.",
-    "imageAlt": "Túnel de arcos de ciprés del parque de Zarcero con las cúpulas rojas de la iglesia al fondo",
+    "imageAlt": "Habitación de Nido del Parque con cama queen, cobija tejida y ventanales con cortinas",
     "ctaPrimary": "Reservar en Airbnb",
     "whatsapp": "Escríbenos",
     "facts": [
@@ -88,10 +88,6 @@
       "sign": {
         "title": "Bienvenida",
         "alt": "Rótulo turquesa de Nido del Parque con un ave sobre un nido"
-      },
-      "street": {
-        "title": "La calle",
-        "alt": "Calle del apartamento con la iglesia de Zarcero al fondo al atardecer"
       },
       "exterior": {
         "title": "Fachada",
@@ -160,37 +156,18 @@
     "title": "Zarcero y alrededores",
     "lead": "Nuestras recomendaciones, de la puerta al mirador.",
     "map": "Ver en el mapa",
-    "photoBy": "Foto: {author} · {license}",
     "places": {
       "park": {
         "name": "Parque Francisco Alvarado",
         "distance": "A 25 m",
-        "text": "Su famoso túnel de arcos de ciprés, que lleva hasta la iglesia.",
-        "alt": "Túnel de arcos de ciprés recortados en el parque de Zarcero, con la iglesia al fondo"
-      },
-      "church": {
-        "name": "Iglesia de San Rafael",
-        "distance": "1 min a pie",
-        "text": "Templo de 1895 con torres de cúpula roja y vitrales, frente al parque.",
-        "alt": "Fachada gris de la iglesia de San Rafael de Zarcero, con torres de cúpula roja y un reloj"
-      },
-      "mosaic": {
-        "name": "Muro de mosaicos",
-        "distance": "2 min a pie",
-        "text": "Un mural colorido de cerámica a un costado del parque.",
-        "alt": "Muro de mosaicos de colores con la iglesia al fondo"
+        "text": "Las famosas figuras y arcos de ciprés, frente a la iglesia.",
+        "alt": "Arbustos de ciprés recortados del parque de Zarcero con la iglesia al fondo y cielo azul"
       },
       "palmira": {
         "name": "Palmira",
         "distance": "10 min en carro",
         "text": "Pueblo de montaña con vistas a los valles, fincas lecheras y el famoso queso palmito.",
-        "alt": "Valles verdes de Zarcero bajo las nubes al atardecer"
-      },
-      "toro": {
-        "name": "Bajos del Toro",
-        "distance": "50 min en carro",
-        "text": "Cataratas en bosque nuboso, como la Catarata del Toro dentro de un antiguo cráter.",
-        "alt": "Catarata del Toro cayendo entre paredes de roca rojiza y musgo"
+        "alt": "Valles verdes de las montañas de Zarcero bajo las nubes"
       }
     }
   },
@@ -206,7 +183,7 @@
       "Restaurantes",
       "Cafés"
     ],
-    "imageAlt": "Calle del apartamento con la iglesia de Zarcero al fondo"
+    "mapActivate": "Toca para mover el mapa"
   },
   "contact": {
     "eyebrow": "Reservar",
@@ -236,10 +213,7 @@
   "footer": {
     "tagline": "Un nido tranquilo en el corazón de Zarcero.",
     "rights": "© {year} Nido del Parque.",
-    "credits": "Créditos de fotos de la zona",
-    "creditsNote": "Fotos de Wikimedia Commons y Flickr con licencia libre.",
-    "backToTop": "Volver arriba",
-    "heroCredit": "Portada"
+    "backToTop": "Volver arriba"
   },
   "notFound": {
     "title": "Esta página voló del nido",
